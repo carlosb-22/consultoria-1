@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Consultoría - Consolidado Final</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent-research: #e67e22;
+            --accent-meeting: #3498db;
+            --accent-due: #e74c3c;
+            --bg-light: #f1f4f6;
+            --border-gray: #d1d5db;
+            --white: #ffffff;
+            /* Calendario */
+            --work-bg: #e8f5e9;
+            --work-color: #2e7d32;
+            --no-work-bg: #ffebee;
+            --no-work-color: #c62828;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 1200px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 35px 30px;
+            /* Un poco más de aire arriba y abajo */
+            text-align: center;
+            border-radius: 12px;
+            border: none;
+            /* Quitamos el borde gris anterior para que luzca el degradado */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            /* Sombra un poco más profunda */
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: white !important;
+            margin: 0;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            /* Sutil sombra para dar profundidad */
+        }
+
+        .header .subtitle {
+            color: rgba(255, 255, 255, 0.9) !important;
+            /* Blanco un poco transparente */
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: 300;
+        }
+
+        /* TABS */
+        .tab-container {
+            display: flex;
+            background: #e2e8f0;
+            border-radius: 10px 10px 0 0;
+            padding: 5px 5px 0 5px;
+            border: 1px solid var(--border-gray);
+            border-bottom: none;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-button.active {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--white);
+            padding: 25px;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid var(--border-gray);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* PROGRESO POR HORA */
+        .accordion-item {
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f8fafc;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .accordion-content {
+            display: none;
+        }
+
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f8fafc;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+
+        /* Ajuste de anchos de columnas */
+        .col-fecha {
+            width: 95px;
+        }
+
+        .col-dia {
+            width: 85px;
+            /* Reducimos el ancho de la columna Día */
+        }
+
+        .col-horas {
+            width: 80px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            /* Esto es clave para que los anchos de arriba se respeten */
+        }
+
+        th,
+        td {
+            padding: 12px 8px;
+            /* Reducimos un poco el padding lateral para ganar espacio */
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+            word-wrap: break-word;
+            /* Asegura que el texto largo no rompa la tabla */
+        }
+
+        .description-cell {
+            text-align: justify;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.65em;
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .tag-research {
+            background: var(--accent-research);
+        }
+
+        .tag-meeting {
+            background: var(--accent-meeting);
+        }
+
+        .tag-due {
+            background: var(--accent-due);
+        }
+
+        /* CALENDARIO Y ESTADÍSTICAS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-gray);
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .calendar-month {
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .month-name {
+            text-align: center;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .day-name {
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #94a3b8;
+            padding: 5px 0;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #f1f5f9;
+            position: relative;
+        }
+
+        .day.work-day {
+            background-color: var(--work-bg);
+            color: var(--work-color);
+            font-weight: bold;
+        }
+
+        .day.no-work-day {
+            background-color: var(--no-work-bg);
+            color: var(--no-work-color);
+            font-weight: 900;
+            border: 1.5px solid #fab1a0;
+        }
+
+        .day-hours {
+            font-size: 0.6rem;
+            margin-top: 2px;
+        }
+
+        /* Estilo específico para días de visita programada */
+        .day.visit-day {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            font-weight: 800;
+            border: 1.5px solid #bee3f8;
+        }
+
+        .visit-badge {
+            font-size: 0.55rem;
+            margin-top: 2px;
+            background: #2b6cb0;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+        .legend-visit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* RESUMEN DE CÁLCULO */
+        .summary-box {
+            background: #f8fafc;
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 6px solid var(--primary);
+        }
+
+        .summary-title {
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.9rem;
+        }
+
+        .summary-total {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--accent-due);
+            padding-top: 10px;
+        }
+
+        .placeholder {
+            text-align: center;
+            padding: 50px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Estilos para la pestaña Asignaciones */
+        .assignment-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .doc-link-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 6px solid var(--accent-meeting);
+            transition: transform 0.2s;
+        }
+
+        .doc-link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-link {
+            background-color: var(--accent-meeting);
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .btn-link:hover {
+            background-color: #2980b9;
+        }
+
+        .project-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .project-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #edf2f7;
+            font-size: 0.9rem;
+        }
+
+        .project-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>Seguimiento de Consultoría</h1>
+            <p class="subtitle">Bitácora Técnica y Reporte de Horas Laborales 2025/2026</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-button active" onclick="openTab(event, 'tab-compras')">Compras</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-progreso')">Progreso por hora</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-calendario')">Calendario</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-asignaciones')">Asignaciones</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-visitas')">Visitas en sitio</button>
+        </div>
+
+        <div id="tab-compras" class="tab-content active">
+            <div style="margin-bottom: 20px; border-left: 5px solid var(--accent-research); padding-left: 15px;">
+                <h2 style="margin:0; color: var(--primary);">Listado de Adquisiciones Técnicas</h2>
+                <p style="margin:5px 0; color: #64748b; font-size: 0.9em;">Equipamiento recomendado según el análisis de
+                    ciberseguridad y seguridad electrónica.</p>
+            </div>
+
+            <div style="position: relative; width: 100%; height: 0; padding-top: 135.9120%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+                <iframe loading="lazy"
+                    style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                    src="https://www.canva.com/design/DAG8QLnjpW4/SaihYOybmXneR1sfN5Nbsg/view?embed"
+                    allowfullscreen="allowfullscreen" allow="fullscreen">
+                </iframe>
+            </div>
+            <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAG8QLnjpW4&#x2F;SaihYOybmXneR1sfN5Nbsg&#x2F;view?utm_content=DAG8QLnjpW4&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link"
+                target="_blank" rel="noopener">Price List Sheet</a> by Carlos Buezo
+
+            <!--<table class="purchase-table">
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">Categoría</th>
+                        <th>Artículo / Modelo Recomendado</th>
+                        <th style="width: 280px;">Especificaciones Clave</th>
+                        <th style="width: 120px; text-align: center;">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="category-badge"
+                                style="background:#e0f2fe; color:#075985;">Almacenamiento</span></td>
+                        <td>
+                            <strong>Servidor NAS TerraMaster F4-424 Pro</strong><br>
+                            <small>Procesador i3, 16GB RAM (Soporta +20 cámaras)</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Configuración RAID 5 (Protección de datos)</li>
+                                <li>Soporta Docker / Shinobi / Blue Iris</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Recomendado</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="category-badge"
+                                style="background:#e0f2fe; color:#075985;">Almacenamiento</span></td>
+                        <td>
+                            <strong>4x Discos Duros 12TB (Enterprise)</strong><br>
+                            <small>Tecnología CMR / Sellados con Helio</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Diseñados para 24/7 (CCTV Alta Definición)</li>
+                                <li>Menor fricción, temperatura y sin tecnología SMR</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Pendiente</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="category-badge" style="background:#fef9c3; color:#854d0e;">Acceso Físico</span>
+                        </td>
+                        <td>
+                            <strong>Tapo Smart Wi-Fi Deadbolt Door Lock</strong><br>
+                            <small>Cerrojo inteligente para Control Room</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Certificación BHMA / IP54 (Polvo y salpicaduras)</li>
+                                <li>Gestión de logs, Fail-secure y llave mecánica</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Cotizado</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="category-badge" style="background:#fef9c3; color:#854d0e;">Acceso Físico</span>
+                        </td>
+                        <td>
+                            <strong>Brazo Cierrapuerta Yale (80kg)</strong><br>
+                            <small>Cierre automático hidráulico industrial</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Ajuste de velocidad y golpe de cierre</li>
+                                <li>Garantiza cierre tras desbloqueo remoto</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Cotizado</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="category-badge" style="background:#fee2e2; color:#991b1b;">Incendio</span></td>
+                        <td>
+                            <strong>Panel Hikvision AX PRO (DS-PWA48)</strong><br>
+                            <small>Hub central de alarma inalámbrica</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Largo alcance (Sin repetidores)</li>
+                                <li>Notificaciones Push / Cloud / App móvil</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Investigación</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="category-badge" style="background:#fee2e2; color:#991b1b;">Incendio</span></td>
+                        <td>
+                            <strong>Sensores de Humo Fotoeléctricos DS-PDSMK-E-WB</strong><br>
+                            <small>Línea inalámbrica Hikvision certificada</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Comunicación en malla y batería de larga duración</li>
+                                <li>Detección temprana y comunicación inalámbrica</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Investigación</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="category-badge" style="background:#fee2e2; color:#991b1b;">Alerta Manual</span>
+                        </td>
+                        <td>
+                            <strong>Estación Manual de Incendio Honeywell</strong><br>
+                            <small>Palanca de acción simple certificada</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Instalación en puntos estratégicos</li>
+                                <li>Construcción robusta para simulacros</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Cotizado</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="category-badge" style="background:#f3e8ff; color:#6b21a8;">Sirenas</span></td>
+                        <td>
+                            <strong>Sirena Industrial SLA-05CY-2000</strong><br>
+                            <small>Sirena estroboscópica de alto impacto</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Alcance Radio: 1.5km - 2km</li>
+                                <li>Sonidos modificables vía USB</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Investigación</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="category-badge" style="background:#e2e8f0; color:#475569;">Software</span></td>
+                        <td>
+                            <strong>Licencia Blue Iris V5</strong><br>
+                            <small>Gestión avanzada de Video (VMS)</small>
+                        </td>
+                        <td>
+                            <ul class="spec-list">
+                                <li>Soporte hasta 64/128 cámaras</li>
+                                <li>Visualización remota y gestión profesional</li>
+                            </ul>
+                        </td>
+                        <td style="text-align:center;"><span class="status-pending">Sugerido</span></td>
+                    </tr>
+                </tbody>
+            </table>-->
+        </div>
+
+        <div id="tab-progreso" class="tab-content">
+            <div id="accordion-container"></div>
+            <div style="text-align:right; padding:20px; font-weight:800; font-size:1.2rem; border-top: 1px solid #eee;">
+                Total Laborado Real: <span id="progreso-total">0</span> hrs
+            </div>
+        </div>
+
+        <div id="tab-calendario" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card"><span class="stat-value" id="stat-total-h">0</span><span class="stat-label">Horas
+                        Totales Trabajadas</span></div>
+                <div class="stat-card"><span class="stat-value" id="stat-work-d">0</span><span class="stat-label">Días
+                        Laborados</span></div>
+                <div class="stat-card"><span class="stat-value" id="stat-debt-d"
+                        style="color:var(--accent-due)">0</span><span class="stat-label">Días no Trabajados
+                        (Dic-Ene)</span></div>
+            </div>
+
+            <div class="months-grid" id="calendar-grid"></div>
+
+            <div class="summary-box">
+                <div class="summary-title">
+                    <span>Resumen de Horas Adeudadas</span>
+                    <span id="final-calc-title">29.0 hrs</span>
+                </div>
+
+                <div class="summary-item">
+                    <span>Días laborales no trabajados desde diciembre 2025 hasta enero 2026</span>
+                    <span>10 días × 5 horas = 50.0 hrs</span>
+                </div>
+
+                <div class="summary-item">
+                    <span>Menos horas trabajadas en noviembre (el contrato empieza a correr en diciembre 2025; <br> las
+                        horas
+                        de noviembre se suman a diciembre/enero para compensar las no trabajadas)</span>
+                    <span>- 26.0 hrs</span>
+                </div>
+
+                <div class="summary-total">Total Adeudado: 29.0 horas</div>
+
+                <p style="font-size: 0.75rem; color: #7f8c8d; margin-top:10px;">
+                    * El cálculo solo incluye los días laborales no trabajados desde diciembre de 2025 hasta el 13 de
+                    enero de 2026.
+                </p>
+            </div>
+
+        </div>
+
+        <div id="tab-asignaciones" class="tab-content">
+            <div style="margin-bottom: 25px; border-left: 5px solid var(--accent-research); padding-left: 15px;">
+                <h2 style="margin:0; color: var(--primary);">Archivos de Seguimiento</h2>
+                <p style="margin:5px 0; color: #64748b; font-size: 0.95em;">Acceso directo a las herramientas de control
+                    y gestión de proyectos en Google Spreadsheets.</p>
+            </div>
+
+            <div class="assignment-container">
+                <div class="doc-link-card">
+                    <div class="doc-header">
+                        <h3 style="margin:0; color: var(--primary);">1. Seguimiento Consultoría Ciberseguridad</h3>
+                        <a href="https://docs.google.com/spreadsheets/d/1JxztAwLMErKO7rWWR9qu_fpSJU6bpmW8/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                            target="_blank" class="btn-link">Abrir Spreadsheet ↗</a>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #4a5568;">La consultoria se ha dividido en 6 proyectos:</p>
+
+                    <div class="project-summary-grid">
+                        <div class="project-item">
+                            <strong>P1. Gestión de Identidad (AD)</strong>
+                            Centralización de usuarios y reglas GPO para control de accesos, bloqueo de software
+                            peligroso y restricciones administrativas.
+                        </div>
+                        <div class="project-item">
+                            <strong>P2. Acceso Biométrico Control Room y Sala servidores</strong>
+                            Seguridad física mediante biometría y cierre automático para control auditado de personal en
+                            áreas críticas.
+                        </div>
+                        <div class="project-item">
+                            <strong>P3. Repositorio NAS y Backup</strong>
+                            Servidor central para guardado de más de 15 días de más de 20 cámaras CCTV, así como el
+                            respaldo de bases de datos importantes
+                        </div>
+                        <div class="project-item">
+                            <strong>P4. Seguridad Física e Incendios</strong>
+                            Sistema integral de alarmas, sensores de humo y detección temprana para protección de
+                            activos y personal.
+                        </div>
+                        <div class="project-item">
+                            <strong>P5. Filtrado de Navegación Web</strong>
+                            Políticas de control de tráfico en subred de Control Room para mitigar malware y optimizar
+                            la operatividad.
+                        </div>
+                        <div class="project-item">
+                            <strong>P6. Gestión de Inventario</strong>
+                            Control centralizado de activos importantes para facilitar el mantenimientos preventivo y
+                            trazabilidad de equipos.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doc-link-card" style="border-left-color: var(--accent-research);">
+                    <div class="doc-header">
+                        <h3 style="margin:0; color: var(--primary);">2. Actividades por proyecto Luis Ulloa</h3>
+                        <a href="https://docs.google.com/spreadsheets/d/1bkZtEBKu1o89x-HoTO38jVG4fvk85PRt/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                            target="_blank" class="btn-link" style="background-color: var(--accent-research);">Abrir
+                            Spreadsheet ↗</a>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #4a5568;">
+                        Cronograma de ejecución técnica local. Luis Ulloa asiste en la aplicación de actividades
+                        físicas, supervisión de instalaciones eléctricas y configuraciones de hardware en sitio bajo
+                        nuestra supervisión
+                        remota.
+                    </p>
+                </div>
+
+                <div class="doc-link-card" style="border-left-color: #27ae60;">
+                    <div class="doc-header">
+                        <h3 style="margin:0; color: var(--primary);">3. Seguimiento Sistema Planillero</h3>
+                        <a href="https://docs.google.com/spreadsheets/d/1owocqfgHFUTmwrRfE4UdNQYsJSp0bP7m/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                            target="_blank" class="btn-link" style="background-color: #27ae60;">Abrir Spreadsheet ↗</a>
+                    </div>
+                    <p style="font-size: 0.9rem; color: #4a5568;">
+                        Plan de trabajo detallado para el desarrollo y optimización del sistema de RRHH (Planillero),
+                        abarcando la gestión de múltiples empresas y nómina de empleados.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-visitas" class="tab-content">
+            <div style="margin-bottom: 25px; border-left: 5px solid var(--accent-meeting); padding-left: 15px;">
+                <h2 style="margin:0; color: var(--primary);">Cronograma de Visitas Programadas</h2>
+                <p style="margin:5px 0; color: #64748b; font-size: 0.95em;">Planificación de presencia física en las
+                    instalaciones para el primer trimestre de 2026.</p>
+            </div>
+
+            <div class="legend-visit">
+                <div
+                    style="width: 20px; height: 20px; background: #ebf8ff; border: 1.5px solid #bee3f8; border-radius: 4px;">
+                </div>
+                <span>Día de visita técnica programada</span>
+            </div>
+
+            <div class="months-grid" id="visitas-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. JSON PROGRESO POR HORA ---
+        const progresoData = [
+            {
+                "fecha": "20/11/2025",
+                "dia": "Jueves",
+                "descripcion": "Movilización hacia Tegucigalpa, para la reunión por la tarde con la Ing. Elsia y el Lic. Chinchilla",
+                "horas": 3.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "20/11/2025",
+                "dia": "Jueves",
+                "descripcion": "Reunión en Tegucigalpa con Ing. Elsia y Lic. Carlos Chinchilla. En esta reunión nos presentamos, y discutimos el Informe elaborado por el Lic. Chinchilla, en donde desglosa diferentes debilidades que ha encontrado en el proyecto en cuanto a redes, seguridad entre otros topicos.",
+                "horas": 2.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "25/11/2025",
+                "dia": "Martes",
+                "descripcion": "Consultas con Jared de recursos humanos, sobre el tema del planillero, y los horarios especiales",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "25/11/2025",
+                "dia": "Martes",
+                "descripcion": "Según el informe de seguridad presentado por el Lic. Chinchilla, una de las más grandes debilidades que actualmente se tiene es que no se cuenta con un Directorio Activo, esto es un servidor que controla, rige y regula los usuarios de las empresas, administrando los recursos de la empresa, y custodiando qué pueden hacer con las computadoras que son propiedad de la empresa, limitando varios permisos, para que no se pueda caer en peligro de una instalación dañina a un equipo o a toda la red, vulnerable por el momento. Por lo que se empezo, estudiando qué opción de computadora, servidor o NAS, se debe comprar para poder tener el directorio activo trabajando, y como este estará guardando las configuraciones muy importantes de la configuración de todos los empleados, se debe conocer qué forma de respaldo es la que servirá.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "25/11/2025",
+                "dia": "Martes",
+                "descripcion": "Elaboración del plan técnico según indicaciones y observaciones proporcionadas por el Lic. Chinchilla, en su informe de Ciberseguridad.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "26/11/2025",
+                "dia": "Miércoles",
+                "descripcion": "Se llevó a cabo una reunión virtual con el Lic. Chinchilla para dar seguimiento al plan técnico, tomando como base el informe de Ciberseguridad.\nDurante la reunión, se presentaron diversas propuestas alineadas con lo discutido previamente en la reunión realizada en Tegucigalpa, así como con el documento de Análisis de Ciberseguridad y Seguridad Electrónica.\n\nEl Lic. Chinchilla recomendó priorizar la selección de dispositivos que cuenten con las mejores certificaciones disponibles y que, además, hayan sido probados y validados en entornos industriales.\n\nAdicionalmente, sugirió que el abordaje de los puntos del plan se realice de forma progresiva, iniciando por aquellos de más fácil implementación y menor complejidad técnica, y avanzando posteriormente hacia los más complejos, especialmente aquellos que requieren un mayor nivel de análisis y toma de decisiones.",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "26/11/2025",
+                "dia": "Miércoles",
+                "descripcion": "Estudiando qué opción de computadora, servidor o NAS, se debe comprar para poder tener el directorio activo trabajando, y como este estará guardando las configuraciones muy importantes de la configuración de todos los empleados, se debe conocer qué forma de respaldo es la que servirá.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "26/11/2025",
+                "dia": "Miércoles",
+                "descripcion": "Estructurando el plan técnico de ciberseguridad, en proyectos distintos con detalles de actividades enumeradas para poder presentar avances a la Ing. Elsia.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "27/11/2025",
+                "dia": "Jueves",
+                "descripcion": "Revisión del contrato para tema de consultoria de ciberseguridad.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "27/11/2025",
+                "dia": "Jueves",
+                "descripcion": "Estudiando qué opción de computadora, servidor o NAS se debe adquirir para implementar y mantener operativo el Directorio Activo, el cual es uno de los proyectos clave a completar y se encuentra desglosado en la guía del informe de Ciberseguridad del Lic. Chinchilla.\nEn la reunión del día anterior, se discutió con él la importancia estratégica de este componente dentro de la arquitectura de seguridad.",
+                "horas": 2.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "27/11/2025",
+                "dia": "Jueves",
+                "descripcion": "Estructurando el plan técnico de ciberseguridad, en proyectos distintos con detalles de actividades enumeradas para poder presentar avances a la Ing. Elsia.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "28/11/2025",
+                "dia": "Viernes",
+                "descripcion": "Estructurando el plan técnico de ciberseguridad, en proyectos distintos con detalles de actividades enumeradas para poder presentar avances a la Ing. Elsia.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "28/11/2025",
+                "dia": "Viernes",
+                "descripcion": "Estudiando la posibilidad técnica de que para el tema del proyecto de la Instalación de un servidor NAS para grabaciones de más de 20 cámaras Hikvision, también a ese NAS, se le pueda agregar una capa muy interesante para detección de incendios, con ayuda de la IA, de esa forma el servidor y las camaras estarian cumpliendo una función extra más, esta es una propuesta que se presentará a Gerencia, sin embargo, no es algo certificado, pero bien ejecutado podria ayudar mucho.\n\nBuscando documentación al respecto, leyendo sobre los sistemas de IA que pueden ser utilizados para este cometido:\n\nPython + YOLO\nCodeProject.AI\nFrigate\n\nPara poder realizar esto, y estudiar si es plausible, se deben hacer multiples pruebas con ayuda de por lo menos una a dos camaras que se deben solicitar a la empresa.",
+                "horas": 3.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "29/11/2025",
+                "dia": "Sábado",
+                "descripcion": "Firma de contrato con Lic. Elsia en Siguatepeque",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Lectura, análisis y estudio de los \"Servidores de Directorio Activo\" y \"Reglas de Grupo\" para computadoras en una empresa.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Buscando en linea la opción de una cerradura inteligente, que sea robusta y que posea las mejores certificaciones en Seguridad, sin complejidad de uso, y de un precio que tenga una relación de precio - calidad. \n\nBuscando en empresas nacionales:\n\nBeesmart: Cerradura smart deadbolt Heluma (No tiene las certificaciones apropiadas, tampoco es robusta).\n\nSteren Honduras, cerraduras no lo suficientemente fuertes.\n\nSkyteksecurity (sin inventario), Techprohn (no son lo suficientemente robustaz ni con certificaciones).",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Investigación relacionada con el problema de la falla del primer proveedor de internet: Cuando este proveedor cae, se pierden todas la comunicación con el internet.\n\nSolución Multi-WAN: Se puede instalar un sistema con el sofware PFSENSE que permita realizar un mecanismo de Failover (es decir que cuando caiga un  por error) y Load Balancing (balanceo de carga) para garantizar la continuidad del servicio ante fallas del proveedor principal (Radio/Fibra)",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Conociendo como será el comportamiento de la puerta con acceso al Control Room, al ser desbloqueada electrónicamente. Evaluar como se puede prevenir para que la puerta permanezca abierta. Hay dos opciones un cierre electro-mecanico y un cierre más productivo como ser el cierre con brazo hidraulico.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Debido a la ausencia de retorno automático de la puerta, se debe instalar un brazo hidraulico, para que fuerce a la puerta a cerrarse. Buscando en internet, brazo hidraulico que soporte un buen peso, que tenga retorno, facil de instalar y que permita ajustar velocidad y golpe de cierre.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Estudiando cómo será el flujo de apertura (autorización → desbloqueo → cierre automático de la puerta)",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "01/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Investigando más modelos de Smart Lock que pueda ser util dentro del Control para restringuir acceso.",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "02/12/2025",
+                "dia": "Martes",
+                "descripcion": "Buscando un lector biométrico con conectividad Wi-Fi, capacidad de registro de eventos y compatibilidad con el sistema definido y que a petición del Lic. Chichilla, tenga las certificaciones y la robuztes necesaria para funcionar lo mejor posible en ambientes industriales como ser CISA.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "02/12/2025",
+                "dia": "Martes",
+                "descripcion": "Estudiando que el lector biometrico y smartlock, tenga las siguiente caracteristicas:\nMétodos de autenticación requeridos (huella, código)\n\nConectividad Wi-Fi\n\nRegistro de eventos con fecha y hora\n\nCapacidad mínima de usuarios y logs\n\nAcceso remoto a registros desde app o software\n\nExportación de logs para auditoría",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "02/12/2025",
+                "dia": "Martes",
+                "descripcion": "Estudiando el Comportamiento del sistema ante fallos de red de los smart lock, que estan como candidatos.",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "02/12/2025",
+                "dia": "Martes",
+                "descripcion": "Elaborando en CANVA, un listado de articulos a comprar, y entre ellos agregar el modelo: Tapo Smart Wi-Fi Deadbolt Door Lock",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "02/12/2025",
+                "dia": "Martes",
+                "descripcion": "Estudiando que nuestro modelo posea las dos certificaciones más importantes, que son: IP54 Protección contra polvo limitado y salpicaduras de agua.\nBHMA Certified Evaluación independiente de durabilidad y seguridad mecánica del cerrojo",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "03/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Preparación de lineamientos para instalación futura del smartlock, con ayuda de Luis Ulloa y con ayuda del departamento de carpinteria y electricidad. El archivo se llama: \"Seguimiento consultoria ciberseguridad\", y se desglosará como proyecto #2, se entregará posteriormente a la Ing. Elsia y el Lic. Chinchilla para su revisión.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "03/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Entre varios brazos hidraulicos de puerta, se seleccionó el modelo de brazo hidraulico: \"Brazo Cierrapuerta Yale Capacidad 80kg\", ya que este es muy robusto, popular y se entrega en el pais. Aparte que la marca y su capacidad de 80 kg, su información accesible de instalación con ayuda de videos y documentación técnica lo hacen la mejor opción",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "03/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Estudiando vídeos del SmartLock: \" Tapo Smart Wi-Fi Deadbolt Door Lock\", y del brazo Cierrapuerta marca Yale, para poder agregar al archivo de Excel, las actividades y el posible tiempo que le lleve al personal de asistencia junto con Luis Ulloa, en la asistencia de su instalación.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "03/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Agregar en las instrucciones el detalle del: \"Fail-secure (mantiene la puerta bloqueada si no hay energía).\", esto también se soluciona con el uso de una llave mecánica en caso de fallar por algún motivo el SmartLock.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "03/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Estudiando video del SmartLock, para ver la interfaz de la app y el tipo de log que guarda, ya que es bien importante, saber quién ingreso, la hora y fecha.",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "04/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Estudiando video del SmartLock, para ver la interfaz de la app y el tipo de log que guarda, ya que es bien importante, saber quién ingreso, la hora y fecha.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "04/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Reunion con Ikser, de sistema mediante Google Meet, en esta reunión se discutió el sistema de planillero, a petición de la Ing. Elsia, ya que solicitó, una timeline, del desarrollo de este programa, y un estimado de cuánto tiempo haria falta la culminación del  mismo.\n\nSe grabó la reunión en video, para dejar constancia de lo que se platicó, además de mi parte, logré conocer en qué lenguaje esta programada la aplicación, que cambios le hicieron desde la última vez que se desglosó el anaisis, qué atrasos se tienen, en qué base de datos estan trabajandom entre otras cosas.",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "04/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Tomando notas, e indagando en la tecnologia de Prisma para la administración de las bases de datos que estan usando en el sistema de planillero de CISA.\n\nRealizando todo el ejercicio del vídeo: \"Prisma ORM Full Course 2025 | Become a Prisma Pro in 2.5 Hours\", para poder actualizar los conceptos de bases de datos relacionadas usando Prisma para la administración de bases de datos con MySQL.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "04/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Estudiar los pros y los contra de adquirir un servidor NAS de la marca Synology o si es preferible encontrar un NAS con opción a instalar sistema Linux, o un servidor básico al que se le pueda instalar Linux libremente.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "05/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Segunda reunion con Ikser, de sistema mediante Google Meet, en esta reunión se continuo la discusión del sistema de planillero.\n\nSe grabó la reunión en video, para dejar constancia, Ikser procedió a explicar junto con Rovin, las diferentes funciones que han realizado dentro de los folders del backend y del frontend, para poder aplicar ciertas reglas de calculos de vacaciones, salarios, deducciones, pago por hora, entre otras cosas. Asi mismo discutimos cuales han sido los retos más grandes y los atrasos más significativos.",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "05/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Se sigue estudiando las relaciones de bases de datos usando el ORM Prisma, también las funciones elaboradas usando validación con TypeScript, que es el otro lenguaje que han decidido usar, esto lo estoy haciedo para poder asistirles a ellos más adelante de forma más activa, de esta forma estaré actualziado en esta tecnologia y su uso en validación de la información para asistirles mejor.\n\nRealizando todo el ejercicio del vídeo: \"Prisma ORM in One Video, Setup, Migrations, CRUD & Best Practices\". Esto con la intención de poder asistir mejor al momento de modificar el código de los muchachos de Control Room que desarrollaron el planillero.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "05/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Se contactó a Michael Gray, que fue es experto en Ciberseguridad que estuvo en CISA hace dos años (2024), y entendió estos mismos temas que se estan discutiendo en esta consultoria. Repasé con él los dos temas de riesgos de ciberseguridad más dificiles para conocer su opinión, una de esas cosas es la segmentación de las redes, y la segunda es la grabación de información de las camaras hacia un servidor NAS.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "05/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Estudiando las notas de Michael Gray, respecto a la propuesta que le hice de usar MiniPC con PFSenser para cada punto importante dentro de la empresa, o unicamente los lugares con cabañas y apartamentos para poder aislar a estos clientes del resto del proyecto. En conclusión Michael me hizo ver que esta es una tarea demasiado compleja y delicada, que llevaria más tiempo ya que peligra el apagar la maquinaria en producción (los generadores), también en su tiempo en CISA, el compró 4 4 firewalls Protectli con el programa de pfSense/OPNsense que pueden servir para ayudar un poco en el aislamiento y segmentación de la red. Estos ayudarian a:\n\nAislar PLC / Generadores (red OT)\n\nPermitir Guest Wi-Fi solo Internet\n\nEvitar que invitados “toquen” el router Cisco o los PLC\n\nMantener gestión centralizada de APs.\n\nSin embargo, sigue siendo una labor que demandaria una arquitectura de red de alta complejidad",
+                "horas": 3.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "08/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Siguiendo con el tema del proyecto #1, que es el levantamiento de un servidor de Active Directory, se empezó a descargar el programa de virtualización de VirtualBox para poder levantar un laboratorio con Windows y con Ubuntu. Se descargaron las .iso de ambos sistemas operativos y se corrieron en Virtual Box.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "08/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Se configuro en Virtual Box el diseño de red interna para pruebas (DNS, conectividad, aislamiento). entre las maquinas virtuales de Windows y de Ubuntu (Linux) para poder empezar a correr las pruebas del Active Directory, esto es para centralizar a los usuarios y bloquear en las computadoras permisos, para proteger información entre otras cosas.\n\nPC1     Ubuntu Server/Desktop                Controlador de dominio Samba4 (AD)\nPC2    Windows 10/11 Pro/Enterprise    Cliente del dominio",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "08/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Se instaló y configuró Samba4 como controlador AD. \n\nPruebas virtuales del uso de RSAT en Windows para administrar Samba4. Para poder usar la herramienta gráfica disponible de Windows para gestión de usuarios, grupos y equipos de Linux.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "09/12/2025",
+                "dia": "Martes",
+                "descripcion": "Investigación sobre Group Policy Objects (GPO), aplicación de una GPO para prueba: \n\nBloquearemos como prueba el Panel de Control, ya que esto más adelante lo haremos igualmente en CISA.\n\nRestricción de instalación de software, este permiso que deshabilitaremos será para cerciorarnos que las personas no puedan instalar programas sin autorización de IT.\n\nControl de acceso a configuraciones del sistema, ciertos o la mayoria de empleados de CISA, no tendrán acceso a controles de configuración del sistema, sin permisos administrativos o autorización de IT.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "09/12/2025",
+                "dia": "Martes",
+                "descripcion": "Comprender los requerimientos de Hardware que se necesitan para levantar un servidor de directorio activo para centralizar las computadoras de toda la empresa de CISA. Ver si sale factible instalarlo dentro de un computador aparte o instalarlo dentro del NAS que se usará para el guardado de las camaras de la empresa.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "09/12/2025",
+                "dia": "Martes",
+                "descripcion": "Creación de usuarios en el laboratorio virtual y su logueo, para ver si las limitaciones que se hacen sobre los usuarios tienen efecto, ya que más adelante en CISA, cada computadora deberá loguearse, para poder usar los programas de la empresa.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "10/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Investigación sobre el control del comportamiento de laptops unidas al servidor de CISA, pero si este se encuentra fuera de la red local. Lastimosamente no se pudo emular bien esta parte con nuestro laboratorio virtual, por lo que se pedirán computadoras fisicas usadas o de segunda a CISA, para correr el laboratorio de forma local, y obtener respuestas a esta importante incognita.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "10/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Comprender los requerimientos de Hardware que se necesitan para levantar un servidor de directorio activo para centralizar las computadoras de toda la empresa de CISA. Ver si sale factible instalarlo dentro de un computador aparte o instalarlo dentro del NAS que se usará para el guardado de las camaras de la empresa.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "10/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Creación de usuarios en el laboratorio virtual y su logueo, para ver si las limitaciones que se hacen sobre los usuarios tienen efecto, ya que más adelante en CISA, cada computadora deberá loguearse, para poder usar los programas de la empresa.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "10/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Instalación en el entorno virtual del programa Samba4 como solución viable para control de usuarios y PCs Windows",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "11/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Confirmar que la computadora sobre la que vamos a instalar el sistema operativo Linux puede de forma eficiente, funcionar como el servidor que va a controlar las reglas de las demás computadoras de la empresa CISA, es decir todas las demás computadoras que usan Windows. Se continuaron las pruebas con el laboratorio virtual para salir de estas dudas. Pruebas exitosas.",
+                "horas": 1.5,
+                "tipo": null
+            },
+            {
+                "fecha": "11/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Configurando en el entorno de laboratorio virtual que hemos montado, el cambio en una orden que para efectos de prueba, bloqueará el acceso a los documentos de todas las computadoras registradas. Pruebas exitosas.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "11/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Se ha logrado el siguiente avance con Servidor de gestión de computadoras (Active Directory):\n\nInstalar Linux+ Instalar Samba4 (AD DC) + PCs Windows unidas al dominio + RSAT + GPO:\n\nLogin centralizado con usuarios y contraseñas del dominio\n\nRestricciones (panel de control, instalación de software, etc.)\n\nGestión desde un entorno visual de una maquina de Windows (RSAT), sin necesidad de usar comandos.",
+                "horas": 1.5,
+                "tipo": null
+            },
+            {
+                "fecha": "12/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Se constató mediante pruebas de laboratorio que usando la computadora de servidor Linux con las politicas de grupo, estas politicas siguen aplicandose, aunque alguna computadora asignada a alguien de CISA, este conectada en otra red, o fuera de la red de CISA, ya que las politicas que aplicamos como ser: Bloqueo Panel de Control, bloqueo de instalación de programas, desactivación del CMD, bloquear el acceso al Wifi, bloquear el acceso a las configuraciones del sistema.\n\nTodo eso sigue funcionando aunque la laptop esté en la casa del empleado.\n\nPorque Windows guarda en caché (memoria internadel sistema) las políticas ya aplicadas.",
+                "horas": 4.0,
+                "tipo": null
+            },
+            {
+                "fecha": "12/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Seguir estudiando qué modelo de computadora es lo más optimo para que sea considerada el servidor que manejará las politicas de las demás computadoras.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "15/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Respecto al proyecto de respaldo de las camaras de la empresa: Se esta haciendo la Investigación del mejor arreglo de discos duros (RAID). Es decir si es mejor aumentar la capacidad de almacenamiento, o si es mejor aumentar la mitad y dejar el resto para backup, o aumento un poco y dejar solo un disco duro para backup, entre otras cosas.",
+                "horas": 1.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "15/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Estudiando para el caso de CISA, cuál es el mejor servidor para alojar las grabaciones de las más de 20 camaras que hay en el proyecto. Viendo las opciones de las marcas Synology, TrueNAS, entre otras marcas especializadas en estas tareas.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "15/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Se descartó el recomendar a CISA, el NAS de Synology, ya que este sistema usa un programa que se llama Surveillance Station y solo permite agregar 2 camaras gratis, el resto serian pagadas, estariamos hablando de aproximadamente $50-$60 USD) por cámara. \n\nSi contamos la cantidad de camaras que hay en CISA, es demasiado caro pagar esa cantidad por camara, cuando la misma tarea se puede realizar de forma profesional con un Software igual o más potente que no tiene limite de camaras, como lo es el programa Shinobi.",
+                "horas": 1.5,
+                "tipo": null
+            },
+            {
+                "fecha": "16/12/2025",
+                "dia": "Martes",
+                "descripcion": "Tras analizar la infraestructura actual, compuesta por aproximadamente más de 20 cámaras gestionadas con el software Hikvision iVMS-4200, se identificó una limitación en los NVRs existentes, los cuales solo retienen grabaciones durante 6 o 7 días. Dado que el requisito es conservar los registros entre 15 y 20 días, se realizó una investigación de alternativas. Como conclusión, se determinó que la implementación de un servidor NAS es una solución viable para centralizar la gestión y ampliar la capacidad de almacenamiento de todas las cámaras",
+                "horas": 3.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "16/12/2025",
+                "dia": "Martes",
+                "descripcion": "Se sigue investigando la mejor compra posible en cuanto a robustez, precio y vida útil de un servidor NAS, el cual se encargará de almacenar las grabaciones de más de 20 cámaras con la mejor definición posible.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "17/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Seguimiento a consulta técnica con Michael Gray para conocer su experiencia profesional en sistemas VMS y su criterio sobre el uso de Shinobi como solución de videovigilancia",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "17/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Análisis de la recomendación profesional recibida (uso de Blue Iris en lugar de Shinobi), evaluando argumentos técnicos, estabilidad y experiencia de uso reportada",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "17/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Investigación las fortalezas del programa con nombre Shinobi, que servirá para el guardado y revisión de las grabaciones de las camaras del proyecto de CISA.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "17/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Investigación las fortalezas del programa con nombre  Blue Iris, este programa fue recomendado por Michael Gray. Y tiene una licencia de pago de: $99.95, lo cual resulta bien cómodo ya que soporta hasta 128 camaras, aparte que tiene para poder visualizar en app, entre otras cosas.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "17/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Reunion con Luis Ulloa, esto ya que Luis a partir de este día tiene un nuevo puesto siempre relacionado con el tema de la seguridad, tuvimos un intercambio de ideas y de metas para el tema del proyecto de ciberseguridad. Le comenté que estaria asistiendome con el tema de seguimiento de algunas actividades que amerite la delegación en el lugar de algunas instalaciones fisicas, electricas, tecnologicas, con el apoyo de él podremos avanzar mejor. Quedamos pendientes de que le iba a mandar el listado de las actividades que él estaria realizando de forma calendarizada para poder culminar los proyectos, por supuesto el al ver las actividades podrá decir qué dia, hora y tiempo disponible para llevarlas a cabo sin que choque con sus otras obligaciones ya constituidas.",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "17/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Reunion con Ikser de sistemas, ya que el día de hoy estaremos revisando el código fuente de lo que han realizado, también me mostraron la interfaz gráfica del programa, la parte del desarrollo de las funciones, y su conexión con la base de datos y el uso de Prisma para acortar y mejorar las consultas SQL.",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "18/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Continuando con la revisión de la mejor compra posible en cuanto a robustez, precio y vida útil de un servidor NAS. El candidato ideal es el TerraMaster F4-424 Pro (16 GB), y le compraremos 4 discos duros de 10 TB, y las colocaremos en un RAID 5.\n\nTerraMaster F4‑424 Pro y T9‑500 Pro ejecutan el sistema operativo TOS por defecto, pero puedes instalar contenedores o máquinas virtuales con Linux y CasaOS/Shinobi adentro.\n\nEl TerraMaster F4-424 Pro con 16 GB de RAM es una opción sólida, equilibrada y costo-eficiente para el proyecto de videovigilancia con más de 20 cámaras a 4 MP.\n\nHemos agregado este NAS a la lista de compras que se le presentará a la Ing. Elsia.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "18/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Investigar la comunicación que debe existir entre las camaras IP de la empresa, que estaran enviando la información de video hacia no solamente el NVR normal, sino también a nuestro servidor NAS, esto lo harán mediante el protocolo ONVIF y RTSP",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "18/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Buscar en internet los discos duros diseñados para estar encendidos 24/7 y que aguanten el calor y el uso constante de los videos que se estaran guardando en el servidor NAS. Agregar estos discos duros al listado de compras que se le van a presentar a la Ing. Elsia.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "18/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Lectura sobre cómo lograr que el sistema ya sea con Blue Iris o con Shinobi, logre que las camaras empiecen a guardarlos por 30 días o más.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "19/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Estudiando si para el caso de CISA, es mejor usar un \"RAID 5\" o \"RAID 6\". Estos permiten que, si compramos 4 discos, en caso de un accidente, se puedan perder 1 o 2 discos físicamente y los datos (y videos) sigan ahí intactos.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "19/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Vamos a anotar en las actividades de Luis Ulloa, que nos ayude a saber con el equipo de IT, la compatibilidad teórica de cámaras con los protocolos ONVIF y RTSP, ya sabemos que las camaras Hikvision servirán para nuestra misión, pero debemos asegurarnos que el resto de camaras que son de otra marca, y que son IP, también puedan incluirse.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "19/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Analizar los escenarios en los que todas las camaras de la empresa empiecen a enviar datos en alta definición al servidor NAS,para saber si el consumo de recursos del sistema (CPU, RAM, disco) en escenarios de grabación continua, si el TerraMaster F4‑424 Pro cumplirá y podrá incluso exceder esos requerimientos",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "19/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Investigar si para el operador del control room, le será más fácil dominar la interfaz de la grabación de videos usando el programa BlueIris o usando el programa Shinobi. Ya que ambos programas son bien potentes y tienen muchas ventajas y similitudes. Anotaremos la actividad de la petición de camaras de la marca Hikvision a Luis Ulloa para que la solicite al depto de IT, para poder usarlas y probarlas antes de instalarlas.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "22/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Investigación sobre ubicación de sensores de humo. Se revisaron distintas marcas de sensores de humo, ya que muchos de estos sensores no contaban con la certificación adecuada, aparte que la mayoria que se puede encontrar en tiendas de seguridad a nivel nacional, son modelos viejos u obsoletos que no permiten una comunicación en malla, es decir no permiten notificar a un servidor o sistema principal, tampoco permite comunicar al personal de forma remota.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "22/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Estudiando otros sensores de humo que si bien permiten comunicar la emergencia, estos necesitan un panel demasiado grande, aparte es una tecnologia que depende exclusivamente de cableado, estan más diseñados para edificiar grandes, en donde se puede hacer uso de un cableado que se mueve a traves de toda la construcción. Este no es el caso de CISA, ya que hay diferentes edificios en diferentes ubicaciones. Por lo que lograr la comunicación inalambrica de un sitio hacia otro es muy esencial.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "22/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Estudiando las alarmas de acción manual que alertan en caso de fuego, para este caso, se descartaron muchas marcas de alarmas de acción manual, que no cuentan ni con las certificaciones ni con la robustez necesaria para que tengan la vida util y la función de soportar la interacción de los simulacros, o de una acción importante. Las alarmas de acción manual estan conectadas a bocinas de alerta que se investigarán después con el propósito de encontrar la mejor opción.",
+                "horas": 1.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "23/12/2025",
+                "dia": "Martes",
+                "descripcion": "Durante la investigación sobre las alarmas de acción manual, se descartaron varias que cuentan con comunicación de radio o de Wifi, por no contar con las certificaciones apropiadas, y por tener un protocolo de comunicación debil que podria ser manipulable.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "23/12/2025",
+                "dia": "Martes",
+                "descripcion": "Investigación sobre cuál seria la mejor opción en cuanto a sirenas robustas e industriales que podrian colocarse en CISA, en puntos estrategicos. Al final de varias búsquedas se escogió la sirena industrial: \"SLA-05CY-2000\", esta sirena cuante con muchas certificaciones importantes, aparte que se pueden modificar sus sonidos mediante carga con memoria USB, la comunicación para la activación de las distintas alarmas se logra mediante radio control de 435MHZ, y vienen dos controles con la compra de la sirena y un alcance de 1.5 km.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "23/12/2025",
+                "dia": "Martes",
+                "descripcion": "Respecto a la sirena de uso industrial, modelo \"SLA-05CY-2000\", estas vienen con dos controles de radio comunicación de hasta 1.5 km - 2 km, la idea que se va a sugerir a la Ing. Elsia y al Lic. Chinchilla, es el uso de clonador de señales de radio comunicación, de esta forma, la señal que activa la alarma podrá ser clonada y podra ser utilizada a traves de una aplicación del celular y no limitarse a los dos controles de radio enlace, sino que una persona con la autorización puede activarla desde cualquier punto donde exista Wifi.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "24/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "25/12/2025",
+                "dia": "Jueves",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "26/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Se buscó un UPS o bateria apropiada para colocarsela a la sirena industrial, ya que esta no consumo mucha energia, ya que la unica energia es la que se consume al momento de emitir un sonido, se decidió por un UPS pequeño que permita el cálculo de 2 horas solo aplica mientras la sirena esté sonando.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "26/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Búsqueda de unas bocinas / sirenas estroboscópicas certificadas, para conectarlas junto con las alarmas de acción manual, anotando las indicaciones técnicas adecuadas que deben cumplirse como ser alerta visual (luces) y sonora (ruido) en las partes altas de las paredes o techos.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "26/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Búsqueda con proveedores locales de Sirena Estroboscopica de Fuego / 2 Hilos, que pueda colocarse junto con las alarmas de acción manual, también se buscó proveedor local que vendiera las alarmas de acción manual de la reconocida marca Honeywell. Este articulo se añadio a  listado de compras a presentar a Ing. Elsia.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "26/12/2025",
+                "dia": "Viernes",
+                "descripcion": "Revisión del código de programación del planillero, revisando la explicación de las funciones que se han programado hasta la fecha, ayudandose con la IA para comprender varios calculos en los deptos de RRHH y de Contabilidad,",
+                "horas": 3.0,
+                "tipo": null
+            },
+            {
+                "fecha": "29/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Cotizando sensores de humo, comunicación via WhatsApp con Syscomstore, Skytec, OK Security Honduras. Se hizo una búsqueda exhausta de varios sensores de humo que no se escogieron debido a su falta de comunicación que esta muy defasada, o su falta de certificaciones, hay muchos sensores de humo domesticos pero no cumplen con lo que se necesita en caso de ser activada una alarma de humo en algún punto del proyecto. Al final la mejor opción resultó ser la línea de alarmas de humo de la marca HIKVISION.",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "29/12/2025",
+                "dia": "Lunes",
+                "descripcion": "En la investigación sobre los discos duros para el NAS, se identificó como práctica recomendada evitar el uso de discos con tecnología SMR (Shingled Magnetic Recording o Grabación Magnética por Estratos). Para este NAS, no se adquirirán discos SMR, ya que presentan problemas significativos de rendimiento y estabilidad en configuraciones RAID. Los discos adecuados para entornos NAS son aquellos con tecnología CMR (Conventional Magnetic Recording o Grabación Magnética Convencional). Asimismo, se decidió la adquisición de discos duros de 12 TB, dado que a partir de capacidades de 10 TB o 12 TB (dependiendo del fabricante), los discos suelen estar sellados con helio en lugar de aire. Este diseño permite una menor fricción interna, mejor disipación térmica y un menor consumo energético. Finalmente, es importante informar al departamento de IT que el lugar donde se instale el equipo TerraMaster debe contar con una ventilación adecuada, ya que cuatro discos de 12 TB operando a 7,200 RPM generan calor de forma continua.",
+                "horas": 0.5,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "29/12/2025",
+                "dia": "Lunes",
+                "descripcion": "El estudio para nuestro NAS Terramaster es el siguiente:\n\nRAID a usar: RAID 5. Al usar 4 discos de 12TB en un arreglo con protección de datos (donde un disco se sacrifica para que, si uno falla, es lo más seguro y profesional):\n\nCapacidad Total Bruta: 48 TB.             Capacidad Usable (Cálculo decimal): 36 TB.\n\nCapacidad Real en el Sistema (TiB): El NAS mostrará aproximadamente 32.7 TiB disponibles.\n\nPuntos positivos para la elección de nuestro servidor NAS, es que el TerraMaster F4-424 Pro está diseñado para funcionar con discos de cualquier marca.",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "29/12/2025",
+                "dia": "Lunes",
+                "descripcion": "Nuestro estudio del tiempo de video que estará guardando el NAS, concluye los siguientes calculos:\n\n Si hablamos de más de 20 cámaras Hikvision:\n\n Opción A (Máxima duración): Si se mantiene la configuración de 4MP (2K) a 15fps, se podria almacenar hasta 50 días de grabación continua de las 20 cámaras. \n\nOpción B (Máxima calidad): Si se sube la  calidad de las cámaras principales a 8MP (4K) y aun así mantener los 15 días de respaldo no habria problemas. \n\nOpción C (Crecimiento): Te permite expandir el sistema. Con 32.7 TiB se podria manejar hasta 40 cámaras durante 15 días (siempre que el procesador i3 lo soporte mediante substreams).",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "30/12/2025",
+                "dia": "Martes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "31/12/2025",
+                "dia": "Miércoles",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "1/1/2026",
+                "dia": "Jueves",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "2/1/2026",
+                "dia": "Viernes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "5/1/2026",
+                "dia": "Lunes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "6/1/2026",
+                "dia": "Martes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "7/1/2026",
+                "dia": "Miércoles",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "8/1/2026",
+                "dia": "Jueves",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "09/01/2026",
+                "dia": "Viernes",
+                "descripcion": "Estudiando la parte de las alarmas de incendio, si bien ya se tiene la opción a comprar de sensores de humo de la línea HIKVISION, aún queda por entender cómo mejorar mucho mejor la parte de la detección de incendios, que por experiencia ocurre todos los años en CISA. Las alarmas de incendio de HIKVISION se instalaran usando el panel inalámbrico HIKVISION AX PRO DS‑PWA48‑E‑WB es el controlador central de un sistema de alarma diseñado para entornos residenciales y comerciales, capaz de gestionar hasta 48 zonas o dispositivos inalámbricos, incluyendo sensores de humo, movimiento, contactos, sirenas y controles de la serie AX PRO",
+                "horas": 2.0,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "09/01/2026",
+                "dia": "Viernes",
+                "descripcion": "Usaremos el detector de Humo Fotoelectrico Inalambrico Hikvision DS-PDSMK-E-WB para panel de Alarma AX-PRO, este es el detector que usaremos, estuvimos averiguando localmente dónde lo pueden vender, a qué precio, y también dónde comprarlo en Estados Unidos, lastimosamente la búsqueda de compra en EEUU no fue exitosa, tampoco la local, ya que aquí tienen pero una versión anterior, y queremos conseguir especificamente la DS-PDSMK-E-WB, ya que el alcance de comunicación con el panel AX es muchisimo más largo, ayudandonos a evitar a colocar repetidores.",
+                "horas": 2.0,
+                "tipo": null
+            },
+            {
+                "fecha": "09/01/2026",
+                "dia": "Viernes",
+                "descripcion": "Anotaremos varias actividades que estará realizando Luis Ulloa, para poder ubicar los puntos donde se deben colocar los sensores de humo, cuántos de estos, realización de mapeo de dónde debe colocarse cada uno, y su alcance en radio frecuencia, dónde colocar el panel AX-PRO, entre otras cosas.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "12/01/2026",
+                "dia": "Lunes",
+                "descripcion": "Actualizar el listado de actividades que debe realizar Luis Ulloa, para poder ir avanzando con los proyectos de ciberseguridad, muchas de estas actividades ya se discutieron pueden ser realizadas por él, esperando que estas no choquen con otras responsabilidades que tenga por aparte. Elaboración del archivo en Excel, ya tabulado con nombre: 'Actividades por proyecto Luis Ulloa'",
+                "horas": 4.0,
+                "tipo": null
+            },
+            {
+                "fecha": "12/01/2026",
+                "dia": "Lunes",
+                "descripcion": "Tabulación de las actividades semanales que se deben realizar entre Luis Ulloa, y varias consultas hacia la Ing. Elsia sobre el tema de la delegación de trabajos, consultas con Ana Vásquez, entre otras variantes.",
+                "horas": 1.0,
+                "tipo": null
+            }
+        ];
+
+        // --- 2. JSON CALENDARIO ---
+        const calendarioData = [
+            { "fecha": "20/11/2025", "horas": 5.0 },
+            { "fecha": "25/11/2025", "horas": 5.0 },
+            { "fecha": "26/11/2025", "horas": 5.0 },
+            { "fecha": "27/11/2025", "horas": 5.0 },
+            { "fecha": "28/11/2025", "horas": 5.0 },
+            { "fecha": "29/11/2025", "horas": 1.0 },
+            // Diciembre
+            { "fecha": "01/12/2025", "horas": 5.0 },
+            { "fecha": "02/12/2025", "horas": 5.0 },
+            { "fecha": "03/12/2025", "horas": 5.0 },
+            { "fecha": "04/12/2025", "horas": 5.0 },
+            { "fecha": "05/12/2025", "horas": 7.0 },
+            { "fecha": "08/12/2025", "horas": 5.0 },
+            { "fecha": "09/12/2025", "horas": 5.0 },
+            { "fecha": "10/12/2025", "horas": 5.0 },
+            { "fecha": "11/12/2025", "horas": 5.0 },
+            { "fecha": "12/12/2025", "horas": 5.0 },
+            { "fecha": "15/12/2025", "horas": 5.0 },
+            { "fecha": "16/12/2025", "horas": 5.0 },
+            { "fecha": "17/12/2025", "horas": 7.0 },
+            { "fecha": "18/12/2025", "horas": 5.0 },
+            { "fecha": "19/12/2025", "horas": 5.0 },
+            { "fecha": "22/12/2025", "horas": 5.0 },
+            { "fecha": "23/12/2025", "horas": 5.0 },
+            { "fecha": "26/12/2025", "horas": 5.0 },
+            { "fecha": "29/12/2025", "horas": 5.0 },
+            // Enero
+            { "fecha": "09/01/2026", "horas": 5.0 },
+            { "fecha": "12/01/2026", "horas": 5.0 }
+        ];
+
+        // Días no laborados específicos (Rojo y Negrita)
+        const unworkedDays = [
+            "21/11/2025", "24/11/2025",
+            "24/12/2025", "25/12/2025", "30/12/2025", "31/12/2025",
+            "01/01/2026", "02/01/2026", "05/01/2026", "06/01/2026", "07/01/2026", "08/01/2026"
+        ];
+
+        const visitasData = [
+            "30/01/2026", "31/01/2026",
+            "12/02/2026", "13/02/2026",
+            "26/02/2026", "27/02/2026",
+            "05/03/2026", "06/03/2026",
+            "19/03/2026", "20/03/2026",
+            "26/03/2026", "27/03/2026"
+        ];
+
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // --- RENDER PROGRESO ---
+        function renderProgress() {
+            const container = document.getElementById('accordion-container');
+            const semanas = {};
+            progresoData.forEach(item => {
+                const [d, m, y] = item.fecha.split('/');
+                const date = new Date(y, m - 1, d);
+                const off = date.getDay() === 0 ? 6 : date.getDay() - 1;
+                const lun = new Date(date); lun.setDate(date.getDate() - off);
+                const vie = new Date(lun); vie.setDate(lun.getDate() + 4);
+                if (m == 11 && d >= 24) vie.setDate(lun.getDate() + 5);
+                const fmt = (f) => f.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit' });
+                const label = `Semana: ${fmt(lun)} al ${fmt(vie)} (${y})`;
+                if (!semanas[label]) semanas[label] = [];
+                semanas[label].push(item);
+            });
+
+            let total = 0;
+            Object.keys(semanas).forEach(label => {
+                const sData = semanas[label];
+                const sTotal = sData.reduce((a, b) => a + b.horas, 0);
+                total += sTotal;
+                const div = document.createElement('div');
+                div.className = 'accordion-item active';
+                div.innerHTML = `<div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        <span>${label}</span><span>${sTotal.toFixed(1)} hrs ▲</span>
+    </div>
+    <div class="accordion-content">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-fecha">Fecha</th>
+                    <th class="col-dia">Día</th> <th>Actividad</th> <th class="col-horas">Horas</th>
+                </tr>
+            </thead>
+            <tbody>${renderRows(sData)}</tbody>
+        </table>
+    </div>`;
+                container.appendChild(div);
+            });
+            document.getElementById('progreso-total').innerText = total.toFixed(1);
+        }
+
+        function renderRows(rows) {
+            let h = "", curF = "", dS = 0;
+            rows.forEach((r, i) => {
+                if (curF !== "" && r.fecha !== curF) {
+                    h += `<tr class="subtotal-row"><td colspan="3" style="text-align:right">Total ${curF}:</td><td class="col-horas">${dS.toFixed(1)}</td></tr>`;
+                    dS = 0;
+                }
+                let tag = "";
+                const desc = r.descripcion.toLowerCase();
+                if (desc.includes("imposibilidad")) tag = `<span class="tag tag-due">HORAS ADEUDADAS</span><br>`;
+                else if (r.tipo === "Investigación" || desc.includes("estudiando")) tag = `<span class="tag tag-research">Investigación</span><br>`;
+                else if (r.tipo === "Reunión") tag = `<span class="tag tag-meeting">Reunión</span><br>`;
+                h += `<tr><td>${r.fecha}</td><td>${r.dia}</td><td class="description-cell">${tag}${r.descripcion.split('\n').map(p => `<p>${p}</p>`).join('')}</td><td class="col-horas">${r.horas.toFixed(1)}</td></tr>`;
+                curF = r.fecha; dS += r.horas;
+                if (i === rows.length - 1) h += `<tr class="subtotal-row"><td colspan="3" style="text-align:right">Total ${curF}:</td><td class="col-horas">${dS.toFixed(1)}</td></tr>`;
+            });
+            return h;
+        }
+
+        function renderVisitas() {
+            const grid = document.getElementById('visitas-grid');
+            const months = [
+                { n: 'Enero 2026', y: 2026, m: 0 },
+                { n: 'Febrero 2026', y: 2026, m: 1 },
+                { n: 'Marzo 2026', y: 2026, m: 2 }
+            ];
+
+            months.forEach(mo => {
+                const mDiv = document.createElement('div');
+                mDiv.className = 'calendar-month';
+                mDiv.innerHTML = `<div class="month-name">${mo.n}</div>
+            <div class="days-grid">
+                <div class="day-name">L</div><div class="day-name">M</div><div class="day-name">X</div>
+                <div class="day-name">J</div><div class="day-name">V</div><div class="day-name">S</div><div class="day-name">D</div>
+            </div>
+            <div class="days-grid" id="vdays-${mo.m}-${mo.y}"></div>`;
+                grid.appendChild(mDiv);
+
+                const dGrid = document.getElementById(`vdays-${mo.m}-${mo.y}`);
+                const first = new Date(mo.y, mo.m, 1).getDay();
+                const offset = first === 0 ? 6 : first - 1;
+                const totalDays = new Date(mo.y, mo.m + 1, 0).getDate();
+
+                for (let i = 0; i < offset; i++) dGrid.appendChild(document.createElement('div'));
+
+                for (let i = 1; i <= totalDays; i++) {
+                    const dateS = `${i.toString().padStart(2, '0')}/${(mo.m + 1).toString().padStart(2, '0')}/${mo.y}`;
+                    const isVisit = visitasData.includes(dateS);
+
+                    const dDiv = document.createElement('div');
+                    dDiv.className = 'day';
+                    dDiv.innerHTML = `<span>${i}</span>`;
+
+                    if (isVisit) {
+                        dDiv.classList.add('visit-day');
+                        dDiv.innerHTML += `<span class="visit-badge">Visita</span>`;
+                    }
+                    dGrid.appendChild(dDiv);
+                }
+            });
+        }
+
+        // --- RENDER CALENDARIO ---
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            const months = [
+                { n: 'Noviembre 2025', y: 2025, m: 10 },
+                { n: 'Diciembre 2025', y: 2025, m: 11 },
+                { n: 'Enero 2026', y: 2026, m: 0 }
+            ];
+
+            let totalH = 0, workD = 0, novH = 0, debtD_DicEne = 0;
+            const today = new Date(2026, 0, 13); // 13 de Enero 2026
+
+            months.forEach(mo => {
+                const mDiv = document.createElement('div');
+                mDiv.className = 'calendar-month';
+                mDiv.innerHTML = `<div class="month-name">${mo.n}</div>
+                <div class="days-grid"><div class="day-name">L</div><div class="day-name">M</div><div class="day-name">X</div><div class="day-name">J</div><div class="day-name">V</div><div class="day-name">S</div><div class="day-name">D</div></div>
+                <div class="days-grid" id="days-${mo.m}-${mo.y}"></div>`;
+                grid.appendChild(mDiv);
+
+                const dGrid = document.getElementById(`days-${mo.m}-${mo.y}`);
+                const first = new Date(mo.y, mo.m, 1).getDay();
+                const offset = first === 0 ? 6 : first - 1;
+                const totalDays = new Date(mo.y, mo.m + 1, 0).getDate();
+
+                for (let i = 0; i < offset; i++) dGrid.appendChild(document.createElement('div'));
+
+                for (let i = 1; i <= totalDays; i++) {
+                    const dateObj = new Date(mo.y, mo.m, i);
+                    const dateS = `${i.toString().padStart(2, '0')}/${(mo.m + 1).toString().padStart(2, '0')}/${mo.y}`;
+                    const entry = calendarioData.find(d => d.fecha === dateS);
+
+                    const dDiv = document.createElement('div');
+                    dDiv.className = 'day';
+                    dDiv.innerHTML = `<span>${i}</span>`;
+
+                    // Colorear solo hasta el 13 de Enero
+                    if (dateObj <= today) {
+                        if (entry && entry.horas > 0) {
+                            dDiv.classList.add('work-day');
+                            dDiv.innerHTML += `<span class="day-hours">${entry.horas}h</span>`;
+                            totalH += entry.horas; workD++;
+                            if (mo.m === 10) novH += entry.horas;
+                        } else if (unworkedDays.includes(dateS)) {
+                            dDiv.classList.add('no-work-day');
+                            if (mo.m >= 11 || mo.y > 2025) debtD_DicEne++; // Solo cuenta deuda desde diciembre
+                        }
+                    }
+                    dGrid.appendChild(dDiv);
+                }
+            });
+
+            // Actualizar estadísticas finales
+            document.getElementById('stat-total-h').innerText = totalH.toFixed(1);
+            document.getElementById('stat-work-d').innerText = workD;
+            document.getElementById('stat-debt-d').innerText = debtD_DicEne;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProgress();
+            renderCalendar();
+            renderVisitas(); // Nueva función
+        });
+    </script>
+</body>
+
+</html>
