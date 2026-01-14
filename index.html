@@ -73,18 +73,17 @@
             border-radius: 10px 10px 0 0;
             padding: 5px 5px 0 5px;
             border: 1px solid var(--border-gray);
-            border-bottom: none;
+            overflow-x: auto;
+            /* IMPORTANTE: Permite deslizar las pestañas en móvil */
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
         .tab-button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 600;
-            color: #64748b;
-            border-radius: 8px 8px 0 0;
+            flex: none;
+            /* Evita que las pestañas se encojan demasiado */
+            min-width: 120px;
+            padding: 10px 15px;
         }
 
         .tab-button.active {
@@ -114,6 +113,13 @@
             overflow: hidden;
         }
 
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 10px;
+        }
+
         .accordion-header {
             background: #f8fafc;
             padding: 15px 20px;
@@ -133,9 +139,60 @@
         }
 
         table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
+            min-width: 600px;
+            /* Garantiza que la tabla no se colapse y sea legible con scroll */
+        }
+
+        /* 4. Grillas (Calendarios y Cards): Ajuste de columnas */
+        @media (max-width: 600px) {
+
+            .stats-grid,
+            .project-summary-grid {
+                grid-template-columns: 1fr;
+                /* Una sola columna en teléfonos */
+            }
+
+            .months-grid {
+                grid-template-columns: 1fr;
+                /* Un mes por fila */
+            }
+
+            .doc-header {
+                flex-direction: column;
+                /* Título y botón uno sobre otro */
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .btn-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* 5. Ajuste de la columna actividad para que no se vea tan apretada */
+        .description-cell {
+            min-width: 300px;
+            /* Espacio mínimo para el texto de la actividad */
+        }
+
+        /* 1. Contenedor principal: Ajuste de padding en móvil */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-container {
+                width: 100%;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
         }
 
         th,
@@ -1491,35 +1548,164 @@
 
         // --- 2. JSON CALENDARIO ---
         const calendarioData = [
-            { "fecha": "20/11/2025", "horas": 5.0 },
-            { "fecha": "25/11/2025", "horas": 5.0 },
-            { "fecha": "26/11/2025", "horas": 5.0 },
-            { "fecha": "27/11/2025", "horas": 5.0 },
-            { "fecha": "28/11/2025", "horas": 5.0 },
-            { "fecha": "29/11/2025", "horas": 1.0 },
-            // Diciembre
-            { "fecha": "01/12/2025", "horas": 5.0 },
-            { "fecha": "02/12/2025", "horas": 5.0 },
-            { "fecha": "03/12/2025", "horas": 5.0 },
-            { "fecha": "04/12/2025", "horas": 5.0 },
-            { "fecha": "05/12/2025", "horas": 7.0 },
-            { "fecha": "08/12/2025", "horas": 5.0 },
-            { "fecha": "09/12/2025", "horas": 5.0 },
-            { "fecha": "10/12/2025", "horas": 5.0 },
-            { "fecha": "11/12/2025", "horas": 5.0 },
-            { "fecha": "12/12/2025", "horas": 5.0 },
-            { "fecha": "15/12/2025", "horas": 5.0 },
-            { "fecha": "16/12/2025", "horas": 5.0 },
-            { "fecha": "17/12/2025", "horas": 7.0 },
-            { "fecha": "18/12/2025", "horas": 5.0 },
-            { "fecha": "19/12/2025", "horas": 5.0 },
-            { "fecha": "22/12/2025", "horas": 5.0 },
-            { "fecha": "23/12/2025", "horas": 5.0 },
-            { "fecha": "26/12/2025", "horas": 5.0 },
-            { "fecha": "29/12/2025", "horas": 5.0 },
-            // Enero
-            { "fecha": "09/01/2026", "horas": 5.0 },
-            { "fecha": "12/01/2026", "horas": 5.0 }
+            {
+                "fecha": "20/11/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "25/11/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "26/11/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "27/11/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "28/11/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "29/11/2025",
+                "horas": 1.0
+            },
+            {
+                "fecha": "01/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "02/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "03/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "04/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "05/12/2025",
+                "horas": 7.0
+            },
+            {
+                "fecha": "08/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "09/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "10/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "11/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "12/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "15/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "16/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "17/12/2025",
+                "horas": 7.0
+            },
+            {
+                "fecha": "18/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "19/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "22/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "23/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "24/12/2025",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "25/12/2025",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "26/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "29/12/2025",
+                "horas": 5.0
+            },
+            {
+                "fecha": "30/12/2025",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "31/12/2025",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "1/1/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "2/1/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "5/1/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "6/1/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "7/1/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "8/1/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "09/01/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "12/01/2026",
+                "horas": 5.0
+            }
         ];
 
         // Días no laborados específicos (Rojo y Negrita)
@@ -1573,16 +1759,18 @@
         <span>${label}</span><span>${sTotal.toFixed(1)} hrs ▲</span>
     </div>
     <div class="accordion-content">
-        <table>
-            <thead>
-                <tr>
-                    <th class="col-fecha">Fecha</th>
-                    <th class="col-dia">Día</th> <th>Actividad</th> <th class="col-horas">Horas</th>
-                </tr>
-            </thead>
-            <tbody>${renderRows(sData)}</tbody>
-        </table>
-    </div>`;
+        <div class="table-wrapper"> <table>
+                <thead>
+                    <tr>
+                        <th class="col-fecha">Fecha</th>
+                        <th class="col-dia">Día</th>
+                        <th>Actividad</th>
+                        <th class="col-horas">Horas</th>
+                    </tr>
+                </thead>
+                <tbody>${renderRows(sData)}</tbody>
+            </table>
+        </div> </div>`;
                 container.appendChild(div);
             });
             document.getElementById('progreso-total').innerText = total.toFixed(1);
