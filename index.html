@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Consultoría - Consolidado Final</title>
     <style>
+        /* Ajuste global de caja para evitar que paddings sumen ancho */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         :root {
             --primary: #2c3e50;
             --accent-research: #e67e22;
@@ -147,14 +154,19 @@
         @media (max-width: 600px) {
 
             .stats-grid,
+            /* 1. Corrección para ASIGNACIONES */
             .project-summary-grid {
-                grid-template-columns: 1fr;
-                /* Una sola columna en teléfonos */
+                display: grid;
+                /* Usa min(100%, 300px) para que nunca sea más ancho que la pantalla */
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+                gap: 15px;
             }
 
             .months-grid {
-                grid-template-columns: 1fr;
-                /* Un mes por fila */
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+                gap: 20px;
+                width: 100%;
             }
 
             .doc-header {
@@ -476,7 +488,7 @@
 
         .project-summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -495,6 +507,49 @@
             margin-bottom: 5px;
             border-bottom: 1px solid #eee;
             padding-bottom: 3px;
+        }
+
+        /* --- BLOQUE DE RESPONSIVIDAD (Añadir al final) --- */
+
+        /* Permitir que las pestañas se deslicen en móvil */
+        .tab-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tab-button {
+            flex: none;
+            /* Evita que se aplasten */
+        }
+
+        /* Envoltorio para tablas para scroll lateral */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ajustes específicos para teléfonos */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.4em;
+            }
+
+            .tab-content {
+                padding: 10px;
+            }
+
+            /* Forzamos que las tarjetas de documentos se ajusten */
+            .doc-link-card {
+                padding: 15px;
+                width: 100%;
+            }
+
+            .doc-header {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
