@@ -224,7 +224,7 @@
 
         /* Ajuste de anchos de columnas */
         .col-fecha {
-            width: 95px;
+            width: 110px;
         }
 
         .col-dia {
@@ -283,6 +283,37 @@
         .tag-due {
             background: var(--accent-due);
         }
+
+        .tag-link {
+            display: inline-block;
+            background-color: #7e57c2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.65em;
+            text-decoration: none;
+            margin-top: 2px;
+        }
+
+        .tag-link:hover {
+            background-color: #673ab7;
+        }
+
+        .tag-lab {
+            display: inline-block;
+            background-color: #1abc9c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.65em;
+            text-decoration: none;
+            margin-top: 2px;
+        }
+
+        .tag-lab:hover {
+            background-color: #2980b9
+        }
+
 
         /* CALENDARIO Y ESTADÍSTICAS */
         .stats-grid {
@@ -552,6 +583,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
@@ -740,7 +772,7 @@
         <div id="tab-progreso" class="tab-content">
             <div id="accordion-container"></div>
             <div style="text-align:right; padding:20px; font-weight:800; font-size:1.2rem; border-top: 1px solid #eee;">
-                Total Laborado Real: <span id="progreso-total">0</span> hrs
+                Total Laborado: <span id="progreso-total">0</span> hrs
             </div>
         </div>
 
@@ -752,7 +784,7 @@
                         Laborados</span></div>
                 <div class="stat-card"><span class="stat-value" id="stat-debt-d"
                         style="color:var(--accent-due)">0</span><span class="stat-label">Días no Trabajados
-                        (Dic-Ene)</span></div>
+                        (Dic-Feb)</span></div>
             </div>
 
             <div class="months-grid" id="calendar-grid"></div>
@@ -760,12 +792,12 @@
             <div class="summary-box">
                 <div class="summary-title">
                     <span>Resumen de Horas Adeudadas</span>
-                    <span id="final-calc-title">40.0 hrs</span>
+                    <span id="final-calc-title">54.0 hrs</span>
                 </div>
 
                 <div class="summary-item">
-                    <span>Días laborales no trabajados en Diciembre 2025 hasta enero 2026</span>
-                    <span>8 días × 5 horas = 40.0 hrs</span>
+                    <span>Días laborales no trabajados en Diciembre 2025 hasta febrero 2026: 54.0 hrs | 5 hrs en
+                        Diciembre 2025 | 35 hrs en Enero 2026 | 14 hrs en Febrero 2026</span>
                 </div>
                 <!--
                 <div class="summary-item">
@@ -775,11 +807,11 @@
                     <span>- 16.0 hrs</span>
                 </div>-->
 
-                <div class="summary-total">Total Adeudado: 40.0 horas</div>
+                <div class="summary-total">Total Adeudado: 54.0 horas</div>
 
                 <p style="font-size: 0.75rem; color: #7f8c8d; margin-top:10px;">
-                    * El cálculo solo incluye los días laborales no trabajados desde diciembre de 2025 hasta el 30 de
-                    enero de 2026.
+                    * El cálculo solo incluye los días laborales no trabajados desde diciembre de 2025 hasta el 28 de
+                    febrero de 2026.
                 </p>
             </div>
 
@@ -1147,7 +1179,7 @@
             {
                 "fecha": "09/12/2025",
                 "dia": "Martes",
-                "descripcion": "Investigación sobre Group Policy Objects (GPO), aplicación de una GPO para prueba: \n\nBloquearemos como prueba el Panel de Control, ya que esto más adelante lo haremos igualmente en CISA.\n\nRestricción de instalación de software, este permiso que deshabilitaremos será para cerciorarnos que las personas no puedan instalar programas sin autorización de IT.\n\nControl de acceso a configuraciones del sistema, ciertos o la mayoria de empleados de CISA, no tendrán acceso a controles de configuración del sistema, sin permisos administrativos o autorización de IT.",
+                "descripcion": "<i class=\"fas fa-desktop\"></i> Investigación sobre Group Policy Objects (GPO), aplicación de una GPO para prueba: \n\nBloquearemos como prueba el Panel de Control, ya que esto más adelante lo haremos igualmente en CISA.\n\nRestricción de instalación de software, este permiso que deshabilitaremos será para cerciorarnos que las personas no puedan instalar programas sin autorización de IT.\n\nControl de acceso a configuraciones del sistema, ciertos o la mayoria de empleados de CISA, no tendrán acceso a controles de configuración del sistema, sin permisos administrativos o autorización de IT.",
                 "horas": 2.0,
                 "tipo": "Investigación"
             },
@@ -1759,6 +1791,361 @@
                 "descripcion": "Avances con planillero: Estudié el flujo de datos en FeriadoController, específicamente la lógica de Upsert (Actualizar o Insertar) basada en fechas (YYYY-MM-DD). Necesitaba comprender cómo el sistema prioriza estos registros sobre la jornada laboral estándar, para asegurar que, al implementar el módulo de vacaciones, el motor de cálculo reconozca correctamente estos días como 'ausencia pagada' y no los compute erróneamente como faltas injustificadas o tiempo muerto.",
                 "horas": 1.0,
                 "tipo": null
+            },
+            {
+                "fecha": "02/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "03/02/2026",
+                "dia": "Martes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "04/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "05/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "06/02/2026",
+                "dia": "Viernes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "09/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Reunión con Luis Ulloa de 4-5 p.m. via Google Meet",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "09/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Presentación realizada en CANVA que ilustra los cambios que estará tocando el directorio activo.",
+                "horas": 2.0,
+                "tipo": null,
+                "enlace": "https://www.canva.com/design/DAHAy5FJW8w/55zaCGPUt8aksE_VExaMQA/edit?utm_content=DAHAy5FJW8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+
+            },
+            {
+                "fecha": "10/02/2026",
+                "dia": "Martes",
+                "descripcion": "Movilización de Siguatepeque hacia La EZA",
+                "horas": 3.0,
+                "tipo": null
+            },
+            {
+                "fecha": "10/02/2026",
+                "dia": "Martes",
+                "descripcion": "Instalación de computadora personal en contenedor de Luis. Esta PC servirá como el servidor Linux que tendrá el Control del Directorio Activo.",
+                "horas": 3.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "10/02/2026",
+                "dia": "Martes",
+                "descripcion": "Configuraciones locales para servidor de Active Directory. \n Utilizando herramientas RSAT en Windows \n Crear grupos de seguridad para controlar acceso \n <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro",
+                "horas": 1.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "10/02/2026",
+                "dia": "Martes",
+                "descripcion": "Preparación de material para reunión del día 11-22-2026. Presentación realizada en CANVA que ilustra los cambios que estará tocando el directorio activo.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "11/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Entrevista a Julio Pinto, con Lic. Paola, 8 am - 8:30 am",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "11/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Entrevista a Jairo Mendez, 8:30 am - 9:00am",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "11/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Realización de resumen de entrevista y fortalezas y debilidades enviadas a la Lic. Paola",
+                "horas": 1,
+                "tipo": null
+            },
+            {
+                "fecha": "11/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Reunión con gerentes principales de CISA para que revisen las propuestas de trabajo del tema de seguridad y ciberseguridad.",
+                "horas": 3.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "11/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Configuraciones locales para servidor de Active Directory. \n Diseño de la estructura de Unidades Organizativas (OU) \n Integración entre el servidor Linux y las estaciones de trabajo Windows <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro",
+                "horas": 7.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "12/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Reunión con Jason, Ana y la Ing. Arlen para tema de separación de fibra óptica.",
+                "horas": 1.0,
+                "tipo": null,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "12/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Configuraciones locales para servidor de Active Directory. \n Unir la computadora con Windows al dominio Samba \n <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro",
+                "horas": 5.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "13/02/2026",
+                "dia": "Viernes",
+                "descripcion": "Reunión con Jared de recursos humanos y con Ikser, para revisar el tema del planillero, en esta reunión se revisaron los avances y ultimos cambios aplicados por Ikser, especificamente los nuevos cambios en el diseño de la interfaz que hace un cambio en ciertos calculos del tema del area contable.",
+                "horas": 1.0,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "13/02/2026",
+                "dia": "Viernes",
+                "descripcion": "Configuraciones locales para servidor de Active Directory. \n Instalación de SO Ubuntu Server vs Ubuntu Desktop \n Manipular servidor de Linux desde SSH \n <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro",
+                "horas": 4.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "16/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Hubo imposibilidad de prestar servicios en ese periodo debido a una contingencia médica familiar. Las horas se marcan como no trabajadas y serán laboradas en una fecha posterior sin afectar los compromisos del proyecto.",
+                "horas": 0.0,
+                "tipo": null
+            },
+            {
+                "fecha": "17/02/2026",
+                "dia": "Martes",
+                "descripcion": "Entrevista laboral a Carlos Josué Cardona, 1:15pm - 1:45pm",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "17/02/2026",
+                "dia": "Martes",
+                "descripcion": "Elaboración de resumen para Roster a entregar a Lic. Paola sobre la entrevista realizada al candidato.",
+                "horas": 0.25,
+                "tipo": null
+            },
+            {
+                "fecha": "17/02/2026",
+                "dia": "Martes",
+                "descripcion": "Laboratorio para pruebas con 2 computadoras para seguimiento a politicas de control del servidor del directorio activo. \n \n <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro.",
+                "horas": 4.25,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "18/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Entrevista laboral para Yenssis Geovany junto con la Lic. Paola",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "18/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Elaboración de resumen para Roster a entregar a Lic. Paola sobre la entrevista realizada al candidato.",
+                "horas": 0.25,
+                "tipo": null
+            },
+            {
+                "fecha": "18/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Laboratorio para pruebas con 2 computadoras para seguimiento a politicas de control del servidor del directorio activo. \n <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro.",
+                "horas": 4.25,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "19/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Entrevista laboral para César Maradiaga de Santa Cruz de Yojoa junto con la Lic. Paola",
+                "horas": 0.25,
+                "tipo": null
+            },
+            {
+                "fecha": "19/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Elaboración de resumen para Roster a entregar a Lic. Paola sobre la entrevista realizada al candidato.",
+                "horas": 0.25,
+                "tipo": null
+            },
+            {
+                "fecha": "19/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Revisión del listado que me ha enviado Luis Ulloa sobre el levantamiento de la información de las computadoras que serán controladas por el servidor del directorio activo.",
+                "horas": 0.5,
+                "tipo": null,
+                "enlace": "https://drive.google.com/file/d/1DUs6419L4hFVZ-H5LyeV0pq5pGSO1vTb/view?usp=sharing"
+            },
+            {
+                "fecha": "19/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Laboratorio para pruebas con 2 computadoras para seguimiento a politicas de control del servidor del directorio activo. \n <i class=\"fas fa-desktop\"></i> Estas pruebas pasaran al servidor real en CISA a futuro.",
+                "horas": 4,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "20/02/2026",
+                "dia": "Viernes",
+                "descripcion": "Finalizando el documento: 'POLÍTICA DE SEGURIDAD DE DIRECTORIO ACTIVO', para ser compartido al Lic. Chinchilla.",
+                "horas": 2.0,
+                "tipo": null,
+                "enlace": "https://drive.google.com/file/d/1PIYvsZdelLSVxtS_hDpgzxQZe1i43CP7/view?usp=sharing"
+
+            },
+            {
+                "fecha": "23/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Envio de correo electronico a Lic. Chinchilla: 'Seguimiento – Proyecto #1 - Directorio Activo (Políticas de seguridad del directorio activo)' se terminó y se compartio el documento denominado: 'POLÍTICA DE SEGURIDAD DE DIRECTORIO ACTIVO'",
+                "horas": 1.0,
+                "tipo": null,
+                "enlace": "https://drive.google.com/file/d/1PIYvsZdelLSVxtS_hDpgzxQZe1i43CP7/view?usp=sharing"
+            },
+            {
+                "fecha": "23/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Discutiendo y compartiendo con Ikser el documento: 'Informe Tecnico y de Estado - Sistema de Planillero', para validación de la información redactada, antes de enviarselo a la Ing. Elsia y a la Ing. Arlen.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "23/02/2026",
+                "dia": "Lunes",
+                "descripcion": "Continuación del Informe Técnico y de Estado del Sistema de Planillero",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "24/02/2026",
+                "dia": "Martes",
+                "descripcion": "Envio del correo: 'Seguimiento – Proyecto #1 - Checklist Directorio Activo (Políticas de seguridad del directorio activo)', para que el Lic. Chinchilla, pueda rellenar aquellas politicas que considera correctas y las que no. NOTA: No fue necesario que contestara al correo, debido a que habia contestado con las respuestas otro correo con nombre: '",
+                "horas": 1.0,
+                "tipo": null,
+                "enlace": "https://drive.google.com/file/d/1DUs6419L4hFVZ-H5LyeV0pq5pGSO1vTb/view?usp=sharing"
+            },
+            {
+                "fecha": "24/02/2026",
+                "dia": "Martes",
+                "descripcion": "Envio del correo: 'Avance con ayuda de Luis, del listado de computadoras a las que se les aplicará directorio activo. '. Se limpió y mejoró el excel levantado por Luis Ulloa, y se realizó una infografia para ilustrar mejor todas las computadoras que gobernará el directorio activo.",
+                "horas": 2.0,
+                "tipo": null,
+                "enlace": "https://drive.google.com/file/d/1DUs6419L4hFVZ-H5LyeV0pq5pGSO1vTb/view?usp=sharing"
+            },
+            {
+                "fecha": "24/02/2026",
+                "dia": "Martes",
+                "descripcion": "Culminación y envio del Informe Técnico y de Estado del Sistema de Planillero por correo a la Ing. Arlen / Ing. Elsia",
+                "horas": 1.5,
+                "tipo": null,
+                "enlace": "https://drive.google.com/file/d/10yVtcRio_BvbB0IhtF5iIQzIHotnW7-v/view?usp=sharing"
+            },
+            {
+                "fecha": "24/02/2026",
+                "dia": "Martes",
+                "descripcion": "Observaciones realizadas sobre el tema de los sensores de humo a la Ing. Arlen",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "25/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Viaje a La Esperanza, desde Siguatepeque",
+                "horas": 3.0,
+                "tipo": null
+            },
+            {
+                "fecha": "25/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Trabajando con el Servidor del directorio activo de Linux con la computadora de escritorio.\n \n User Configuration Administrative Templates \n Control Panel Prohibit access to Control Panel",
+                "horas": 6.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "25/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Revisión de las notas y observaciones del Lic. Chinchilla, que vienen a potenciar la seguridad, no tanto en materia de computadoras y laptops, sino con el tema de celular y su conexión a las redes de la empresa, especificamente lo relacionado con control MDM (gestión de dispositivos móviles (MDM))",
+                "horas": 1.0,
+                "tipo": null,
+                "enlace": "https://docs.google.com/document/d/1G1nS1k-5J2z-ckw1_onKf32yAQo0Wr8jhm2vZD2sjEk/edit?usp=sharing"
+            },
+            {
+                "fecha": "25/02/2026",
+                "dia": "Miércoles",
+                "descripcion": "Ingresando al planillero con los usuarios (tsuper - testuser) de administrador y de pruebas otorgados por Ikser para pruebas.",
+                "horas": 1.0,
+                "tipo": null
+            },
+            {
+                "fecha": "26/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Laboratorio dentro de CISA: Trabajando con el Servidor del directorio activo de Linux con la computadora de escritorio.\n\n Establecer seguridad básica del dominio, crear GPO llmamada Password Policy Empresa",
+                "horas": 6.0,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "26/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Conexión en red con la segunda computadora, probando restricciones de red, y organización de computadoras, según listado levantado por Luis Ulloa.",
+                "horas": 2.5,
+                "tipo": null
+            },
+            {
+                "fecha": "26/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Conversación con Jason, respecto a las computadoras que se ocupan para el servidor del directorio activo, Jason sugirió usar las computadoras que Ana tiene en su oficina. Ya que ahí esta un servidor potente que puede ser usado para este propósito.",
+                "horas": 0.5,
+                "tipo": null
+            },
+            {
+                "fecha": "26/02/2026",
+                "dia": "Jueves",
+                "descripcion": "Comparación de capacidad y precio de las soluciones de control de celular para seguridad empresarial, siendo la mejor opción Scalefusion UEM",
+                "horas": 2.0,
+                "tipo": null,
+                "enlace": "https://scalefusion.com/es/"
+            },
+            {
+                "fecha": "27/02/2026",
+                "dia": "Viernes",
+                "descripcion": "Reunión con Ana Vásquez, Luis Ulloa y el Lic. Chinchilla, sobre topicos relacionados con: Fuga de información y de claves de los subordinados de Ana Vásquez, Politicas de seguridad, Cultura organizacional, Necesidad de sistema de tickets, Control de celulares.",
+                "horas": 3.5,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "27/02/2026",
+                "dia": "Viernes",
+                "descripcion": "Investigación sobre cómo funciona el control MDM (gestión de dispositivos móviles (MDM)) por medio de un servicio como ser: Scalefusion MDM, Microsoft Intune y ManageEngine. Viendo videos y documentación sobre cómo instalar y configurar Scalefusion",
+                "horas": 1.5,
+                "tipo": "Investigación"
             }
 
 
@@ -1963,21 +2350,108 @@
             {
                 "fecha": "28/01/2026",
                 "horas": 5.0
-            }
+            },
+            {
+                "fecha": "02/02/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "03/02/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "04/02/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "05/02/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "06/02/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "09/02/2026",
+                "horas": 3.0
+            },
+            {
+                "fecha": "10/02/2026",
+                "horas": 8.0
+            },
+            {
+                "fecha": "11/02/2026",
+                "horas": 12.0
+            },
+            {
+                "fecha": "12/02/2026",
+                "horas": 6.0
+            },
+            {
+                "fecha": "13/02/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "16/02/2026",
+                "horas": 0.0,
+                "contingencia": true
+            },
+            {
+                "fecha": "17/02/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "18/02/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "19/02/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "20/02/2026",
+                "horas": 2.0
+            },
+            {
+                "fecha": "23/02/2026",
+                "horas": 3.0
+            },
+            {
+                "fecha": "24/02/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "25/02/2026",
+                "horas": 11.0
+            },
+            {
+                "fecha": "26/02/2026",
+                "horas": 11.0
+            },
+            {
+                "fecha": "27/02/2026",
+                "horas": 5.0
+            },
+
         ];
 
         // Días no laborados específicos (Rojo y Negrita)
         const unworkedDays = [
             "24/12/2025",
-            "01/01/2026", "02/01/2026", "05/01/2026", "06/01/2026", "07/01/2026", "08/01/2026", "09/01/2026"
+            "01/01/2026", "02/01/2026", "05/01/2026", "06/01/2026", "07/01/2026", "08/01/2026", "09/01/2026",
+            "02/02/2026", "03/02/2026", "04/02/2026", "05/02/2026", "06/02/2026", "16/02/2026"
         ];
 
         const visitasData = [
-            "10/02/2026", "11/02/2026",
-            "24/02/2026", "25/02/2026",
-            "03/03/2026", "04/03/2026",
-            "17/03/2026", "18/03/2026",
-            "24/03/2026", "25/03/2026"
+            "11/02/2026", "12/02/2026", "13/02/2026",
+            "25/02/2026", "26/02/2026", "27/02/2026",
+            "11/03/2026", "12/03/2026", "13/03/2026",
+            "25/03/2026", "26/03/2026", "27/03/2026"
         ];
 
         function openTab(evt, tabName) {
@@ -2034,20 +2508,54 @@
 
         function renderRows(rows) {
             let h = "", curF = "", dS = 0;
+
             rows.forEach((r, i) => {
                 if (curF !== "" && r.fecha !== curF) {
                     h += `<tr class="subtotal-row"><td colspan="3" style="text-align:right">Total ${curF}:</td><td class="col-horas">${dS.toFixed(1)}</td></tr>`;
                     dS = 0;
                 }
+
                 let tag = "";
                 const desc = r.descripcion.toLowerCase();
-                if (desc.includes("imposibilidad")) tag = `<span class="tag tag-due">HORAS ADEUDADAS</span><br>`;
-                else if (r.tipo === "Investigación" || desc.includes("estudiando")) tag = `<span class="tag tag-research">Investigación</span><br>`;
-                else if (r.tipo === "Reunión") tag = `<span class="tag tag-meeting">Reunión</span><br>`;
-                h += `<tr><td>${r.fecha}</td><td>${r.dia}</td><td class="description-cell">${tag}${r.descripcion.split('\n').map(p => `<p>${p}</p>`).join('')}</td><td class="col-horas">${r.horas.toFixed(1)}</td></tr>`;
-                curF = r.fecha; dS += r.horas;
-                if (i === rows.length - 1) h += `<tr class="subtotal-row"><td colspan="3" style="text-align:right">Total ${curF}:</td><td class="col-horas">${dS.toFixed(1)}</td></tr>`;
+
+                if (desc.includes("imposibilidad")) {
+                    tag = `<span class="tag tag-due">HORAS ADEUDADAS</span><br>`;
+                } else if (r.tipo === "Investigación" || desc.includes("estudiando")) {
+                    tag = `<span class="tag tag-research">Investigación</span><br>`;
+                } else if (r.tipo === "Reunión") {
+                    tag = `<span class="tag tag-meeting">Reunión</span><br>`;
+                } else if (r.tipo === "Laboratorio") {
+                    tag = `<span class="tag tag-lab">Laboratorio</span><br>`;
+                }
+
+                const descripcionHtml = r.descripcion
+                    .split('\n')
+                    .map(p => `<p>${p}</p>`)
+                    .join('');
+
+                const enlaceHtml = r.enlace
+                    ? `<br><a href="${r.enlace}" target="_blank" rel="noopener noreferrer" class="tag tag-link">Ver enlace</a>`
+                    : "";
+
+                h += `<tr>
+            <td>${r.fecha}</td>
+            <td>${r.dia}</td>
+            <td class="description-cell">
+                ${tag}
+                ${descripcionHtml}
+                ${enlaceHtml}
+            </td>
+            <td class="col-horas">${r.horas.toFixed(1)}</td>
+        </tr>`;
+
+                curF = r.fecha;
+                dS += r.horas;
+
+                if (i === rows.length - 1) {
+                    h += `<tr class="subtotal-row"><td colspan="3" style="text-align:right">Total ${curF}:</td><td class="col-horas">${dS.toFixed(1)}</td></tr>`;
+                }
             });
+
             return h;
         }
 
@@ -2100,11 +2608,12 @@
             const months = [
                 { n: 'Noviembre 2025', y: 2025, m: 10 },
                 { n: 'Diciembre 2025', y: 2025, m: 11 },
-                { n: 'Enero 2026', y: 2026, m: 0 }
+                { n: 'Enero 2026', y: 2026, m: 0 },
+                { n: 'Febrero 2026', y: 2026, m: 1 }
             ];
 
             let totalH = 0, workD = 0, novH = 0, debtD_DicEne = 0;
-            const today = new Date(2026, 0, 31); // 31 de Enero 2026
+            const today = new Date(2026, 1, 28); // 28 de Febrero 2026
 
             months.forEach(mo => {
                 const mDiv = document.createElement('div');
