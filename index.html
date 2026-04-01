@@ -2447,7 +2447,7 @@
         const visitasData = [
             "11/02/2026", "12/02/2026", "13/02/2026",
             "25/02/2026", "26/02/2026", "27/02/2026",
-            "13/03/2026", "14/03/2026",
+            "18/03/2026", "19/03/2026", "20/03/2026",
             "25/03/2026", "26/03/2026", "27/03/2026"
         ];
 
@@ -2476,28 +2476,37 @@
             });
 
             let total = 0;
-            Object.keys(semanas).forEach(label => {
+            const semanasKeys = Object.keys(semanas); // Obtener las claves (etiquetas de semana)
+            const totalSemanas = semanasKeys.length;
+
+            semanasKeys.forEach((label, index) => {
                 const sData = semanas[label];
                 const sTotal = sData.reduce((a, b) => a + b.horas, 0);
                 total += sTotal;
+
+                // Determinar si es uno de los últimos 3 acordeones
+                const isActive = index >= totalSemanas - 3; // los últimos 3
+
                 const div = document.createElement('div');
-                div.className = 'accordion-item active';
+                div.className = isActive ? 'accordion-item active' : 'accordion-item';
                 div.innerHTML = `<div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
-        <span>${label}</span><span>${sTotal.toFixed(1)} hrs ▲</span>
-    </div>
-    <div class="accordion-content">
-        <div class="table-wrapper"> <table>
-                <thead>
-                    <tr>
-                        <th class="col-fecha">Fecha</th>
-                        <th class="col-dia">Día</th>
-                        <th>Actividad</th>
-                        <th class="col-horas">Horas</th>
-                    </tr>
-                </thead>
-                <tbody>${renderRows(sData)}</tbody>
-            </table>
-        </div> </div>`;
+            <span>${label}</span><span>${sTotal.toFixed(1)} hrs ▲</span>
+        </div>
+        <div class="accordion-content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col-fecha">Fecha</th>
+                            <th class="col-dia">Día</th>
+                            <th>Actividad</th>
+                            <th class="col-horas">Horas</th>
+                        </tr>
+                    </thead>
+                    <tbody>${renderRows(sData)}</tbody>
+                </table>
+            </div>
+        </div>`;
                 container.appendChild(div);
             });
             document.getElementById('progreso-total').innerText = total.toFixed(1);
