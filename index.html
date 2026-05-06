@@ -314,6 +314,21 @@
             background-color: #2980b9
         }
 
+        .tag-file {
+            display: inline-block;
+            background-color: #636e72;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.65em;
+            text-decoration: none;
+            margin-top: 2px;
+        }
+
+        .tag-file:hover {
+            background-color: #2d3436;
+        }
+
 
         /* CALENDARIO Y ESTADÍSTICAS */
         .stats-grid {
@@ -595,14 +610,14 @@
         </div>
 
         <div class="tab-container">
-            <button class="tab-button active" onclick="openTab(event, 'tab-compras')">Compras</button>
-            <button class="tab-button" onclick="openTab(event, 'tab-progreso')">Progreso por hora</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-compras')">Compras</button>
+            <button class="tab-button active" onclick="openTab(event, 'tab-progreso')">Progreso por hora</button>
             <button class="tab-button" onclick="openTab(event, 'tab-calendario')">Calendario</button>
             <button class="tab-button" onclick="openTab(event, 'tab-asignaciones')">Asignaciones</button>
             <button class="tab-button" onclick="openTab(event, 'tab-visitas')">Visitas en sitio</button>
         </div>
 
-        <div id="tab-compras" class="tab-content active">
+        <div id="tab-compras" class="tab-content">
             <div style="margin-bottom: 20px; border-left: 5px solid var(--accent-research); padding-left: 15px;">
                 <h2 style="margin:0; color: var(--primary);">Listado de Adquisiciones Técnicas</h2>
                 <p style="margin:5px 0; color: #64748b; font-size: 0.9em;">Equipamiento recomendado según el análisis de
@@ -769,7 +784,7 @@
             </table>-->
         </div>
 
-        <div id="tab-progreso" class="tab-content">
+        <div id="tab-progreso" class="tab-content active">
             <div id="accordion-container"></div>
             <div style="text-align:right; padding:20px; font-weight:800; font-size:1.2rem; border-top: 1px solid #eee;">
                 Total Laborado: <span id="progreso-total">0</span> hrs
@@ -2191,8 +2206,6 @@
                 "horas": 2.0,
                 "tipo": null,
                 "enlace": "https://gemini.google.com/share/0a237feab490"
-
-
             },
             {
                 "fecha": "11/3/2026",
@@ -2472,6 +2485,389 @@
                 "dia": "martes",
                 "descripcion": "Con ayuda de Luis Ulloa se hizo la primera migración de computadora de Shadia hacia el directorio activo. Luis corrió los scripts que recortar varios pasos, logrando ahorrarse tiempo y explicación de procesos. Toda la migración fue un éxito.",
                 "horas": 3.0,
+                "tipo": null
+            },
+            {
+                "fecha": "2/4/2026",
+                "dia": "jueves",
+                "descripcion": "Redacción del informe de reunión con Frank Flores del 30-3-2026, para enviarselo a la Ing. Arlen y a Frank Flores.\n\nTiene el nombre: \"El PRISM TSM210 y su irremplazabilidad\", ya que le habia comentado a Frank que le iba a mandar este correo, en donde le explico varios topicos importantes para que él sepa lo que se hizo en Noviembre del 2024 para evitar el TID.\n",
+                "horas": 4.0,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/16V3JasP3x68mwUtAsnzJ0eIki1TiLqw6/view?usp=sharing"
+            },
+            {
+                "fecha": "3/4/2026",
+                "dia": "viernes",
+                "descripcion": "Transcripcion de video reunion con Frank de UPCO, para poder realizar la minuta. Usando el programa de CapCut con la opción de Auto captions, para hacer un resumen rápido de todo lo que hablamos con Frank.",
+                "horas": 2.0,
+                "tipo": null,
+                "enlace": ""
+            },
+            {
+                "fecha": "3/4/2026",
+                "dia": "viernes",
+                "descripcion": "Estudiando el video con nombre: == Make Your Existing Cameras Smarter With Frigate ==, para poder comprender como usar la camara IP Jennov, serie F, para que pueda leer placas de carros.",
+                "horas": 2.0,
+                "tipo": "Archivo",
+                "enlace": "https://www.youtube.com/watch?v=kHLxvFh63tM"
+            },
+            {
+                "fecha": "3/4/2026",
+                "dia": "viernes",
+                "descripcion": "A petición de la Ing. Arlen, se esta preparando lo que será un plan de capacitación para enseñar cómo preparar un clon con ingenieria inversa para el Juice normal, y convertirlo en un Juice en producción con creación de tokens funcionales.\n\nVer el archivo adjunto de ese plan de capacitación.",
+                "horas": 3.0,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/17P0okhEUA8Anc3i4IHNnTkPgIceIOsa2/view?usp=sharing"
+            },
+            {
+                "fecha": "4/4/2026",
+                "dia": "sábado",
+                "descripcion": "Envío de correo titulado: \"Informe reunión con Frank Flores (30-03-26)\", correspondiente a un documento de 6 páginas. El contenido consiste en una minuta técnica que resume los puntos tratados con Frank Flores, dirigida tanto a él como a la Ing. Arlen.\n\nDurante la reunión se abordó la necesidad de depurar la base de datos, por lo cual se estableció comunicación con Rovin de Control Room. Asimismo, se analizó el archivo denominado \"vendor.php\", identificado por Frank Flores, el cual aparenta funcionar como una API.\n Se aclaró que, debido al año en el que fue desarrollado, no corresponde a una API bajo estándares modernos. No obstante, es viable desarrollar una API formal; sin embargo, previamente se requiere generar un respaldo del entorno CLON para evitar afectaciones al sistema en producción.",
+                "horas": 1,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1OjzpS0q_HnMEChfK1Pk6b7-V9MPIqQmm/view?usp=sharing"
+            },
+            {
+                "fecha": "4/4/2026",
+                "dia": "sábado",
+                "descripcion": "Revisión final del informe anterior y envío de correo titulado: \"El PRISM TSM210 y su irremplazabilidad\".\n\nVer el archivo dando clic aquí.",
+                "horas": 1,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/16V3JasP3x68mwUtAsnzJ0eIki1TiLqw6/view?usp=sharing"
+            },
+            {
+                "fecha": "7/4/2026",
+                "dia": "martes",
+                "descripcion": "Con el objetivo de facilitar la integración de Zammad (sistema de tickets) en las empresas de La Esperanza, se están realizando pruebas para habilitar el acceso mediante el correo corporativo @flxgrp.com, buscando reducir la curva de aprendizaje y mejorar la adopción del sistema.",
+                "horas": 3,
+                "tipo": null
+            },
+            {
+                "fecha": "8/4/2026",
+                "dia": "miércoles",
+                "descripcion": "🚌 Traslado desde Siguatepeque hacia La Esperanza.",
+                "horas": 3,
+                "tipo": null
+            },
+            {
+                "fecha": "8/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Intento de migración de la PC de Paola en conjunto con Luis Ulloa y Rony. El proceso no fue exitoso debido a que el equipo cuenta con ✘ Windows Home ✘, el cual no es compatible con la migración al dominio. Paralelamente, se brindó capacitación práctica a Rony sobre el procedimiento de migración de equipos. Se concluye que la limitante principal fue el sistema operativo preinstalado (Windows Home).",
+                "horas": 3,
+                "tipo": null
+            },
+            {
+                "fecha": "8/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Soporte en incidente de sincronización de archivos en NextCloud correspondiente a la PC de Shadia. Inicialmente se consideró una posible falla relacionada con el Directorio Activo; sin embargo, tras el análisis se determinó que el problema estaba en la sincronización de NextCloud. El equipo de IT procedió a reinstalar la aplicación para restablecer el servicio.\n\n<strong>Se confirma que Shadia y su equipo ya se encuentran correctamente integrados al Directorio Activo</strong>.",
+                "horas": 2,
+                "tipo": null
+            },
+            {
+                "fecha": "8/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Revisión técnica del manual de los interruptores de UPCO: <strong>\"GEH-2050C TYPE FKC-2 OIL SWITCH\"</strong>",
+                "horas": 2,
+                "tipo": "Archivo",
+                "enlace": "https://www.npeinc.com/manuals/General%20Electric/Book007/GEH-2050C%20TYPE%20FKC-2%20OIL%20SWITCH%20MANUAL%20OR%20REMOTE%20CONTROL%2014.4%20KV,%20200%20A.pdf"
+            },
+            {
+                "fecha": "9/4/2026",
+                "dia": "jueves",
+                "descripcion": "Capacitación sobre el uso del Directorio Activo, con la participación de Luis Ulloa, Ana Vásquez, Rony y mi persona.\n\nDurante la sesión se formularon y resolvieron preguntas relacionadas con su implementación. Se dio seguimiento detallado a los tres manuales elaborados, revisando las más de 15 políticas configuradas.\n\nAdicionalmente, junto con Ana se evaluó la posibilidad de optimizar el proceso de despliegue mediante el uso de un DNS previamente configurado en la red de La Esperanza. Se acordó mejorar la documentación existente y considerar el uso de una IP pública para permitir que el Directorio Activo gestione equipos de usuarios independientemente de la red a la que se encuentren conectados.",
+                "horas": 5,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "9/4/2026",
+                "dia": "jueves",
+                "descripcion": "🪑🪑𓊳 <strong>Reunión con Fernando </strong> para coordinar el apoyo de Osman en la clasificación y limpieza de interruptores.\n\nSe realizó además la revisión de un interruptor, solicitando el desmontaje completo de una unidad proveniente del aserradero. El objetivo es efectuar pruebas de cierre y apertura para determinar el torque requerido, así como analizar en detalle los componentes, materiales de fabricación y cantidad de engranajes. Se busca evaluar la viabilidad de replicación de piezas mediante fabricación externa a partir de planos técnicos.",
+                "horas": 1,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1aAqk6zSvj9PKIwbLRZ96cwXa3yBXiqDM/view?usp=drive_link"
+            },
+            {
+                "fecha": "9/4/2026",
+                "dia": "jueves",
+                "descripcion": "Análisis conjunto con Ana sobre la conveniencia de exponer el Directorio Activo mediante una IP pública, con el fin de garantizar la administración de equipos sin dependencia de la red de conexión.\n\nComo resultado, se realizó una modificación en la red de La Esperanza, integrando por defecto el DNS del Directorio Activo. Esto permite que cualquier dispositivo conectado a las redes WiFi del proyecto pueda ser gestionado en términos de control de equipos, tráfico de red y datos de usuarios dentro del dominio.",
+                "horas": 2,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "9/4/2026",
+                "dia": "jueves",
+                "descripcion": "Registro fotográfico y levantamiento de medidas utilizando metro y pie de rey de las características de los interruptores de UPCO, con el propósito de realizar un análisis técnico más detallado posteriormente.",
+                "horas": 2,
+                "tipo": "Investigación",
+                "enlace": "https://drive.google.com/drive/folders/1n2ZbMTBn0ugO5lQfZ0adNbOsm9Fl66_c?usp=sharing"
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "🪑🪑𓊳 Reunión con Fernando para compartir hallazgos técnicos sobre los interruptores, identificando diferencias relevantes como la existencia de dos tipos de gearbox y dos tipos de piñón (pinion gear). Se discutió además la necesidad de determinar el torque requerido en los interruptores, con el objetivo de evaluar el estado de los componentes mecánicos. En función de estos resultados, se plantea la posibilidad de sustituir el sistema actual por un motor DC con sistema de engranajes de alta resistencia. (Esto seria la última decisión y debe pasar por el análisis de la Ing. Arlen)",
+                "horas": 1.5,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "Error con varias computadoras que tienen una instalación de Windows Home, estas computadoras debido a su versión limitada, no permiten ser gobernadas por el Directorio Activo. Como acción correctiva, Ana inició el levantamiento de un inventario actualizado de equipos, clasificando las versiones de sistema operativo instaladas.",
+                "horas": 2,
+                "tipo": null
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "Ejecución de pruebas de migración de equipos junto a Rony y Luis Ulloa, iniciando con la computadora de Luis. Durante el proceso se identificaron aproximadamente cuatro incidencias, las cuales fueron documentadas para su incorporación en una actualización del manual dirigido a Ana Vásquez.",
+                "horas": 3,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "Análisis funcional de la leva en los interruptores de aceite de UPCO, evaluando su rol dentro del mecanismo. Se determinó que no es viable su reemplazo directo; sin embargo, es factible su fabricación mediante terceros, utilizando materiales como metal o plástico de alta resistencia.",
+                "horas": 1,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "Contacto con el proveedor \"FitSain\" a través de AliExpress, con el objetivo de consultar la posibilidad de fabricar un gearbox equivalente al de los interruptores de UPCO. El proveedor indicó que no dispone de servicios de personalización.\n\nVer enlace a la captura de la respuesta.",
+                "horas": 0.5,
+                "tipo": "Investigación",
+                "enlace": "https://drive.google.com/file/d/1SNzi_gFnz9VYHjzdsxjXVhVwV9n1Eg-C/view?usp=drive_link"
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "Avance en la migración de equipos del área de contabilidad correspondientes a Diana Corrales, Karen Molina y Tania Matute.\n\nSe brindó acompañamiento a Rony para validar la correcta ejecución del procedimiento, con apoyo adicional de Luis Ulloa.",
+                "horas": 2,
+                "tipo": null
+            },
+            {
+                "fecha": "10/4/2026",
+                "dia": "viernes",
+                "descripcion": "Búsqueda de acoples flexibles en proveedores locales e internacionales. Estos componentes, que incorporan elementos elásticos como resortes o materiales amortiguadores, permiten absorber el impacto generado durante los ciclos de cierre y apertura de los interruptores.\n\nSe identificaron opciones disponibles a nivel local, y sí se encuentran más fácil y con más opciones en el mercado internacional. Se considera relevante comunicar a Fernando y a la Ing. Arlen la importancia de este componente para el proceso de automatización.",
+                "horas": 1,
+                "tipo": "Investigación",
+                "enlace": "https://cdtechnologia.net/2834-1016-acoplador-flexible-.html#/702-tamano-3x8x25"
+            },
+            {
+                "fecha": "13/4/2026",
+                "dia": "lunes",
+                "descripcion": "Reunión mediante Google Meet con la Ing. Arlen, Elejalde, Ana Castillo, Ana Vásquez, Ikser, Rovin y Frank Flores, para abordar el estado del sistema PRISM en el entorno CLON de UPCO y evaluar la decisión de desconectarlo o no para facilitar la generación de un clon del entorno operativo.\n\nComo resultado, Ana Vásquez procederá a realizar un clonado mediante un método no invasivo, utilizando un disco USB conectado directamente al servidor para efectuar la copia.\n\nEn consecuencia, las actividades relacionadas con el desarrollo de la API y la capacitación sobre la documentación del proceso de clonación en producción (Juice) quedan en pausa hasta completar esta etapa.",
+                "horas": 1,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "13/4/2026",
+                "dia": "lunes",
+                "descripcion": "Comunicación remota con Fernando para solicitar evidencia fotográfica del interruptor del aserradero previamente desmontado. Se recibieron las imágenes junto con observaciones mecánicas relevantes para el análisis del equipo.",
+                "horas": 0.5,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "15/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Coordinación con Fernando para retomar el experimento orientado a determinar el torque necesario para la apertura y cierre del interruptor desmontado del aserradero.\n\nSe compartieron recursos de apoyo, incluyendo un PDF (https://tinyurl.com/medir-torque), enlaces y metodologías prácticas como el \"Método de la Llave y la Báscula\", junto con la fórmula: Torque = peso (kg) x distancia (cm).\n\nFernando ejecutó la prueba adaptando un tornillo al mecanismo del interruptor y utilizando un torquímetro, obteniendo un resultado de 94 lb·in (equivalente a 7.83 lb·ft).\n\n<strong>Clic al enlace morado, que tiene enlace al vídeo ▶️ donde se muestra el experimento.</strong>",
+                "horas": 3,
+                "tipo": "Investigación",
+                "enlace": "https://youtube.com/shorts/S-A_5bvhquo"
+            },
+            {
+                "fecha": "15/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Búsqueda de motores DC de alta robustez con cajas de engranajes de alto desempeño, priorizando opciones con buena velocidad y torque, en proveedores nacionales e internacionales.",
+                "horas": 1,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "16/4/2026",
+                "dia": "jueves",
+                "descripcion": "Investigación de sensores capacitivos compactos y robustos que puedan integrarse a los interruptores, evaluando disponibilidad en proveedores nacionales e internacionales.",
+                "horas": 1,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "16/4/2026",
+                "dia": "jueves",
+                "descripcion": "Búsqueda de alternativas de adquisición de cable tipo TSJ con más de cuatro conductores, considerando disponibilidad y especificaciones técnicas.",
+                "horas": 1,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "16/4/2026",
+                "dia": "jueves",
+                "descripcion": "Estudio de dispositivos de comunicación RS485 bajo protocolo Modbus, evaluando su aplicación para el control de los interruptores en conjunto con un PLC compatible con Modbus.\n\n El propósito es la búsqueda de reducción considerable del espacio de los componentes, ya que anteriormente era mucho espacio para una automatización pequeña.",
+                "horas": 1,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "17/4/2026",
+                "dia": "viernes",
+                "descripcion": "Comunicación con Kenia Valladares para analizar antecedentes del proyecto de interruptores de UPCO, del cual fue responsable inicialmente.\n\nSe recopilaron lecciones aprendidas, incluyendo errores, debilidades, oportunidades de mejora y condiciones operativas identificadas en su momento. También se obtuvo información sobre el estado histórico de los interruptores (operativos vs. dañados). Kenia compartió notas relevantes del proyecto para su análisis.\n\n<strong>Clic al enlace morado, para ver imagen de conversación</strong> 👇🏻.",
+                "horas": 1,
+                "tipo": "Investigación",
+                "enlace": "https://drive.google.com/file/d/1qkyCI2miNCwJcfhDcIsxyeBq5kSPlvtb/view?usp=drive_link"
+            },
+            {
+                "fecha": "21/4/2026",
+                "dia": "martes",
+                "descripcion": "Consulta técnica con Carlos Dueñas sobre el funcionamiento de los interruptores, específicamente en relación con las maniobras realizadas en la isla. El objetivo fue determinar si los interruptores operan de forma automática o si son dispositivos pasivos accionados manualmente mediante varas o pértigas.\n\nSe concluyó, con base en la explicación proporcionada, que los interruptores son de operación pasiva (manual).\n\nEsta información fue incorporada en el reporte técnico.",
+                "horas": 1,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "21/4/2026",
+                "dia": "martes",
+                "descripcion": "Acceso remoto a la PC de Control Room desde Siguatepeque para identificar el número de parte de los micro limit switch, verificar dimensiones y rastrear comunicaciones previas con proveedores nacionales.\n\nSe logró identificar un proveedor local al cual se le había solicitado este componente en el año 2018.\n\n👇🏻 <strong>Se ha adjuntado un enlace del recibo de compra de estos microswitch en Honduras, correspondiente al año 2018.</strong>",
+                "horas": 1.5,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1XlfP1QsmuFrZC3wFAYkCeZydSzr3Ords/view?usp=drive_link"
+            },
+            {
+                "fecha": "21/4/2026",
+                "dia": "martes",
+                "descripcion": "Traducción técnica de la lógica \"Holding Circuit A\" descrita en el manual GEH-2050C, así como de otras secciones relevantes, completando la traducción integral del documento.\n\nAdicionalmente, se realizó un estudio preliminar para definir metodologías de pruebas en laboratorio mediante cargas controladas y simulación de maniobras de apertura/cierre. Como alternativa inicial, se propone el uso de focos LED vehiculares para evitar el manejo de corriente AC; este enfoque queda pendiente de validación con la Ing. Arlen. \n\n👇🏻 <strong>Ver diagrama generado con ayuda de IA</strong>",
+                "horas": 4,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1dm0bgTX3kSHs8WLpuGWXceixYrXVsfge/view?usp=drive_link"
+            },
+            {
+                "fecha": "22/4/2026",
+                "dia": "miércoles",
+                "descripcion": "🚙 Traslado desde Siguatepeque hacia La Esperanza en compañía de la Ing. Elsia.",
+                "horas": 3,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "22/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Recepción de credenciales de acceso 🔑 al servidor virtual destinado a Zammad, proporcionadas por Ana Vásquez. Se realizaron pruebas de autenticación y conectividad para validar el correcto funcionamiento del acceso.\n\nVer enlace a la imagen como evidencia del ingreso al servidor.",
+                "horas": 1,
+                "tipo": "Laboratorio"
+            },
+            {
+                "fecha": "22/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Reunión con Fernando para definir el diseño del soporte (\"camiseta\") y el adaptador para eje de 8 mm, así como la planificación de cortes en interruptores tipo B y el ajuste del piñón de 9 dientes.",
+                "horas": 2,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1s3vhOa17AAL_yTCyVe25wIiD9BhoAFSX/view?usp=drive_link"
+            },
+            {
+                "fecha": "22/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Revisión comparativa entre el manual original de los interruptores y documentación técnica de equipos similares de la misma época, con el objetivo de validar la ventana de seguridad eléctrica (margen de 3 segundos, indicada en la página 2 del manual) para prevenir la formación de arcos eléctricos de 14.4 kV y posibles fallas por sobrecalentamiento del aceite.",
+                "horas": 2,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1yoysfmGVpPlCxXLGDxmOp-Ho-QnRBWL2/view?usp=drive_link"
+            },
+            {
+                "fecha": "22/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Reunión con Fernando para analizar el diseño conceptual de un sistema de gestión de mantenimiento vehicular, incluyendo procesos de registro, actualización y seguimiento de intervenciones.",
+                "horas": 1,
+                "tipo": "Reunión"
+            },
+            {
+                "fecha": "22/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Desensamble del resto de los interruptores tipo A y B, seguido de la evaluación de la integridad de engranajes y verificación de daños externos (oxidación e impactos) en unidades provenientes del aserradero.",
+                "horas": 2,
+                "tipo": null
+            },
+            {
+                "fecha": "23/4/2026",
+                "dia": "jueves",
+                "descripcion": "Análisis comparativo mediante cronometraje digital de vídeos de pruebas con interruptores usando los motores originales vs los motores DC añadidos (2018–2022) \n\nSe validó que el tiempo de operación especificado en el manual (3 segundos) coincide con el tiempo del vídeo durante 2018. En contraste, configuraciones posteriores con tiempos de 6 y 12 segundos evidencian una selección inadecuada de motores, lo cual representa un riesgo operativo significativo.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al vídeo ▶️ donde si marcamos el tiempo son 3 segundos </strong>",
+                "horas": 3,
+                "tipo": "Investigación",
+                "enlace": "https://youtube.com/shorts/9Boz1QNVVOw"
+            },
+            {
+                "fecha": "23/4/2026",
+                "dia": "jueves",
+                "descripcion": "Impresión y colocación de etiquetas para la identificación individual de interruptores. Se realizó además registro fotográfico y en video de las 12 unidades, con el objetivo de documentar y elaborar un inventario detallado de componentes para su inclusión en el reporte.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al vídeo ▶️ </strong>",
+                "horas": 3,
+                "tipo": null,
+                "enlace": "https://www.youtube.com/watch?v=t8tFiW7vbCQ"
+            },
+            {
+                "fecha": "23/4/2026",
+                "dia": "jueves",
+                "descripcion": "Revisión técnica junto con Fernando del concepto de paso diametral (48DP), conteo de dientes (15T/9T) y evaluación de compatibilidad mecánica entre modelos tipo A y B. Se investigaron métodos de cálculo para determinar la compatibilidad del piñón de 9 dientes, considerando la incertidumbre sobre su paso diametral.",
+                "horas": 2,
+                "tipo": "Investigación"
+            },
+            {
+                "fecha": "23/4/2026",
+                "dia": "jueves",
+                "descripcion": "Definición conjunta con Fernando de la estrategia de integración mecánica, optando por utilizar el nuevo motor a adquirir y acoplar directamente el eje con piñón de 9 dientes existente. Esta decisión evita la necesidad de adquirir nuevos piñones y permite reutilizar la estructura actual en los interruptores tipo B.",
+                "horas": 2,
+                "tipo": "Reunión",
+                "enlace": "https://drive.google.com/file/d/1s3vhOa17AAL_yTCyVe25wIiD9BhoAFSX/view?usp=drive_link"
+            },
+            {
+                "fecha": "23/4/2026",
+                "dia": "jueves",
+                "descripcion": "Evaluación técnica de la viabilidad del motor modelo XD-3420 (3,000 RPM / 30W) para su aplicación en pruebas de automatización de los interruptores de UPCO.\n\nLos fundamentos técnicos de esta selección se detallan en el informe. \n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe </strong>",
+                "horas": 2,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1txPxbwvNKwJfTKh75ItACtGdOOC73aP9/view?usp=drive_link"
+            },
+            {
+                "fecha": "24/4/2026",
+                "dia": "viernes",
+                "descripcion": "Ejecución de pruebas utilizando un taladro proporcionado por el área de Electricidad, al cual se le acopló el eje con piñón de 9 dientes. Se realizaron ensayos sobre interruptores tipo B para evaluar su funcionamiento en condiciones de apertura y cierre.\n\nEl objetivo fue verificar la integridad mecánica de las unidades y demostrar a la Ing. Arlen la viabilidad de reutilizar el eje existente mediante corte y acople a un motor DC, evitando la compra de nuevos piñones.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al vídeo ▶️ </strong>.\n\nAdicionalmente, se llevó a cabo un análisis de velocidad, torque crítico y relación de transmisión (RPM/tiempo de ciclo) para motores DC candidatos. Se validó, con apoyo de herramientas de análisis, la idoneidad del motor modelo XD-3420 (3,000 RPM / 30W) para pruebas de apertura/cierre de los interruptores de UPCO.\n\nSe continuó con la elaboración de reporte técnico de los interruptores de UPCO y retorno hacia Siguatepeque.",
+                "horas": 5,
+                "tipo": "Laboratorio",
+                "enlace": "https://www.youtube.com/shorts/Ipr9aVdel9E"
+            },
+            {
+                "fecha": "27/4/2026",
+                "dia": "lunes",
+                "descripcion": "Elaboración de reporte técnico sobre los interruptores de UPCO.\n\nA partir del análisis de evidencia fotográfica de implementaciones previas, se identificó que el uso de PLC Opta junto con módulos de expansión Modbus RS485 permite reducir significativamente la cantidad de componentes externos, al integrar múltiples funciones en un solo sistema. Esta propuesta optimiza el uso de espacio, reduce tiempos de instalación y mejora la calidad del diseño.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe </strong>",
+                "horas": 5,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1txPxbwvNKwJfTKh75ItACtGdOOC73aP9/view?usp=drive_link"
+            },
+            {
+                "fecha": "28/4/2026",
+                "dia": "martes",
+                "descripcion": "Continuación en la elaboración del reporte técnico de los interruptores de UPCO.\n\nInvestigación sobre protocolos de comunicación entre PLC Finder y módulos RS485/Modbus, con el objetivo de preparar el entorno de pruebas una vez se disponga del equipo. Se identificaron fuentes técnicas y material audiovisual relevante para soporte en laboratorio.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe </strong>",
+                "horas": 5,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1txPxbwvNKwJfTKh75ItACtGdOOC73aP9/view?usp=drive_link"
+            },
+            {
+                "fecha": "28/4/2026",
+                "dia": "martes",
+                "descripcion": "Envío de correo titulado: \"UPCO Oil Switch Project Reactivation / Reactivación del proyecto de interruptores UPCO\", dirigido a Mr. Ron, Ing. Arlen e Ing. Elejalde.\n\nEl correo incluye un informe técnico de más de 20 páginas, redactado en inglés y español, que documenta el trabajo realizado durante el mes de abril, incluyendo actividades de investigación, pruebas en sitio, conclusiones y coordinación con el área mecánica. El documento incorpora enlaces a material audiovisual y evidencia de las pruebas realizadas.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe en inglés </strong>",
+                "horas": 2,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1j4NlLvTFbJV0wp98y9_w-ZcqbzrO4On_/view?usp=drive_link"
+            },
+            {
+                "fecha": "29/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Comunicación vía Telegram con el Ing. Elejalde para dar seguimiento al tema de los interruptores. Se intercambiaron mensajes de audio y se discutieron brevemente los avances presentados en el correo previamente enviado.",
+                "horas": 0.25,
+                "tipo": null
+            },
+            {
+                "fecha": "29/4/2026",
+                "dia": "miércoles",
+                "descripcion": "Redacción y envío de documento actualizado con el estado, avances y seguimiento de los proyectos \n\n🚩 (asignados por la Ing. Elsia y la Ing. Arlen) 🚩 en curso, dirigido a la Ing. Arlen.",
+                "horas": 1.5,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/115jts_LK5p2Oh0kNWPtkJJBYpHgbZeEZ/view?usp=drive_linkk"
+            },
+            {
+                "fecha": "30/4/2026",
+                "dia": "jueves",
+                "descripcion": "Respuesta a correo del Ing. Elejalde: <strong>'UPCO Oil Switch Project Reactivation'</strong> informando la necesidad de la adquisición de un motor seleccionado con el objetivo de alcanzar tiempos de apertura y cierre de aproximadamente 3 segundos en los interruptores durante las pruebas.",
+                "horas": 0.25,
                 "tipo": null
             }
         ];
@@ -2829,7 +3225,42 @@
             {
                 "fecha": "31/03/2026",
                 "horas": 3.0
-            }
+            },
+            {
+                "fecha": "02/04/2026",
+                "horas": 4.0
+            },
+            {
+                "fecha": "03/04/2026",
+                "horas": 7.0
+            },
+            {
+                "fecha": "4/4/2026",
+                "horas": 2.0
+            },
+            {
+                "fecha": "7/4/2026",
+                "horas": 3.0
+            },
+            {
+                "fecha": "8/4/2026",
+                "horas": 10
+            },
+            { "fecha": "9/4/2026", "horas": 10 },
+            { "fecha": "10/4/2026", "horas": 11 },
+            { "fecha": "13/4/2026", "horas": 1.5 },
+            { "fecha": "15/4/2026", "horas": 4 },
+            { "fecha": "16/4/2026", "horas": 3 },
+            { "fecha": "17/4/2026", "horas": 1 },
+            { "fecha": "21/4/2026", "horas": 6.5 },
+            { "fecha": "22/4/2026", "horas": 11 },
+            { "fecha": "23/4/2026", "horas": 12 },
+            { "fecha": "24/4/2026", "horas": 5 },
+            { "fecha": "27/4/2026", "horas": 5 },
+            { "fecha": "28/4/2026", "horas": 7 },
+            { "fecha": "29/4/2026", "horas": 1.75 },
+            { "fecha": "30/4/2026", "horas": 0.25 }
+
 
         ];
 
@@ -2844,7 +3275,10 @@
             "11/02/2026", "12/02/2026", "13/02/2026",
             "25/02/2026", "26/02/2026", "27/02/2026",
             "18/03/2026", "19/03/2026", "20/03/2026",
-            "25/03/2026", "26/03/2026", "27/03/2026"
+            "25/03/2026", "26/03/2026", "27/03/2026",
+            "08/04/2026", "09/04/2026", "10/04/2026",
+            "22/04/2026", "23/04/2026", "24/04/2026",
+            "20/05/2026", "21/05/2026", "22/05/2026", //Colocar aquí las visitas realizadas o visitas programadas
         ];
 
         function openTab(evt, tabName) {
@@ -2857,6 +3291,7 @@
         // --- RENDER PROGRESO ---
         function renderProgress() {
             const container = document.getElementById('accordion-container');
+            container.innerHTML = ''; // Limpiar por si se llama varias veces
             const semanas = {};
             progresoData.forEach(item => {
                 const [d, m, y] = item.fecha.split('/');
@@ -2872,7 +3307,7 @@
             });
 
             let total = 0;
-            const semanasKeys = Object.keys(semanas); // Obtener las claves (etiquetas de semana)
+            const semanasKeys = Object.keys(semanas); // Claves en orden de inserción (cronológico)
             const totalSemanas = semanasKeys.length;
 
             semanasKeys.forEach((label, index) => {
@@ -2880,9 +3315,7 @@
                 const sTotal = sData.reduce((a, b) => a + b.horas, 0);
                 total += sTotal;
 
-                // Determinar si es uno de los últimos 3 acordeones
-                const isActive = index >= totalSemanas - 3; // los últimos 3
-
+                const isActive = index >= totalSemanas - 3; // últimos 3 activos
                 const div = document.createElement('div');
                 div.className = isActive ? 'accordion-item active' : 'accordion-item';
                 div.innerHTML = `<div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
@@ -2905,7 +3338,33 @@
         </div>`;
                 container.appendChild(div);
             });
-            document.getElementById('progreso-total').innerText = total.toFixed(1);
+
+            // CAMBIO EL 6-5-2026. Obtener mes y año del último registro (asumiendo datos ordenados cronológicamente)
+            const ultimo = progresoData[progresoData.length - 1];
+            const [dUlt, mUlt, yUlt] = ultimo.fecha.split('/');
+            const totalUltimoMes = progresoData
+                .filter(item => {
+                    const [d, m, y] = item.fecha.split('/');
+                    return m === mUlt && y === yUlt;
+                })
+                .reduce((sum, item) => sum + item.horas, 0);
+            document.getElementById('progreso-total').innerText = totalUltimoMes.toFixed(1);
+
+            // --- Scroll al antepenúltimo acordeón (tercero desde el final) ---
+            // Esperamos un poco para que el DOM se actualice completamente
+            setTimeout(() => {
+                const acordeones = document.querySelectorAll('#accordion-container .accordion-item');
+                if (acordeones.length >= 3) {
+                    const antepenultimo = acordeones[acordeones.length - 3]; // índice length-3
+                    antepenultimo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Opcional: agregar un breve resaltado para llamar la atención
+                    antepenultimo.style.transition = 'background 0.5s';
+                    antepenultimo.style.background = '#fff3e0';
+                    setTimeout(() => {
+                        antepenultimo.style.background = '';
+                    }, 1500);
+                }
+            }, 100); // pequeño retraso para asegurar renderizado
         }
 
         function renderRows(rows) {
@@ -2928,6 +3387,8 @@
                     tag = `<span class="tag tag-meeting">Reunión</span><br>`;
                 } else if (r.tipo === "Laboratorio") {
                     tag = `<span class="tag tag-lab">Laboratorio</span><br>`;
+                } else if (r.tipo === "Archivo") {
+                    tag = `<span class="tag tag-file">📄 Archivo adjunto. Dando clic abajo 👇🏻.</span><br>`;
                 }
 
                 const descripcionHtml = r.descripcion
@@ -2966,7 +3427,9 @@
             const months = [
                 { n: 'Enero 2026', y: 2026, m: 0 },
                 { n: 'Febrero 2026', y: 2026, m: 1 },
-                { n: 'Marzo 2026', y: 2026, m: 2 }
+                { n: 'Marzo 2026', y: 2026, m: 2 },
+                { n: 'Abril 2026', y: 2026, m: 3 },
+                { n: 'Mayo 2026', y: 2026, m: 4 } //***** Involucrar Mayo(aqui modificar cuando se quiera expandir el calendario)
             ];
 
             months.forEach(mo => {
@@ -3012,11 +3475,12 @@
                 { n: 'Diciembre 2025', y: 2025, m: 11 },
                 { n: 'Enero 2026', y: 2026, m: 0 },
                 { n: 'Febrero 2026', y: 2026, m: 1 },
-                { n: 'Marzo 2026', y: 2026, m: 2 } // Involucrar Marzo (aqui modificar cuando se quiera expandir el calendario)
+                { n: 'Marzo 2026', y: 2026, m: 2 },
+                { n: 'Abril 2026', y: 2026, m: 3 } // *****Involucrar Abril (aqui modificar cuando se quiera expandir el calendario)
             ];
 
             let totalH = 0, workD = 0, novH = 0, debtD_DicEne = 0;
-            const today = new Date(2026, 2, 31); // 31 de Marzo (aqui modificar cuando se quiera expandir el calendario)
+            const today = new Date(2026, 3, 30); // *****30 de Abril (aqui modificar cuando se quiera expandir el calendario)
 
             months.forEach(mo => {
                 const mDiv = document.createElement('div');
