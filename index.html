@@ -576,6 +576,14 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        .deleted-project {
+            background-color: #ffbaba;
+        }
+
+        .paused-project {
+            background-color: #f7f1e3;
+        }
+
         /* Ajustes específicos para teléfonos */
         @media (max-width: 600px) {
             .header h1 {
@@ -597,6 +605,172 @@
                 gap: 10px;
             }
         }
+
+        .expandible-card {
+            transition: all 0.2s;
+        }
+
+        .expandible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .expandible-header .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .expand-icon {
+            transition: transform 0.2s;
+        }
+
+        .expandible-card.open .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .progress-badge {
+            background: var(--accent-research);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+
+        /* Grid de dos columnas */
+        .two-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .two-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Badge de porcentaje grande */
+        .progress-badge-large {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: white;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /*ANIMACIÓN PARA PROYECTO EN EL QUE SE ESTA TRABAJANDO ACTUALMENTE*/
+
+        /* Indicador de proyecto en curso con animación de pulso */
+        .live-project-indicator {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f4fa 100%);
+            border-left: 6px solid #e74c3c;
+            border-radius: 16px;
+            padding: 16px 22px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+        }
+
+        .pulse-container {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pulse-circle {
+            width: 18px;
+            height: 18px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .pulse-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(2.8);
+                opacity: 0;
+            }
+        }
+
+        .project-text {
+            flex: 1;
+        }
+
+        .live-tag {
+            background-color: #e74c3c;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .project-name {
+            font-weight: 600;
+            color: #2c3e50;
+            background: #fff;
+            padding: 4px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .project-text strong {
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .live-project-indicator {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .pulse-container {
+                align-self: flex-start;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
@@ -610,11 +784,12 @@
         </div>
 
         <div class="tab-container">
-            <button class="tab-button" onclick="openTab(event, 'tab-compras')">Compras</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-asignaciones')">Proyectos</button>
             <button class="tab-button active" onclick="openTab(event, 'tab-progreso')">Progreso por hora</button>
             <button class="tab-button" onclick="openTab(event, 'tab-calendario')">Calendario</button>
-            <button class="tab-button" onclick="openTab(event, 'tab-asignaciones')">Asignaciones</button>
             <button class="tab-button" onclick="openTab(event, 'tab-visitas')">Visitas en sitio</button>
+            <button class="tab-button" onclick="openTab(event, 'tab-compras')">Compras</button>
+
         </div>
 
         <div id="tab-compras" class="tab-content">
@@ -635,153 +810,6 @@
             </div>
             <a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAG8QLnjpW4&#x2F;SaihYOybmXneR1sfN5Nbsg&#x2F;view?utm_content=DAG8QLnjpW4&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link"
                 target="_blank" rel="noopener">Price List Sheet</a> by Carlos Buezo
-
-            <!--<table class="purchase-table">
-                <thead>
-                    <tr>
-                        <th style="width: 150px;">Categoría</th>
-                        <th>Artículo / Modelo Recomendado</th>
-                        <th style="width: 280px;">Especificaciones Clave</th>
-                        <th style="width: 120px; text-align: center;">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="category-badge"
-                                style="background:#e0f2fe; color:#075985;">Almacenamiento</span></td>
-                        <td>
-                            <strong>Servidor NAS TerraMaster F4-424 Pro</strong><br>
-                            <small>Procesador i3, 16GB RAM (Soporta +20 cámaras)</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Configuración RAID 5 (Protección de datos)</li>
-                                <li>Soporta Docker / Shinobi / Blue Iris</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Recomendado</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="category-badge"
-                                style="background:#e0f2fe; color:#075985;">Almacenamiento</span></td>
-                        <td>
-                            <strong>4x Discos Duros 12TB (Enterprise)</strong><br>
-                            <small>Tecnología CMR / Sellados con Helio</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Diseñados para 24/7 (CCTV Alta Definición)</li>
-                                <li>Menor fricción, temperatura y sin tecnología SMR</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Pendiente</span></td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="category-badge" style="background:#fef9c3; color:#854d0e;">Acceso Físico</span>
-                        </td>
-                        <td>
-                            <strong>Tapo Smart Wi-Fi Deadbolt Door Lock</strong><br>
-                            <small>Cerrojo inteligente para Control Room</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Certificación BHMA / IP54 (Polvo y salpicaduras)</li>
-                                <li>Gestión de logs, Fail-secure y llave mecánica</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Cotizado</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="category-badge" style="background:#fef9c3; color:#854d0e;">Acceso Físico</span>
-                        </td>
-                        <td>
-                            <strong>Brazo Cierrapuerta Yale (80kg)</strong><br>
-                            <small>Cierre automático hidráulico industrial</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Ajuste de velocidad y golpe de cierre</li>
-                                <li>Garantiza cierre tras desbloqueo remoto</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Cotizado</span></td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="category-badge" style="background:#fee2e2; color:#991b1b;">Incendio</span></td>
-                        <td>
-                            <strong>Panel Hikvision AX PRO (DS-PWA48)</strong><br>
-                            <small>Hub central de alarma inalámbrica</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Largo alcance (Sin repetidores)</li>
-                                <li>Notificaciones Push / Cloud / App móvil</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Investigación</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="category-badge" style="background:#fee2e2; color:#991b1b;">Incendio</span></td>
-                        <td>
-                            <strong>Sensores de Humo Fotoeléctricos DS-PDSMK-E-WB</strong><br>
-                            <small>Línea inalámbrica Hikvision certificada</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Comunicación en malla y batería de larga duración</li>
-                                <li>Detección temprana y comunicación inalámbrica</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Investigación</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="category-badge" style="background:#fee2e2; color:#991b1b;">Alerta Manual</span>
-                        </td>
-                        <td>
-                            <strong>Estación Manual de Incendio Honeywell</strong><br>
-                            <small>Palanca de acción simple certificada</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Instalación en puntos estratégicos</li>
-                                <li>Construcción robusta para simulacros</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Cotizado</span></td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="category-badge" style="background:#f3e8ff; color:#6b21a8;">Sirenas</span></td>
-                        <td>
-                            <strong>Sirena Industrial SLA-05CY-2000</strong><br>
-                            <small>Sirena estroboscópica de alto impacto</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Alcance Radio: 1.5km - 2km</li>
-                                <li>Sonidos modificables vía USB</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Investigación</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="category-badge" style="background:#e2e8f0; color:#475569;">Software</span></td>
-                        <td>
-                            <strong>Licencia Blue Iris V5</strong><br>
-                            <small>Gestión avanzada de Video (VMS)</small>
-                        </td>
-                        <td>
-                            <ul class="spec-list">
-                                <li>Soporte hasta 64/128 cámaras</li>
-                                <li>Visualización remota y gestión profesional</li>
-                            </ul>
-                        </td>
-                        <td style="text-align:center;"><span class="status-pending">Sugerido</span></td>
-                    </tr>
-                </tbody>
-            </table>-->
         </div>
 
         <div id="tab-progreso" class="tab-content active">
@@ -814,14 +842,6 @@
                     <span>Días laborales no trabajados en Diciembre 2025 hasta febrero 2026: 54.0 hrs | 5 hrs en
                         Diciembre 2025 | 35 hrs en Enero 2026 | 14 hrs en Febrero 2026</span>
                 </div>
-                <!--
-                <div class="summary-item">
-                    <span>Menos horas trabajadas en noviembre (el contrato empieza a correr en diciembre 2025; <br> las
-                        horas
-                        de noviembre se suman a diciembre/enero para compensar las no trabajadas)</span>
-                    <span>- 16.0 hrs</span>
-                </div>-->
-
                 <div class="summary-total">Total Adeudado: 54.0 horas</div>
 
                 <p style="font-size: 0.75rem; color: #7f8c8d; margin-top:10px;">
@@ -834,105 +854,535 @@
 
         <div id="tab-asignaciones" class="tab-content">
             <div style="margin-bottom: 25px; border-left: 5px solid var(--accent-research); padding-left: 15px;">
-                <h2 style="margin:0; color: var(--primary);">Archivos de Seguimiento</h2>
-                <p style="margin:5px 0; color: #64748b; font-size: 0.95em;">Acceso directo a las herramientas de control
-                    y gestión de proyectos en Google Spreadsheets.</p>
+                <h2 style="margin:0; color: var(--primary);">Listado de proyectos</h2>
+                <p style="margin:5px 0; color: #64748b; font-size: 0.95em;">Seguimiento de proyectos según Ing. que ha
+                    asignado, con detalle en Google
+                    Spreadsheets. Proyectos con color 🟥 han sido cancelados.</p>
+            </div>
+
+            <!-- NUEVO: Indicador de proyecto en curso -->
+            <div class="live-project-indicator">
+                <div class="pulse-container">
+                    <div class="pulse-circle"></div>
+                </div>
+                <div class="project-text">
+                    <span class="live-tag">EN VIVO</span>
+                    <strong>Actualmente trabajando en el proyecto:</strong>
+                    <span class="project-name">ELS#9 - Desarrollo de aplicación Android para recarga de saldo</span>
+                </div>
             </div>
 
             <div class="assignment-container">
-                <div class="doc-link-card">
-                    <div class="doc-header">
-                        <h3 style="margin:0; color: var(--primary);">1. Seguimiento Consultoría Ciberseguridad</h3>
-                        <a href="https://docs.google.com/spreadsheets/d/1JxztAwLMErKO7rWWR9qu_fpSJU6bpmW8/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
-                            target="_blank" class="btn-link">Abrir Spreadsheet ↗</a>
-                    </div>
-                    <p style="font-size: 0.9rem; color: #4a5568;">La consultoria se ha dividido en 6 proyectos:</p>
 
-                    <div class="project-summary-grid">
-                        <div class="project-item">
-                            <strong>P1. Gestión de Identidad (AD)</strong>
-                            Centralización de usuarios y reglas GPO para control de accesos, bloqueo de software
-                            peligroso y restricciones administrativas.
-                        </div>
-                        <div class="project-item">
-                            <strong>P2. Acceso Biométrico Control Room y Sala servidores</strong>
-                            Seguridad física mediante biometría y cierre automático para control auditado de personal en
-                            áreas críticas.
-                        </div>
-                        <div class="project-item">
-                            <strong>P3. Repositorio NAS y Backup</strong>
-                            Servidor central para guardado de más de 15 días de más de 20 cámaras CCTV, así como el
-                            respaldo de bases de datos importantes
-                        </div>
-                        <div class="project-item">
-                            <strong>P4. Seguridad Física e Incendios</strong>
-                            Sistema integral de alarmas, sensores de humo y detección temprana para protección de
-                            activos y personal.
-                        </div>
-                        <div class="project-item">
-                            <strong>P5. Filtrado de Navegación Web</strong>
-                            Políticas de control de tráfico en subred de Control Room para mitigar malware y optimizar
-                            la operatividad.
-                        </div>
-                        <div class="project-item">
-                            <strong>P6. Gestión de Inventario</strong>
-                            Control centralizado de activos importantes para facilitar el mantenimientos preventivo y
-                            trazabilidad de equipos.
+                <div class="doc-link-card expandible-card" style="border-left-color: #3498db">
+                    <div class="expandible-header" onclick="toggleProject(this)">
+                        <div class="doc-header" style="cursor: pointer; flex: 1;">
+                            <h3 style="margin:0; color: var(--primary);">Proyectos asignados por Ing. Elsia. ELS# (10)
+                            </h3>
+                            <div style="display: flex; gap: 12px; align-items: center; margin-top: 5px;">
+                                <i class="fas fa-chevron-down expand-icon"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="expandible-content" style="display: none; padding-top: 15px;">
 
-                <div class="doc-link-card" style="border-left-color: var(--accent-research);">
-                    <div class="doc-header">
-                        <h3 style="margin:0; color: var(--primary);">2. Actividades por proyecto Luis Ulloa</h3>
-                        <a href="https://docs.google.com/spreadsheets/d/1bkZtEBKu1o89x-HoTO38jVG4fvk85PRt/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
-                            target="_blank" class="btn-link" style="background-color: var(--accent-research);">Abrir
-                            Spreadsheet ↗</a>
+                        <div class="project-summary-grid">
+                            <div class="project-item">
+                                <strong>ELS#1 - Directorio Activo</strong>
+                                Implementación de directorio activo en el proyecto de La Esperanza, Intibucá. Se usará
+                                un
+                                servidor Linux, para evitar la compra de licencias de Windows Server y licencias de
+                                acceso
+                                de cliente, conocidas como CALs (Client Access Licenses. Además al ser Linux es
+                                OpenSource,
+                                robusto y gratuito.
+                            </div>
+                            <div class="project-item deleted-project">
+                                <strong>ELS#2 - Acceso Biométrico Control R. y Sala servidores</strong>
+                                Instalación de un sistema de control de acceso biométrico en la puerta principal del
+                                Control
+                                Room junto con un brazo hidraulico de cierre automatico, con el objetivo de restringir
+                                el
+                                ingreso únicamente a personal autorizado.
+                            </div>
+                            <div class="project-item deleted-project">
+                                <strong>ELS#3 - Repositorio NAS y Backup</strong>
+                                Instalación de un servidor NAS de alto rendimiento como repositorio centralizado y
+                                seguro
+                                para respaldos de bases de datos críticas, código fuente, archivos administrativos y
+                                grabaciones de más de 20 cámaras Hikvision
+                            </div>
+                            <div class="project-item deleted-project">
+                                <strong>ELS#4 - Seguridad Física e Incendios</strong>
+                                Instalación de un sistema de seguridad física que incluya sensores de humo, sistemas de
+                                detección de incendios y bocinas de alerta, con el objetivo de detectar incidentes de
+                                intrusión o emergencia, proteger al personal y los activos de la empresa, y permitir una
+                                respuesta oportuna que reduzca riesgos operativos, daños a la infraestructura y pérdidas
+                                de
+                                información crítica.
+                            </div>
+                            <div class="project-item">
+                                <strong>ELS#5 - Sistema de Tickets para IT</strong>
+                                Implementación de un servidor de tickets, para que el área de IT se organice mejor. En
+                                este
+                                escenario se instalará el servidor Zambad, que es OpenSource y es el que mejor reseñas
+                                tiene
+                                al día de hoy.
+                            </div>
+                            <div class="project-item">
+                                <strong>ELS#6 - Lectura de placas inteligente en la posta</strong>
+                                Sistema de identificación vehicular y de motos mediante la lectura de placas. Estos
+                                datos
+                                irán a un dashboard en tiempo real que el encargado de seguridad podrá observar.
+                            </div>
+                            <div class="project-item">
+                                <strong>ELS#7 - Identificación de personal del bus de empresa</strong>
+                                Sistema de identificación con Reconocimiento Visual para los empleados dentro del bus de
+                                CISA. [Tendrá una cámara pequeña de 12VDC conectada a la bateria del bus, que se
+                                encienda al
+                                momento de la ignición]. Estos datos irán a un dashboard en tiempo real que el encargado
+                                de
+                                seguridad podrá observar.
+                            </div>
+                            <div class="project-item">
+                                <strong>ELS#8 - Dashboard en tiempo real (Ingresos a la empresa)</strong>
+                                Programación de dashboard que recibirá la información sobre el personal que ha ingresado
+                                al
+                                plantel, por medio de vehiculos, motos y otros medios. Así como varios controles que
+                                actualmente se llevan en papel en materia de seguridad.
+                            </div>
+                            <div class="project-item">
+                                <strong>ELS#9 - Android App para recarga - prepagos</strong>
+                                Aplicación de prepago digital, diseñada para eliminar el manejo de efectivo mediante
+                                recargas centralizadas. Se logrará un sistema de gestión de comedor con pagos digitales
+                                mediante saldo prepago, eliminando el manejo de efectivo, controlando el consumo por
+                                usuario y automatizando el registro de transacciones.
+                            </div>
+                            <div class="project-item">
+                                <strong>ELS#10 - Controles Administrativos Porciones e Insumos Cocina de
+                                    Durrikikará</strong>
+                                Controles Administrativos Porciones e Insumos Cocina de Durrikikará. Sistema de control
+                                de cocina enfocado en estandarización de recetas, porcionamiento en base a peso, y
+                                gestión precisa de inventario para optimizar costos, flujo de caja y reducir mermas
+                                mediante datos reales de consumo y producción
+                            </div>
+                        </div>
                     </div>
-                    <p style="font-size: 0.9rem; color: #4a5568;">
-                        Cronograma de ejecución técnica local. Luis Ulloa asiste en la aplicación de actividades
-                        físicas, supervisión de instalaciones eléctricas y configuraciones de hardware en sitio bajo
-                        nuestra supervisión
-                        remota.
-                    </p>
-                </div>
+                </div> <!--Cierre de Div -->
 
-                <div class="doc-link-card" style="border-left-color: #27ae60;">
-                    <div class="doc-header">
-                        <h3 style="margin:0; color: var(--primary);">3. Seguimiento Sistema Planillero</h3>
-                        <a href="https://docs.google.com/spreadsheets/d/1owocqfgHFUTmwrRfE4UdNQYsJSp0bP7m/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
-                            target="_blank" class="btn-link" style="background-color: #27ae60;">Abrir Spreadsheet ↗</a>
+                <div class="doc-link-card expandible-card" style="border-left-color: #3498db;">
+                    <div class="expandible-header" onclick="toggleProject(this)">
+                        <div class="doc-header" style="cursor: pointer; flex: 1;">
+                            <h3 style="margin:0; color: var(--primary);">Proyectos asignados por Ing. Arlen. ARL# (7)
+                            </h3>
+                            <div style="display: flex; gap: 12px; align-items: center; margin-top: 5px;">
+                                <i class="fas fa-chevron-down expand-icon"></i>
+                            </div>
+                        </div>
                     </div>
-                    <p style="font-size: 0.9rem; color: #4a5568;">
-                        Plan de trabajo detallado para el desarrollo y optimización del sistema de RRHH (Planillero),
-                        abarcando la gestión de múltiples empresas y nómina de empleados.
-                    </p>
-                </div>
-            </div>
+                    <div class="expandible-content" style="display: none; padding-top: 15px;">
+
+                        <div class="project-summary-grid">
+                            <div class="project-item">
+                                <strong>ARL#1 - Automatizacion de interruptores de UPCO.</strong>
+                                De los 12 interruptores que se encuentran en CISA, se planea hacer la automatización en
+                                grupo de 3, de los distintos interruptores, se planea automatizar la mayor cantidad
+                                posible de
+                                estos interruptores, para posteriormente a la automatización localmente en CISA,
+                                moverlos hacia Útila. UPCO.
+                            </div>
+                            <div class="project-item paused-project">
+                                <strong>ARL#2 - Capacitación sobre Juice Clon.</strong>
+                                Se ha pausado, según la reunión del 13 de abril, Ana de IT, hará un nuevo clon, mediante
+                                puerto USB sin intervenir mucho con el PRISM. Quedo al pendiente.
+                            </div>
+                            <div class="project-item">
+                                <strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice
+                                    Clon.</strong>
+                                Frank Flores, necesita una API en el Juice Clon, que le permita comunicarse con el ERP
+                                que el tiene, para que solo el ERP maneje las transacciones, de esa forma se tendrá
+                                uniformidad en la información, orden y rapidez.
+                            </div>
+                            <div class="project-item">
+                                <strong>ARL#4 - Sistema de Gestión de Mantenimiento y Control de Flota Vehicular de
+                                    CISA.</strong>
+
+                                Fernando tiene un análisis completamente definido y bien estructurado; él lo realizó.
+                                Esto
+                                permite avanzar rápido a la fase de programación.
+                            </div>
+                            <div class="project-item">
+                                <strong>ARL#5 - Automatizar llenado de información de medidores Postpago de
+                                    UPCO</strong>
+                                Actualmente en Control Room, reciben varias fotos de medidores Postpago sin clasificar
+                                de parte de operadores de UPCO; en CR. deben leer valores de las fotos, y colocarlas en
+                                diferencias celdas de Excel según ciertas categorias. Es un sistema propenso a la falla
+                                debido a la cantidad de personas que lo manipulan.
+                            </div>
+                            <div class="project-item">
+                                <strong>ARL#6 - Capacitación sobre minadores de BitCoin.</strong>
+                                La Ing. Arlen solicitó conocer qué parametros son los importantes para monitorear, cómo
+                                se instala un minador, sus diferencias, su seguridad, sus beneficios.
+                            </div><!--
+                            <div class="project-item">
+                                <strong>ARL#7 - Workload Employee, para rastreo de carga laboral.</strong>
+                                Se debe definir con la Ing. Arlen, con algunas diapositivas, si las ideas encontradas en
+                                los programas que nos pidió investigar, son las correctas. Aún desconocemos si es
+                                preferible usar PowerBI, una webapp o un programa bien establecido como Notion,
+                                RescueTime, entre otros.
+                            </div>-->
+                        </div>
+                    </div>
+                </div> <!--Cierre de Div -->
+
+                <div class="two-cards-grid">
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#1 - Directorio Activo</h3>
+                            <span class="progress-badge-large" style="background: #27ae60;">Avance:
+                                98%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p>
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Para culminar este proyecto son necesarias dos cosas:
+                                La función de ingreso con MDF y habilitar una IP externa para que se le coloque a las
+                                computadoras, para que el
+                                Directorio activo las gobierne, no importa donde se encuentren.</p>
+                            <a href="https://docs.google.com/spreadsheets/d/1wJ-eg4hPvnnsn5vmPuwfSB9cBPJxt4Rx/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: #27ae60; display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#5 - Sistema de Tickets para IT
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                44%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Ana Vásquez ya preparó el servidor virtual, hace falta pasar los avances locales
+                                realizados en la computadora portatil que nos prestó IT, hacia
+                                el servidor de La Esperanza.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/10mYg76zvuSi7Ew89Q6WEWBFLyYN2srb_/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                </div> <!-- Cierre two cards -->
+
+                <div class="two-cards-grid">
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#6 - Lectura de placas inteligente en la
+                                posta</h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                22%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Actualmente se estan trabajando pruebas locales con servidor en laptop prestada por
+                                CISA.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1PfYmCQufkForFak9SiCzVZ2v5mefCYo-/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2: Actividades – Equipo IT (Rony, Fernando) -->
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#7 - Identificación de personal del bus de
+                                empresa
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                15%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Antes de avanzar en este proyecto, primero se debe avanzar con el proyecto: ELS#6
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/15QIVf3HVR6UNaNyuqCrsU2smioiXiJCE/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                </div> <!-- Cierre two cards -->
+
+
+                <div class="two-cards-grid">
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#8 - Dashboard en tiempo real (Ingresos a la
+                                empresa)
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                0%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Este proyecto depende de haber terminado los proyectos: ELS#6 y ELS#7
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1Bp1DKfcNzC74svW5gRAk-YisJ_CzvV_N/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#9 - Android App para recarga - prepagos
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                15%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Proyecto se empezó en mayo, mientras los demás proyectos requerian compras o requerian
+                                presencia de personal de IT en campo. Se diseñaron las pantallas de esta aplicación y ya
+                                se
+                                empezaron a
+                                programar.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1AvO9laPHN-fV2ZgPonb-3LpQMklmhs8W/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                </div> <!-- Cierre two cards -->
+
+                <div class="two-cards-grid">
+                    <!-- Tarjeta 2: Actividades – Equipo IT (Rony, Fernando) -->
+                    <div class="doc-link-card" style="border-left-color: #3498db;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ELS#10 - Controles Administrativos Porciones e
+                                Insumos Cocina de Durrikikará
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                10%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Es necesario el involucramiento de Shadia y de Arcadia, para que vayan realizando
+                                levantamiento de los pesos con balanza de los platos que vende Durrikikará. Y que se
+                                definan protocolos de medición / porcionamiento de comida.
+
+                                También hacen falta más reuniones entre Shadia y la Ing. Elsia.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1KH-ykb5XPkyesJMU_Mc92K-M7D_13u6n/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+
+                </div> <!-- Cierre two cards -->
+
+
+
+                <div class="two-cards-grid">
+
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#1 - Automatizacion de interruptores de
+                                UPCO.</h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                29%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                ⏳ En espera de la compra del motor DC para continuar con avances. Y el préstamo del
+                                equipo.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1Ytn2F7JXAzurG8cL0_4GGWczJJX66xAC/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 2: Actividades – Equipo IT (Rony, Fernando) -->
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#2 - Capacitación sobre Juice Clon.
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                0%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Para avanzar es necesario contar con el clon nuevo que Ana Vásquez estará realizando en
+                                mayo 2026.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1h5P9Ht-Tte9shy72vng3EfqQ_Ptv6KPu/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true
+                                target=" _blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                </div> <!-- Cierre two cards -->
+
+
+
+                <div class="two-cards-grid">
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#3 - Programación de API para traspaso
+                                cifrado de tokens entre ERP y Juice Clon.</h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                5%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Se han iniciado videollamadas y comunicación con Frank Flores, y discutido el tema con
+                                la Ing. Arlen, para el avance más importante, es necesario el clon nuevo que Ana Vásquez
+                                estará realizando en Utila en Mayo 2026. En espera...
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/14ogClunxh4Y75gp6n9NziERGS5w7yQUj/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2: Actividades – Equipo IT (Rony, Fernando) -->
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#4 - Sistema Gestión de Mantenimiento y
+                                Control de Flota Vehicular de CISA.
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                5%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Se ha iniciado las primeras reuniones con Fernando.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1sOAd2X65pydgu-g-baqR28zSS6pbYj1D/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+                </div> <!-- Cierre two cards -->
+
+
+
+
+                <div class="two-cards-grid">
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#5 - Automatizar llenado de información de
+                                medidores Postpago de UPCO
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                0%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Es necesario realizar el estudio del proceso manual en el Control Room. Para comprender
+                                las carencias.
+                            </p>
+                            <a href="https://docs.google.com/spreadsheets/d/1d8J2QUC9a3ZNrD7ao7xoM8hAvhU4do4-/edit?usp=sharing&ouid=100128985044218514525&rtpof=true&sd=true"
+                                target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2: Actividades – Equipo IT (Rony, Fernando) -->
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#6 - Capacitación sobre minadores de
+                                BitCoin.
+                            </h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                0%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Aún sin iniciar metricas sobre lineamientos de este proyecto.
+                            </p>
+                            <!--
+                            <a href="#" target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>-->
+                        </div>
+                    </div>
+                </div> <!-- Cierre two cards -->
+
+
+
+                <!-- 
+                <div class="two-cards-grid">
+                    <div class="doc-link-card" style="border-left-color: #9b59b6;">
+                        <div class="doc-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin:0; color: var(--primary);">ARL#7 - Workload Employee, para rastreo de
+                                carga laboral.</h3>
+                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
+                                40%</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
+                                Cronograma de ejecución técnica local. Luis Ulloa asiste en actividades físicas,
+                                supervisión de instalaciones eléctricas y configuraciones de hardware en sitio.
+                            </p>
+                            <a href="#" target="_blank" class="btn-link"
+                                style="background-color: var(--accent-meeting); display: inline-block;">Abrir
+                                Spreadsheet para ver detalles ↗</a>
+                        </div>
+                    </div>-->
+            </div> <!-- Cierre two cards -->
+
+
+        </div>
+    </div>
+
+    <div id="tab-visitas" class="tab-content">
+        <div style="margin-bottom: 25px; border-left: 5px solid var(--accent-meeting); padding-left: 15px;">
+            <h2 style="margin:0; color: var(--primary);">Cronograma de Visitas Programadas</h2>
+            <p style="margin:5px 0; color: #64748b; font-size: 0.95em;">Planificación de presencia física en las
+                instalaciones para el primer trimestre de 2026.</p>
         </div>
 
-        <div id="tab-visitas" class="tab-content">
-            <div style="margin-bottom: 25px; border-left: 5px solid var(--accent-meeting); padding-left: 15px;">
-                <h2 style="margin:0; color: var(--primary);">Cronograma de Visitas Programadas</h2>
-                <p style="margin:5px 0; color: #64748b; font-size: 0.95em;">Planificación de presencia física en las
-                    instalaciones para el primer trimestre de 2026.</p>
+        <div class="legend-visit">
+            <div
+                style="width: 20px; height: 20px; background: #ebf8ff; border: 1.5px solid #bee3f8; border-radius: 4px;">
             </div>
-
-            <div class="legend-visit">
-                <div
-                    style="width: 20px; height: 20px; background: #ebf8ff; border: 1.5px solid #bee3f8; border-radius: 4px;">
-                </div>
-                <span>Día de visita técnica programada</span>
-            </div>
-
-            <div class="months-grid" id="visitas-grid"></div>
+            <span>Día de visita técnica programada</span>
         </div>
+
+        <div class="months-grid" id="visitas-grid" style="width: 100%;"></div>
+    </div>
     </div>
 
     <script>
         // --- 1. JSON PROGRESO POR HORA ---
         const progresoData = [
-            {
+            /*{
                 "fecha": "20/11/2025",
                 "dia": "Jueves",
                 "descripcion": "Movilización hacia Tegucigalpa, para la reunión por la tarde con la Ing. Elsia y el Lic. Chinchilla",
@@ -994,7 +1444,7 @@
                 "descripcion": "Firma de contrato con Lic. Elsia en Siguatepeque",
                 "horas": 1.0,
                 "tipo": null
-            },
+            },*/
             {
                 "fecha": "01/12/2025",
                 "dia": "Lunes",
@@ -2778,7 +3228,7 @@
                 "tipo": null
             },
             {
-                "fecha": "23/4/2026",
+                "fecha": "23/04/2026",
                 "dia": "jueves",
                 "descripcion": "Análisis comparativo mediante cronometraje digital de vídeos de pruebas con interruptores usando los motores originales vs los motores DC añadidos (2018–2022) \n\nSe validó que el tiempo de operación especificado en el manual (3 segundos) coincide con el tiempo del vídeo durante 2018. En contraste, configuraciones posteriores con tiempos de 6 y 12 segundos evidencian una selección inadecuada de motores, lo cual representa un riesgo operativo significativo.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al vídeo ▶️ donde si marcamos el tiempo son 3 segundos </strong>",
                 "horas": 3,
@@ -2786,7 +3236,7 @@
                 "enlace": "https://youtube.com/shorts/9Boz1QNVVOw"
             },
             {
-                "fecha": "23/4/2026",
+                "fecha": "23/04/2026",
                 "dia": "jueves",
                 "descripcion": "Impresión y colocación de etiquetas para la identificación individual de interruptores. Se realizó además registro fotográfico y en video de las 12 unidades, con el objetivo de documentar y elaborar un inventario detallado de componentes para su inclusión en el reporte.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al vídeo ▶️ </strong>",
                 "horas": 3,
@@ -2794,14 +3244,14 @@
                 "enlace": "https://www.youtube.com/watch?v=t8tFiW7vbCQ"
             },
             {
-                "fecha": "23/4/2026",
+                "fecha": "23/04/2026",
                 "dia": "jueves",
                 "descripcion": "Revisión técnica junto con Fernando del concepto de paso diametral (48DP), conteo de dientes (15T/9T) y evaluación de compatibilidad mecánica entre modelos tipo A y B. Se investigaron métodos de cálculo para determinar la compatibilidad del piñón de 9 dientes, considerando la incertidumbre sobre su paso diametral.",
                 "horas": 2,
                 "tipo": "Investigación"
             },
             {
-                "fecha": "23/4/2026",
+                "fecha": "23/04/2026",
                 "dia": "jueves",
                 "descripcion": "Definición conjunta con Fernando de la estrategia de integración mecánica, optando por utilizar el nuevo motor a adquirir y acoplar directamente el eje con piñón de 9 dientes existente. Esta decisión evita la necesidad de adquirir nuevos piñones y permite reutilizar la estructura actual en los interruptores tipo B.",
                 "horas": 2,
@@ -2809,7 +3259,7 @@
                 "enlace": "https://drive.google.com/file/d/1s3vhOa17AAL_yTCyVe25wIiD9BhoAFSX/view?usp=drive_link"
             },
             {
-                "fecha": "23/4/2026",
+                "fecha": "23/04/2026",
                 "dia": "jueves",
                 "descripcion": "Evaluación técnica de la viabilidad del motor modelo XD-3420 (3,000 RPM / 30W) para su aplicación en pruebas de automatización de los interruptores de UPCO.\n\nLos fundamentos técnicos de esta selección se detallan en el informe. \n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe </strong>",
                 "horas": 2,
@@ -2817,7 +3267,7 @@
                 "enlace": "https://drive.google.com/file/d/1txPxbwvNKwJfTKh75ItACtGdOOC73aP9/view?usp=drive_link"
             },
             {
-                "fecha": "24/4/2026",
+                "fecha": "24/04/2026",
                 "dia": "viernes",
                 "descripcion": "Ejecución de pruebas utilizando un taladro proporcionado por el área de Electricidad, al cual se le acopló el eje con piñón de 9 dientes. Se realizaron ensayos sobre interruptores tipo B para evaluar su funcionamiento en condiciones de apertura y cierre.\n\nEl objetivo fue verificar la integridad mecánica de las unidades y demostrar a la Ing. Arlen la viabilidad de reutilizar el eje existente mediante corte y acople a un motor DC, evitando la compra de nuevos piñones.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al vídeo ▶️ </strong>.\n\nAdicionalmente, se llevó a cabo un análisis de velocidad, torque crítico y relación de transmisión (RPM/tiempo de ciclo) para motores DC candidatos. Se validó, con apoyo de herramientas de análisis, la idoneidad del motor modelo XD-3420 (3,000 RPM / 30W) para pruebas de apertura/cierre de los interruptores de UPCO.\n\nSe continuó con la elaboración de reporte técnico de los interruptores de UPCO y retorno hacia Siguatepeque.",
                 "horas": 5,
@@ -2825,7 +3275,7 @@
                 "enlace": "https://www.youtube.com/shorts/Ipr9aVdel9E"
             },
             {
-                "fecha": "27/4/2026",
+                "fecha": "27/04/2026",
                 "dia": "lunes",
                 "descripcion": "Elaboración de reporte técnico sobre los interruptores de UPCO.\n\nA partir del análisis de evidencia fotográfica de implementaciones previas, se identificó que el uso de PLC Opta junto con módulos de expansión Modbus RS485 permite reducir significativamente la cantidad de componentes externos, al integrar múltiples funciones en un solo sistema. Esta propuesta optimiza el uso de espacio, reduce tiempos de instalación y mejora la calidad del diseño.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe </strong>",
                 "horas": 5,
@@ -2833,7 +3283,7 @@
                 "enlace": "https://drive.google.com/file/d/1txPxbwvNKwJfTKh75ItACtGdOOC73aP9/view?usp=drive_link"
             },
             {
-                "fecha": "28/4/2026",
+                "fecha": "28/04/2026",
                 "dia": "martes",
                 "descripcion": "Continuación en la elaboración del reporte técnico de los interruptores de UPCO.\n\nInvestigación sobre protocolos de comunicación entre PLC Finder y módulos RS485/Modbus, con el objetivo de preparar el entorno de pruebas una vez se disponga del equipo. Se identificaron fuentes técnicas y material audiovisual relevante para soporte en laboratorio.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe </strong>",
                 "horas": 5,
@@ -2841,7 +3291,7 @@
                 "enlace": "https://drive.google.com/file/d/1txPxbwvNKwJfTKh75ItACtGdOOC73aP9/view?usp=drive_link"
             },
             {
-                "fecha": "28/4/2026",
+                "fecha": "28/04/2026",
                 "dia": "martes",
                 "descripcion": "Envío de correo titulado: \"UPCO Oil Switch Project Reactivation / Reactivación del proyecto de interruptores UPCO\", dirigido a Mr. Ron, Ing. Arlen e Ing. Elejalde.\n\nEl correo incluye un informe técnico de más de 20 páginas, redactado en inglés y español, que documenta el trabajo realizado durante el mes de abril, incluyendo actividades de investigación, pruebas en sitio, conclusiones y coordinación con el área mecánica. El documento incorpora enlaces a material audiovisual y evidencia de las pruebas realizadas.\n\n<strong>👇🏻 Clic al enlace morado, que tiene enlace al informe en inglés </strong>",
                 "horas": 2,
@@ -2849,14 +3299,14 @@
                 "enlace": "https://drive.google.com/file/d/1j4NlLvTFbJV0wp98y9_w-ZcqbzrO4On_/view?usp=drive_link"
             },
             {
-                "fecha": "29/4/2026",
+                "fecha": "29/04/2026",
                 "dia": "miércoles",
                 "descripcion": "Comunicación vía Telegram con el Ing. Elejalde para dar seguimiento al tema de los interruptores. Se intercambiaron mensajes de audio y se discutieron brevemente los avances presentados en el correo previamente enviado.",
                 "horas": 0.25,
                 "tipo": null
             },
             {
-                "fecha": "29/4/2026",
+                "fecha": "29/04/2026",
                 "dia": "miércoles",
                 "descripcion": "Redacción y envío de documento actualizado con el estado, avances y seguimiento de los proyectos \n\n🚩 (asignados por la Ing. Elsia y la Ing. Arlen) 🚩 en curso, dirigido a la Ing. Arlen.",
                 "horas": 1.5,
@@ -2864,10 +3314,55 @@
                 "enlace": "https://drive.google.com/file/d/115jts_LK5p2Oh0kNWPtkJJBYpHgbZeEZ/view?usp=drive_linkk"
             },
             {
-                "fecha": "30/4/2026",
+                "fecha": "30/04/2026",
                 "dia": "jueves",
                 "descripcion": "Respuesta a correo del Ing. Elejalde: <strong>'UPCO Oil Switch Project Reactivation'</strong> informando la necesidad de la adquisición de un motor seleccionado con el objetivo de alcanzar tiempos de apertura y cierre de aproximadamente 3 segundos en los interruptores durante las pruebas.",
                 "horas": 0.25,
+                "tipo": null
+            },
+            {
+                "fecha": "04/05/2026",
+                "dia": "lunes",
+                "descripcion": "Elaboración de diseño de pantallas para el proyecto de la aplicación móvil: \n\n'ELS#9 Aplicación de prepago digital, diseñada para eliminar el manejo de efectivo mediante recargas centralizadas.'\n\n<strong>👇🏻 Clic al enlace morado, para ver el diseño de las pantallas. </strong>",
+                "horas": 5.0,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/drive/folders/1Az1HXCCtuuKmGCTVYSDQDPDZZiaty8ip?usp=sharing"
+            },
+            {
+                "fecha": "05/05/2026",
+                "dia": "martes",
+                "descripcion": "Elaboración de diseño de pantallas para el proyecto de la aplicación móvil: \n\n'ELS#9 Aplicación de prepago digital, diseñada para eliminar el manejo de efectivo mediante recargas centralizadas.'\n\n<strong>👇🏻 Clic al enlace morado, para ver el diseño de las pantallas. </strong>",
+                "horas": 5.0,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/drive/folders/1Az1HXCCtuuKmGCTVYSDQDPDZZiaty8ip?usp=sharing"
+            },
+            {
+                "fecha": "06/05/2026",
+                "dia": "miércoles",
+                "descripcion": "Envio de diseños de pantallas para el proyecto de la aplicación móvil, a la Ing. Elsia, y análisis de la base de datos: Tablas de usuarios, transacciones de recarga, historial de consumo y catálogo de platillos.",
+                "horas": 5.0,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/drive/folders/1Az1HXCCtuuKmGCTVYSDQDPDZZiaty8ip?usp=sharing"
+            },
+            {
+                "fecha": "13/05/2026",
+                "dia": "miércoles",
+                "descripcion": "Elaboración de actualización de informes para la Ing. Arlen, actualizandolos dentro de este sitio web. \n\nSe trabajó en las hojas de calculo que se encuentran en la sección PROYECTOS de este sitio web. Para luego comentarle a la Ing. Elsia y la Ing. Arlen que ahí puede encontrar todo el plan y avances de cada proyecto. Aparte porsupuesto de la sección que se llama: 'Progreso por hora'",
+                "horas": 4,
+                "tipo": null
+            },
+            {
+                "fecha": "14/05/2026",
+                "dia": "jueves",
+                "descripcion": "Actualización de informes para la Ing. Arlen, actualizandolos dentro de este sitio web. \n\nSe trabajó en las hojas de calculo que se encuentran en la sección PROYECTOS de este sitio web. Para luego comentarle a la Ing. Elsia y la Ing. Arlen que ahí puede encontrar todo el plan y avances de cada proyecto. Aparte porsupuesto de la sección que se llama: 'Progreso por hora'",
+                "horas": 4,
+                "tipo": null
+            },
+            {
+                "fecha": "15/05/2026",
+                "dia": "viernes",
+                "descripcion": "Cambios a la interfaz web de este sitio, para conocer estado de los proyectos, proyecciones, detalles de actividades, metas, gráficas, involucrados, indicador de en qué se esta trabajando actualmente para retroalimentación. \n\nSubiendo detalles de cada uno de todos los proyectos asignados en hojas de cálculo de Drive, con enlaces en sección de: 'Proyectos'",
+                "horas": 4,
                 "tipo": null
             }
         ];
@@ -3301,7 +3796,35 @@
             {
                 "fecha": "30/04/2026",
                 "horas": 0.25
-            } //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario
+            }, //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario
+            // 
+            {
+                "fecha": "04/05/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "05/05/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "06/05/2026",
+                "horas": 5.0
+            },
+            {
+                "fecha": "13/05/2026",
+                "horas": 4.0
+            },
+            {
+                "fecha": "14/05/2026",
+                "horas": 4.0
+            },
+            {
+                "fecha": "15/05/2026",
+                "horas": 4.0
+            } //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
+            //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
+
+
         ];
 
         // Días no laborados específicos (Rojo y Negrita)
@@ -3318,7 +3841,15 @@
             "25/03/2026", "26/03/2026", "27/03/2026",
             "08/04/2026", "09/04/2026", "10/04/2026",
             "22/04/2026", "23/04/2026", "24/04/2026",
-            "20/05/2026", "21/05/2026", "22/05/2026", //Colocar aquí las visitas realizadas o visitas programadas
+            "20/05/2026", "21/05/2026", "22/05/2026",
+            "27/05/2026", "28/05/2026", "29/05/2026",
+            "02/06/2026", "03/06/2026", "04/06/2026",
+            "05/06/2026", "09/06/2026", "10/06/2026",
+            "11/06/2026", "12/06/2026", "16/06/2026",
+            "17/06/2026", "18/06/2026", "19/06/2026",
+            "23/06/2026", "24/06/2026", "25/06/2026",
+            "26/06/2026"
+            //Colocar aquí las visitas realizadas o visitas programadas
         ];
 
         function openTab(evt, tabName) {
@@ -3469,7 +4000,8 @@
                 { n: 'Febrero 2026', y: 2026, m: 1 },
                 { n: 'Marzo 2026', y: 2026, m: 2 },
                 { n: 'Abril 2026', y: 2026, m: 3 },
-                { n: 'Mayo 2026', y: 2026, m: 4 } //***** Involucrar Mayo(aqui modificar cuando se quiera expandir el calendario)
+                { n: 'Mayo 2026', y: 2026, m: 4 },
+                { n: 'Junio 2026', y: 2026, m: 5 }  //***** Involucrar Mayo(aqui modificar cuando se quiera expandir el calendario)
             ];
 
             months.forEach(mo => {
@@ -3507,20 +4039,28 @@
             });
         }
 
+        function toggleProject(element) {
+            const card = element.closest('.expandible-card');
+            card.classList.toggle('open');
+            const content = card.querySelector('.expandible-content');
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+
         // --- RENDER CALENDARIO ---
         function renderCalendar() {
             const grid = document.getElementById('calendar-grid');
             const months = [
-                { n: 'Noviembre 2025', y: 2025, m: 10 },
+                //{ n: 'Noviembre 2025', y: 2025, m: 10 },
                 { n: 'Diciembre 2025', y: 2025, m: 11 },
                 { n: 'Enero 2026', y: 2026, m: 0 },
                 { n: 'Febrero 2026', y: 2026, m: 1 },
                 { n: 'Marzo 2026', y: 2026, m: 2 },
-                { n: 'Abril 2026', y: 2026, m: 3 } // *****Involucrar Abril (aqui modificar cuando se quiera expandir el calendario)
+                { n: 'Abril 2026', y: 2026, m: 3 },
+                { n: 'Mayo 2026', y: 2026, m: 4 } // *****Involucrar Abril (aqui modificar cuando se quiera expandir el calendario)
             ];
 
             let totalH = 0, workD = 0, novH = 0, debtD_DicEne = 0;
-            const today = new Date(2026, 3, 30); // *****30 de Abril (aqui modificar cuando se quiera expandir el calendario)
+            const today = new Date(2026, 5, 31); // *****30 de Abril (aqui modificar cuando se quiera expandir el calendario)
 
             months.forEach(mo => {
                 const mDiv = document.createElement('div');
@@ -3573,6 +4113,8 @@
             renderCalendar();
             renderVisitas(); // Nueva función
         });
+
+
     </script>
 </body>
 
