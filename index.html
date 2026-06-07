@@ -3653,6 +3653,13 @@
                 "descripcion": "Este día domingo, se trabajó en solucionar un error, que me salió en la creación del servidor con API, me ocurrió lo siguiente: Traté de correr 2 solicitudes casi al mismo tiempo, y me salió: 'Internal Server Error'. ERROR: Exception in ASGI application. El error viene de dos partes, la primer parte de la instancia del driver de Firefox que estamos usando, ya que se trataron de usar dos instancias del mismo driver, y lo segundo viene de SQLite, SQLite es muy estricto y no permite que dos 'hilos' (threads) de procesamiento accedan a la base de datos vending.db al mismo tiempo sin una configuración especial. FastAPI intentó meter dos hilos paralelos y SQLite abortó la misión. Al lanzar dos peticiones en el mismo milisegundo, estrellamos el servidor contra dos peticiones al mismo tiempo. <br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
                 "horas": 3,
                 "tipo": null,
+            },
+            {
+                "fecha": "07/06/2026",
+                "dia": "sábado",
+                "descripcion": "La solución para el error anterior es lo que se llama en Ingenieria de APIs: 'Mutex Lock', no se puede permitir que un sistema entero caiga por culpa de dos consultas que casualmente ocurren en un rango de 10 segundos, tal vez una en el primer segundo y otra a los 5 segundos por dar un ejemplo, entonces implementaremos el sistema de colas con candado: <br><br> ➤La Petición A llega, 🔒 toma el candado y empieza a trabajar (Toma ~15 segundos)\n\n➤La Petición B llega un segundo después. Como ve el candado puesto 🔒, se queda esperando pacientemente en la fila ⏳.\n\n➤La Petición A termina, 🔓 suelta el candado y devuelve su token 💎.\n\n➤La Petición B entra inmediatamente (Toma ~15 segundos) y devuelve su token en el segundo 30 💎.\n\n➤Ambas computadoras reciben su venta con éxito sin que nada se rompa.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
+                "horas": 1,
+                "tipo": null,
             }
         ];
 
@@ -4167,7 +4174,7 @@
             },
             {
                 "fecha": "07/06/2026",
-                "horas": 3
+                "horas": 4
             }     //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
             //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
 
