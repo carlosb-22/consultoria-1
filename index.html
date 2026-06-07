@@ -3631,6 +3631,21 @@
                 "horas": 2,
                 "tipo": "Archivo",
                 "enlace": "https://drive.google.com/drive/folders/1icTOB-6-rG5yjPUW69W_1aVB5aceshmY?usp=sharing"
+            },
+            {
+                "fecha": "05/06/2026",
+                "dia": "viernes",
+                "descripcion": "Cambios en la programación, con el propósito de hacer más rápida la operación de la devolución del Token hacia el cliente (Bizworks) quien es el que solicita un token para un medidor. Ahora ya sabemos que será una API con pocas rutas, primero recibirá una petición GET en donde debemos sacar uno a uno, los parametros y debemos validar el tipo de datos. He adjunto los avances de la primer semana, en el documento adjunto, hay bastante información técnica, que se trató de reducir en lo posible, estas pruebas, aún estan alejadas de culminar la API, ya que la API, es lo último, lo primero es lograr que podemos trabajar la parte del Backend (el código que trabajará en el fondo) que se moverá entre diferentes parámetros de código, hasta entregar lo que es el token.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong><br><br>👇🏻 Clic al enlace morado, para ver el PDF que menciona esos avances.",
+                "horas": 5,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/12A6Et7lT_LSe1vjzmXZsEoopzdcM5dZ1/view?usp=drive_link"
+            },
+            {
+                "fecha": "06/06/2026",
+                "dia": "sábado",
+                "descripcion": "Se continuó la programación de avances para la realización de la API, se uso la técnologia de FastAPI, SQLModel, SQLite. Con FastAPI vamos a usar la creación de la API, y usaremos SQLModel + SQLite, para lo que será la grabación del UUID, ya que es algo que nos solicitó Frank Flores, y aunque él no la hubiera solicitado, siempre se iba a considerar, ya que es una de las medidas de seguridad más importantes que deben acompañar la base de datos, el UUID nos permitirá evitar la duplicidad de ventas. ¿Qué significa eso? Qué hemos añadido una capa de seguridad, que durante estas pruebas del sábado, ya estan guardandado datos, consultando datos y retornando datos, durante el proceso de petición y creación del token así como en la validación de la ruta, enviando mensajes de error (según lo solicitado por Frank Flores) y según una normal normativa de APIs. <br><br>Este fue un avance significativo, no solo hemos terminado de crear rutas de petición por URL, sino validación, mensajes de éxito y de error, creación de token desde el backend, y retorno del texto del token. ¿Ya se puede poner en producción entonces la API? Aún no, queremos seguir puliendo la API, ya que las respuestas duran entre 18-20 segundos, queremos mejorar este tiempo. A que sean no más de 10 segundos minimo. Esto lo estaremos trabajando el día domingo.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong><br><br>👇🏻 Clic al enlace morado, para ver el PDF que menciona esos avances.",
+                "horas": 8,
+                "tipo": null,            
             }
         ];
 
@@ -4137,7 +4152,11 @@
             },
             {
                 "fecha": "05/06/2026",
-                "horas": 5
+                "horas": 10
+            },
+            {
+                "fecha": "06/06/2026",
+                "horas": 8
             }    //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
             //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
 
