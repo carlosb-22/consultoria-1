@@ -3646,6 +3646,13 @@
                 "descripcion": "Se continuó la programación de avances para la realización de la API, se uso la técnologia de FastAPI, SQLModel, SQLite. Con FastAPI vamos a usar la creación de la API, y usaremos SQLModel + SQLite, para lo que será la grabación del UUID, ya que es algo que nos solicitó Frank Flores, y aunque él no la hubiera solicitado, siempre se iba a considerar, ya que es una de las medidas de seguridad más importantes que deben acompañar la base de datos, el UUID nos permitirá evitar la duplicidad de ventas. ¿Qué significa eso? Qué hemos añadido una capa de seguridad, que durante estas pruebas del sábado, ya estan guardandado datos, consultando datos y retornando datos, durante el proceso de petición y creación del token así como en la validación de la ruta, enviando mensajes de error (según lo solicitado por Frank Flores) y según una normal normativa de APIs. <br><br>Este fue un avance significativo, no solo hemos terminado de crear rutas de petición por URL, sino validación, mensajes de éxito y de error, creación de token desde el backend, y retorno del texto del token. ¿Ya se puede poner en producción entonces la API? Aún no, queremos seguir puliendo la API, ya que las respuestas duran entre 18-20 segundos, queremos mejorar este tiempo. A que sean no más de 10 segundos minimo. Esto lo estaremos trabajando el día domingo.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
                 "horas": 8,
                 "tipo": null,
+            },
+            {
+                "fecha": "07/06/2026",
+                "dia": "sábado",
+                "descripcion": "Este día domingo, se trabajó en solucionar un error, que me salió en la creación del servidor con API, me ocurrió lo siguiente: Traté de correr 2 solicitudes casi al mismo tiempo, y me salió: 'Internal Server Error'. ERROR: Exception in ASGI application. El error viene de dos partes, la primer parte de la instancia del driver de Firefox que estamos usando, ya que se trataron de usar dos instancias del mismo driver, y lo segundo viene de SQLite, SQLite es muy estricto y no permite que dos 'hilos' (threads) de procesamiento accedan a la base de datos vending.db al mismo tiempo sin una configuración especial. FastAPI intentó meter dos hilos paralelos y SQLite abortó la misión. Al lanzar dos peticiones en el mismo milisegundo, estrellamos el servidor contra dos peticiones al mismo tiempo. <br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
+                "horas": 3,
+                "tipo": null,
             }
         ];
 
@@ -4157,7 +4164,11 @@
             {
                 "fecha": "06/06/2026",
                 "horas": 8
-            }    //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
+            },
+            {
+                "fecha": "07/06/2026",
+                "horas": 3
+            }     //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
             //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
 
 
