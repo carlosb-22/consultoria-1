@@ -3658,6 +3658,13 @@
                 "fecha": "07/06/2026",
                 "dia": "sábado",
                 "descripcion": "La solución para el error anterior es lo que se llama en Ingenieria de APIs: 'Mutex Lock', no se puede permitir que un sistema entero caiga por culpa de dos consultas que casualmente ocurren en un rango de 10 segundos, tal vez una en el primer segundo y otra a los 5 segundos por dar un ejemplo, entonces implementaremos el sistema de colas con candado: <br><br> ➤La Petición A llega, 🔒 toma el candado y empieza a trabajar (Toma ~15 segundos)\n\n➤La Petición B llega un segundo después. Como ve el candado puesto 🔒, se queda esperando pacientemente en la fila ⏳.\n\n➤La Petición A termina, 🔓 suelta el candado y devuelve su token 💎.\n\n➤La Petición B entra inmediatamente (Toma ~15 segundos) y devuelve su token en el segundo 30 💎.\n\n➤Ambas computadoras reciben su venta con éxito sin que nada se rompa.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
+                "horas": 2,
+                "tipo": null,
+            },
+            {
+                "fecha": "07/06/2026",
+                "dia": "sábado",
+                "descripcion": "Lo anterior que hicimos con la arquitectura de candados funcionó de manera excelente, tuvimos que pedir asistencia a varias IA incluso para poder encontrar una solución efectiva, sin embargo, se debe deshacer, por elección personal, y tiene que ver con que personalmente veo incomodo que se tenga que esperar entre 10 a 16 segundos en una petición de API para obtener el token. Todo ha quedado funcional, pero no el tema del tiempo de respuesta, por lo que he leído sobre este tema al respecto en internet, y lo que se implementará mejor será una arquitectura diferente de API, es este caso usaremos la que se le denomina: 'Arquitectura de alta disponibilidad'. \n\nEn lugar de procesar una sola transacción a la vez, el servidor tendrá un grupo de driver's del navegador Firefox (ya que recordemos es el único navegador que puede correr Juice Clon) listos en el fondo, permitiendo que múltiples terminales del ERP operen en paralelo y con tiempos de respuesta que van a caer drásticamente de 15 segundos a solo 3 o 4 segundos.",
                 "horas": 1,
                 "tipo": null,
             }
@@ -4174,7 +4181,7 @@
             },
             {
                 "fecha": "07/06/2026",
-                "horas": 4
+                "horas": 6
             }     //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
             //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
 
