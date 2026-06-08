@@ -3649,22 +3649,43 @@
             },
             {
                 "fecha": "07/06/2026",
-                "dia": "sábado",
+                "dia": "domingo",
                 "descripcion": "Este día domingo, se trabajó en solucionar un error, que me salió en la creación del servidor con API, me ocurrió lo siguiente: Traté de correr 2 solicitudes casi al mismo tiempo, y me salió: 'Internal Server Error'. ERROR: Exception in ASGI application. El error viene de dos partes, la primer parte de la instancia del driver de Firefox que estamos usando, ya que se trataron de usar dos instancias del mismo driver, y lo segundo viene de SQLite, SQLite es muy estricto y no permite que dos 'hilos' (threads) de procesamiento accedan a la base de datos vending.db al mismo tiempo sin una configuración especial. FastAPI intentó meter dos hilos paralelos y SQLite abortó la misión. Al lanzar dos peticiones en el mismo milisegundo, estrellamos el servidor contra dos peticiones al mismo tiempo. <br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
-                "horas": 3,
+                "horas": 2,
                 "tipo": null,
             },
             {
                 "fecha": "07/06/2026",
-                "dia": "sábado",
+                "dia": "domingo",
                 "descripcion": "La solución para el error anterior es lo que se llama en Ingenieria de APIs: 'Mutex Lock', no se puede permitir que un sistema entero caiga por culpa de dos consultas que casualmente ocurren en un rango de 10 segundos, tal vez una en el primer segundo y otra a los 5 segundos por dar un ejemplo, entonces implementaremos el sistema de colas con candado: <br><br> ➤La Petición A llega, 🔒 toma el candado y empieza a trabajar (Toma ~15 segundos)\n\n➤La Petición B llega un segundo después. Como ve el candado puesto 🔒, se queda esperando pacientemente en la fila ⏳.\n\n➤La Petición A termina, 🔓 suelta el candado y devuelve su token 💎.\n\n➤La Petición B entra inmediatamente (Toma ~15 segundos) y devuelve su token en el segundo 30 💎.\n\n➤Ambas computadoras reciben su venta con éxito sin que nada se rompa.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
                 "horas": 2,
                 "tipo": null,
             },
             {
                 "fecha": "07/06/2026",
-                "dia": "sábado",
-                "descripcion": "Lo anterior que hicimos con la arquitectura de candados funcionó de manera excelente, tuvimos que pedir asistencia a varias IA incluso para poder encontrar una solución efectiva, sin embargo, se debe deshacer, por elección personal, y tiene que ver con que personalmente veo incomodo que se tenga que esperar entre 10 a 16 segundos en una petición de API para obtener el token. Todo ha quedado funcional, pero no el tema del tiempo de respuesta, por lo que he leído sobre este tema al respecto en internet, y lo que se implementará mejor será una arquitectura diferente de API, es este caso usaremos la que se le denomina: 'Arquitectura de alta disponibilidad'. \n\nEn lugar de procesar una sola transacción a la vez, el servidor tendrá un grupo de driver's del navegador Firefox (ya que recordemos es el único navegador que puede correr Juice Clon) listos en el fondo, permitiendo que múltiples terminales del ERP operen en paralelo y con tiempos de respuesta que van a caer drásticamente de 15 segundos a solo 3 o 4 segundos.",
+                "dia": "domingo",
+                "descripcion": "Lo anterior que hicimos con la arquitectura de candados funcionó de manera excelente, tuvimos que pedir asistencia a varias IA incluso para poder encontrar una solución efectiva, sin embargo, se debe deshacer, por elección personal, y tiene que ver con que personalmente veo incomodo que se tenga que esperar entre 10 a 16 segundos en una petición de API para obtener el token. Todo ha quedado funcional, pero no el tema del tiempo de respuesta, por lo que he leído sobre este tema al respecto en internet, y lo que se implementará mejor será una arquitectura diferente de API, es este caso usaremos la que se le denomina: 'Arquitectura de alta disponibilidad'. \n\nEn lugar de procesar una sola transacción a la vez, el servidor tendrá un grupo de driver's del navegador Firefox (ya que recordemos es el único navegador que puede correr Juice Clon) listos en el fondo, permitiendo que múltiples terminales del ERP operen en paralelo y con tiempos de respuesta que van a caer drásticamente de 15 segundos a solo 3 o 4 segundos.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
+                "horas": 2,
+                "tipo": null,
+            },
+            {
+                "fecha": "07/06/2026",
+                "dia": "domingo",
+                "descripcion": "Se esta programando, ya que seguirá hasta el día siguiente, un patron de diseño que hemos denominado: 'Object Driver Pool'.\n\nFunciona de la siguiente manera: La API abre 2 drivers del navegador Firefox corriendo en el fondo, y los mete a una cola (Browser Object Pool). Estos estarán en el modo 'reposo'. \n\nEntonces, cuando llegue una petición GET, el servidor hace un await browser y 'saca' un driver del navegador de la lista de los 2 drivers disponibles, y lo marcamos con la etiqueta o bandera de 'ocupado'.\n\nLuego el driver de firefox, el primero, realiza la transacción en Juice Legacy. Al terminar (cuando entrega el token), el servidor hace un await y cambiamos la flag o etiqueta, poniendo este driver de nuevo en la pool de drivers disponibles para el próximo cajero que haga una venta.<br><br>Las pruebas de tiempo aún no las hemos corrido, pero fue el principal propósito por el cual hicimos esto.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
+                "horas": 2,
+                "tipo": null,
+            },
+            {
+                "fecha": "07/06/2026",
+                "dia": "domingo",
+                "descripcion": "Solucionando problemas en la programación: Perfiles Independientes. Hay un error grave etiquetado en el funcionamiento de la API, no está funcionando el pool, y aquí mencionaré el porqué, para que el pool funcione, cada navegador necesita su propia 'casa', recordemos que estamos usando drivers de Firefox, pero estamos no solamente haciendo eso, sino que para que sea más rápido, estamos usando perfiles de drivers (navegadores), ya que como el Juice es una interfaz que no cambia, no tenemos problemas en que se guarde todo lo que debe tener este sistema en un folder, en una especie de caché, de esa forma, podemos usar ese folder como una instancia de un nuevo driver, que ya tiene cargadas imágenes, y archivos estáticos como .js, etc. Para que el rendimiento sea rápido, dicho esto. Se va a trabajar en modificar el código para que genere carpetas dinámicas: perfil_juice_legacy_1, perfil_juice_legacy_2, etc. Así cada uno tendrá su propio caché y no pelearán por el espacio.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
+                "horas": 2,
+                "tipo": null,
+            },
+            {
+                "fecha": "08/06/2026",
+                "dia": "lunes",
+                "descripcion": "Solucionando error 500: 'Dejamos el servidor encendido por la noche, ya habiamos realizado un total de 10 consultas de inserción, pero se queria probar cómo funcionaba después de dejarlo varios horas sin actividad, por lo que de nuevo, lo dejamos correr por la noche, y por la mañana del día de hoy, las dos instancias del driver nos sacó de la Auth, y cuando tratamos de solicitar algo, nos apareció, el error 500. <br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.",
                 "horas": 1,
                 "tipo": null,
             }
@@ -4181,7 +4202,7 @@
             },
             {
                 "fecha": "07/06/2026",
-                "horas": 6
+                "horas": 10
             }     //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
             //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
 
