@@ -760,6 +760,77 @@
             color: #2c3e50;
         }
 
+        /*SECCION DE BARRA DE PORCENTAJE DE AVANCE DE PROYECTOS*/
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    /*border-left: 4px solid #3498db;*/
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    background: #f0f2f5;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.progress-percent {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #3498db;
+}
+
+.progress-bar-bg {
+    background-color: #e9ecef;
+    border-radius: 30px;
+    height: 24px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background-color: #3498db; /* Color plano */
+    width: 0%;
+    height: 100%;
+    border-radius: 30px;
+    transition: width 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Responsive: en móviles se apilan */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+        /*TERMINA SECCION DE BARRA DE PORCENTAJE DE AVANCE DE PROYECTOS*/
+
         /* Responsive */
         @media (max-width: 600px) {
             .live-project-indicator {
@@ -860,6 +931,154 @@
                     Spreadsheets. Proyectos con color 🟥 han sido cancelados.</p>
             </div>
 
+
+
+
+<!-- NUEVA SECCIÓN: Gráfico de avance del proyecto (color plano) -->
+<div class="projects-grid">
+    <!-- Proyecto 1 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#1 - Directorio Activo</span>
+            <span class="progress-percent" style="color: #1dd1a1 !important;">98%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 98%; background-color: #1dd1a1 !important;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 2 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#5 - Sistema de Tickets IT</span>
+            <span class="progress-percent" style="color: #46d4ae;">70%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 70%; background-color: #46d4ae;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 3 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#6 - Lectura intelig. placas en posta</span>
+            <span class="progress-percent" style="color: #87ffdf;">40%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 40%; background-color: #87ffdf;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="projects-grid">
+    <!-- Proyecto 4 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#7 - Identificación personal en bus de empresa</span>
+            <span class="progress-percent" style="color: #9AECDB;">15%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 15%; background-color: #9AECDB;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 5 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#8 - Dashboard en tiempo real (Ingresos a la empresa)</span>
+            <span class="progress-percent" style="color: #576574 !important;;">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 0%; background-color: #576574 !important;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 6 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#9 - Android App para recarga - prepagos</span>
+            <span class="progress-percent" style="color: #46d4ae;">60%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 60%; background-color: #46d4ae;"></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="projects-grid">
+    <!-- Proyecto 7 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ELS#10 - Controles de Porciones e Insumos Durrikikará</span>
+            <span class="progress-percent" style="color: #9AECDB;">10%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 10%; background-color: #9AECDB;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 8 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ARL#1 - Automatizacion de interruptores de UPCO.</span>
+            <span class="progress-percent" style="color: #9AECDB;">30%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 0%; background-color: #9AECDB;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 9 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ARL#2 - Capacitación sobre Juice Clon.</span>
+            <span class="progress-percent" style="color: #46d4ae;">80%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 80%; background-color: #46d4ae;"></div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA NUEVA SECCIÓN: Gráfico de avance del proyecto (color plano) -->
+
+
+<div class="projects-grid">
+    <!-- Proyecto 10 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ARL#3 - Programación de API para traspaso tokens entre ERP y Juice Clon.</span>
+            <span class="progress-percent" style="color: #1dd1a1 !important;">99%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 99%; background-color: #1dd1a1 !important;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 11 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ARL#4 - Sistema Gestión de Mantenimiento y Control de Flota Vehicular de CISA.</span>
+            <span class="progress-percent" style="color: #9AECDB;">20%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 20%; background-color: #9AECDB;"></div>
+        </div>
+    </div>
+
+    <!-- Proyecto 12 -->
+    <div class="project-card">
+        <div class="card-header">
+            <span class="project-title">ARL#5 - Automatizar llenado de información de medidores Postpago de UPCO</span>
+            <span class="progress-percent" style="color: #576574;">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: 0%; background-color: #576574 !important;"></div>
+        </div>
+    </div>
+</div>
+<!-- TERMINA NUEVA SECCIÓN: Gráfico de avance del proyecto (color plano) -->
+
             <!-- NUEVO: Indicador de proyecto en curso -->
             <div class="live-project-indicator">
                 <div class="pulse-container">
@@ -869,10 +1088,7 @@
                     <span class="live-tag">EN VIVO</span>
                     <strong>Actualmente trabajando en los proyectos:</strong>
                     <br>
-                    <span class="project-name">ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</span>
-                    <br>
                     <span class="project-name">ELS#9 - Desarrollo de aplicación Android para recarga de saldo</span>
-</span>
                 </div>
             </div>
 
@@ -1065,8 +1281,8 @@
                             style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 style="margin:0; color: var(--primary);">ELS#5 - Sistema de Tickets para IT
                             </h3>
-                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
-                                44%</span>
+                            <span class="progress-badge-large" style="background: #1abc9c;">Avance:
+                                70%</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
@@ -1089,7 +1305,7 @@
                             <h3 style="margin:0; color: var(--primary);">ELS#6 - Lectura de placas inteligente en la
                                 posta</h3>
                             <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
-                                22%</span>
+                                40%</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
@@ -1151,8 +1367,8 @@
                             style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 style="margin:0; color: var(--primary);">ELS#9 - Android App para recarga - prepagos
                             </h3>
-                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
-                                15%</span>
+                            <span class="progress-badge-large" style="background: #1abc9c;" >Avance:
+                                60%</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
@@ -1208,7 +1424,7 @@
                             <h3 style="margin:0; color: var(--primary);">ARL#1 - Automatizacion de interruptores de
                                 UPCO.</h3>
                             <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
-                                29%</span>
+                                30%</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
@@ -1226,8 +1442,8 @@
                             style="display: flex; justify-content: space-between; align-items: center;">
                             <h3 style="margin:0; color: var(--primary);">ARL#2 - Capacitación sobre Juice Clon.
                             </h3>
-                            <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
-                                0%</span>
+                            <span class="progress-badge-large" style="background: #6fc493;">Avance:
+                                80%</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
@@ -1271,7 +1487,7 @@
                                 Control de Flota Vehicular de CISA.
                             </h3>
                             <span class="progress-badge-large" style="background: var(--accent-meeting);">Avance:
-                                5%</span>
+                                20%</span>
                         </div>
                         <div style="margin-top: 15px;">
                             <p style="font-size: 0.9rem; color: #4a5568; margin-bottom: 15px;">
@@ -3730,7 +3946,7 @@
             {
                 "fecha": "10/06/2026",
                 "dia": "miércoles",
-                "descripcion": "Videollamada junto con Frank. Flores, comentandole sobre los avances, luego hicimos una vídeollamada, le pedí me mostrará los pasos que él realizó para retornar un token vía Curl. Luego de algunas pruebas y cambios que hizo, me compartió las líneas de código que realizaban esa parte, me tocó acomodarlas en librerias de Python, con ciertas flags para evadir lo del TLS, retornando un token, luego me comuniqué con Ana, para que me ayudara probando ese token, pero salió invalido en el medidor de pruebas.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong>",
+                "descripcion": "Videollamada con Frank Flores para revisar avances. Le solicité que me mostrara el proceso para obtener un token vía cURL. Tras realizar unos ajustes, me compartió el código, el cual adapté a librerías de Python incluyendo flags para evadir TLS y generar el token exitosamente. Sin embargo, al pedirle a Ana que lo validara en el medidor de pruebas, el token resultó inválido.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong>",
                 "horas": 2,
                 "tipo": null,
             },
