@@ -3748,6 +3748,36 @@
                 "horas": 3,
                 "tipo": null,
             },
+            {
+                "fecha": "11/06/2026",
+                "dia": "jueves",
+                "descripcion": "Aprovechando el momento que se esta estudiando el código del Juice. Se hizo una pausa para repasar el tema de toda la lógica con la que se trabajó para poder elaborar la ingenieria inversa en UPCO, por lo que se empezó a redactar muchos de estos pasos, esto servirá para poder más adelante, realizar la capacitación solicitada por la Ing. Arlen.  <br><br><strong>ARL#2 - Capacitación sobre Juice Clon.</strong>",
+                "horas": 2.0,
+                "tipo": null,
+            },
+            {
+                "fecha": "11/06/2026",
+                "dia": "jueves",
+                "descripcion": "Se estuvo trabajando en el método para la creación de tokens, usando drivers de navegadores, mediante varias técnicas de Webscrapping, se logró bajar de 12 segundos a 6 - 7 segundos de respuesta. Una de esas técnicas fue el uso del modo: 'options.page_load_strategy = 'eager', lo otro fue mover la ejecución de los dos scripts de cambio de fecha, hacia una de las dos url a las que se mueve Selenium, al quitar la primera y solo dejar la segunda, se cortaron cerca de 4 a 3 segundos. <br><br><strong>¿Por qué se hizo esto?</strong> Porque se hicieron pruebas usando el método de Frank Flores, pero seguian saliendo errores, y tokens que estaban malos (se notaba porque el primer número de la cadena, era menor que los otros números anteriormente generados desde el Juice Clon)   <br><br><strong>ARL#2 - Capacitación sobre Juice Clon.</strong><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong>",
+                "horas": 3.0,
+                "tipo": null,
+            },
+            {
+                "fecha": "11/06/2026",
+                "dia": "jueves",
+                "descripcion": "Tras el análisis previo, se realizaron modificaciones importantes en el archivo VENDING.PHP: se reubicaron los scripts que modifican la fecha para poder realizar las pruebas nocturnas con el método descubierto por Frank Flores. <br><br><strong>ARL#2 - Capacitación sobre Juice Clon.</strong><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong>",
+                "horas": 2.0,
+                "tipo": null,
+            },
+            {
+                "fecha": "11/06/2026",
+                "dia": "jueves",
+                "descripcion": "Por la noche, con ayuda de Ana Vásquez, se corrieron pruebas en el Juice clon de clon, ya con el PRISM, probando generar tokens usando el método CURL, dentro de un archivo de Python, se usaron los cambios generados en el archivo VENDING.PHP, las primeras tres pruebas fueron rechazadas, al colocarse los tokens salia la palabra 👴🏻 'OLD' 👴🏻, sin embargo, luego de muchos más cambios, el cuarto token generado 🪙🪙🪙🪙 <strong>sí fue aceptado por el medidor</strong>, dando entonces el resultado positivo.<br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong><br><br>👇🏻 Clic al enlace morado, para ver 🖼️ imágenes donde se muestran los avances del token generado con éxito.",
+                "horas": 3.0,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/drive/folders/1UuCvagT2lt0u3n0CBF4hvU1CkM7iJyLF?usp=sharing"
+
+            },
         ];
 
         // --- 2. JSON CALENDARIO ---
@@ -4274,7 +4304,11 @@
             {
                 "fecha": "10/06/2026",
                 "horas": 6.0
-            }          //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
+            },
+            {
+                "fecha": "11/06/2026",
+                "horas": 10.0
+            }            //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
             //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
         ];
 
