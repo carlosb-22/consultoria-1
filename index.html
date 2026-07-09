@@ -986,7 +986,7 @@
     <div class="project-card">
         <div class="card-header">
             <span class="project-title">ELS#8 - Dashboard en tiempo real (Ingresos a la empresa)</span>
-            <span class="progress-percent" style="color: #576574 !important;;">0%</span>
+            <span class="progress-percent" style="color: #576574 !important;;">10%</span>
         </div>
         <div class="progress-bar-bg">
             <div class="progress-fill" style="width: 0%; background-color: #576574 !important;"></div>
@@ -4053,6 +4053,81 @@
                 "tipo": "Archivo",
                 "enlace": "https://drive.google.com/drive/folders/1RjTX62ZkLXA-MmaW_gY_q8OGC_pH9IU4?usp=sharing"
 
+            },
+            {
+                "fecha": "18/06/2026",
+                "dia": "jueves",
+                "descripcion": "Estableciendo IP local en cámara con ayuda de ODM, también se hizo la instalación del paquete CODEPROJECT.AI, que será nuestro motor de detección de placas, este modelo ya esta entrenado para esto, lo cual nos ahorra, terrible tiempo, se hizo antes instalación de Docker, para poder usar CodeProject. Se corrió en Ubuntu y se abrió URL, todo bien.<br><br>👇🏻 Clic al enlace morado, para ver capturas de imagenes importantes de esa instalación.<br><br><strong>ELS#6 - Lectura de placas inteligente en la posta.</strong>",
+                "horas": 3,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/drive/folders/1RjTX62ZkLXA-MmaW_gY_q8OGC_pH9IU4?usp=sharing"
+
+            },
+            {
+                "fecha": "19/06/2026",
+                "dia": "viernes",
+                "descripcion": "Tras diversas pruebas con CODEPROJECT.AI para el reconocimiento de placas vehiculares, se decidió descartar esta alternativa debido a la complejidad de su configuración y a los múltiples errores encontrados durante las pruebas. Aunque el modelo YOLO en Python logró detectar correctamente los vehículos, la lectura de placas no alcanzó la estabilidad requerida. <br><br>Como mejora, se implementará un sistema complementario de reconocimiento de atributos vehiculares (MMR - Make, Model Recognition), utilizando fotografías de referencia tomadas desde distintos ángulos. Esto permitirá validar características como color, marca, tamaño y tipo de vehículo. <br><br>De esta forma, el sistema no dependerá únicamente de la placa, sino también de las características visuales del vehículo, aumentando la precisión de identificación y reduciendo errores al momento de almacenar la información en la base de datos. <br><br><strong>ELS#6 - Lectura de placas inteligente en la posta.</strong>",
+                "horas": 8,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/drive/folders/1RjTX62ZkLXA-MmaW_gY_q8OGC_pH9IU4?usp=sharing"
+
+            },
+            {
+                "fecha": "22/06/2026",
+                "dia": "lunes",
+                "descripcion": "Comunicación con Ana Vásquez, me pasó 2 archivos de Excel, sobre transacciones hechas con usuario de Bizworks y los registros de la tabla transactions, el problema era que no se entendia el porqué solo se mostraban 2 transacciones hechas con BizWorks y no las demás. Estas deben poder verse en la plataforma que realizó Ángel, entonces fui a conversar con Rovin de Control Room, para consultarle al respecto, y estuvimos viendo el código entre ambos, sin poder localizar esa falla. Al final dimos con el clavo: No se miraba en la interfaz que usan en Utila, debido a que bajo la interfaz (Juice Clon), hay una forma de inyectar la fecha del mundo real en un campo que se llama checkname. Bajo la API, ese checkname no se llenaba, porque ese código no se encuentra en el archivo con nombre: 'vending_1.php'<br><br>Mi explicación a Ana fue la siguiente: 'Escogimos checkname, porque de todos los registros de la tabla transactions, desde que existe Juice, nunca se llenó ese campo, por eso le dije a Ángel que íbamos a usar ese campo, para ahí guardar la fecha real, en lugar de crear un campo nuevo en la tabla transactions, por temor a quebrar todo el sistema. No sabíamos que podia provocar el crear un nuevo campo en la tabla transactions, por eso no lo hicimos. 👇🏻 Clic al enlace morado, para ver la captura donde le explico a Ana Vásquez esta parte. <br><br><strong>ARL#3 - Programación de API para traspaso cifrado de tokens entre ERP y Juice Clon.</strong>",
+                "horas": 4,
+                "tipo": "Archivo",
+                "enlace": "https://drive.google.com/file/d/1blUdeFZzumE_lfjP-FMa9WEmFsZPF-Tk/view?usp=sharing"
+
+            },
+            {
+                "fecha": "22/06/2026",
+                "dia": "lunes",
+                "descripcion": "Empezando a realizar la aplicación de control de entrada / salida de vehiculos en la posta principal. En previas conversaciones con la Ing. Elsia, habiamos comentado el uso de una tablet, para que se les hace más fácil a los guardias el registros de ingresos de vehiculos. <br> Se empezó a analizar qué solución de programación es mejor para avanzar lo más rápido posible, la idea es que los guardias ingresen la entrada / salida de vehiculos de la empresa, pero también de vehiculos particulares, al hacer el ingreso se guarda la fecha, y el personal o jefe de seguridad sabrá todos los ingresos que se dieron en un día o durante un rango de tiempo, para temas de auditoria / seguridad. 👇🏻 Clic al enlace morado, para ver la captura donde le explico a Ana Vásquez esta parte. <br><br><strong>ELS#8 - Dashboard en tiempo real (Ingresos a la empresa).</strong>",
+                "horas": 4,
+                "tipo": null
+
+            },
+            {
+                "fecha": "23/06/2026",
+                "dia": "martes",
+                "descripcion": "Diseño de aplicación de control de entrada / salida de vehiculos en la posta principal. Deberá tener un diseño limpio, con botones grandes, con colores que acompañen el proceso para no confundir a los gaurdias. Se pasará a buscar diseños en plataformas como Dribble y Stitch para inspiración. <br> Se diseñarán un minimo de 12 pantallas y la lógica de procesos entre cada una de ellas. <br><br><strong>ELS#8 - Dashboard en tiempo real (Ingresos a la empresa).</strong>",
+                "horas": 4,
+                "tipo": null
+
+            },
+            {
+                "fecha": "23/06/2026",
+                "dia": "martes",
+                "descripcion": "Investigando sobre la mejor opción para el desarrollo de la aplicación de control de entrada / salida de vehiculos para ser colocada en una tablet Android. Entre las diferentes opciones, entre app nativa, web app y PWA, se escogió la opción de PWA, ya que es la más rápida, segura y robusta de realizar<br> También es importante que sea PWA, para el tema de mantenimiento <br><br><strong>ELS#8 - Dashboard en tiempo real (Ingresos a la empresa).</strong>",
+                "horas": 4,
+                "tipo": null
+
+            },
+            {
+                "fecha": "24/06/2026",
+                "dia": "miercoles",
+                "descripcion": "Para el desarrollo de la aplicación de control de entrada / salida de vehiculos, estuvimos estudiando 3 cosas muy importantes, la <strong>primera</strong> es la de decidir qué bases de datos se usará, y la <strong>segunda</strong> es cómo usar los datos sin conexión de internet, y la <strong>tercera</strong> es cómo configurar una aplicación en una tablet  para ser colocada en una tablet Android para que se abra al encender la tablet, y que no se permita el uso de otras aplicaciones que no sea esta aplicación. <br><br><strong>ELS#8 - Dashboard en tiempo real (Ingresos a la empresa).</strong>",
+                "horas": 4,
+                "tipo": null
+
+            },
+            {
+                "fecha": "24/06/2026",
+                "dia": "miercoles",
+                "descripcion": "Ana Navarro nos pasó información relacionada con los vehiculos de la empresa, con detalles de datos importantes como # de placa, y fotografias recientes de los vehiculos. Estos fotos las estuvimos sacando por aparte, colocandoles nombre, y linkeando las fotos a un archivo .JSON, que estará dentro de la aplicación de los guardias, para que no sea necesario el uso de internet, o si el internet falla en la posta. <br><br><strong>No importará</strong> la idea sobre la aplicación es que si no detecta 🛜 internet, guarde localmente 💾 y cuando exista internet, enviará los cambios a la base de datos, de esa forma, no habrá excusa si hay o no internet para poder trabajar con la Tablet<br><br><strong>ELS#8 - Dashboard en tiempo real (Ingresos a la empresa).</strong>",
+                "horas": 4,
+                "tipo": null
+
+            },
+            {
+                "fecha": "02/07/2026",
+                "dia": "jueves",
+                "descripcion": "Llamada con Ana Vásquez, conversando sobre cómo solucionar de forma efectiva una mejor migración de los datos del Juice, cómo hacer la limpieza y filtrar errores en las tablas sin dañas la integridad de la información, usando MySQL.",
+                "horas": 2,
+                "tipo": null
+
             }
         ];
 
@@ -4596,8 +4671,27 @@
             {
                 "fecha": "17/06/2026",
                 "horas": 3.5
-            }               //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
-            //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
+            },
+            {
+                "fecha": "18/06/2026",
+                "horas": 7.0
+            },
+            {
+                "fecha": "19/06/2026",
+                "horas": 8.0
+            },
+            {
+                "fecha": "22/06/2026",
+                "horas": 8.0
+            },
+            {
+                "fecha": "23/06/2026",
+                "horas": 8.0
+            },
+            {
+                "fecha": "24/06/2026",
+                "horas": 8.0
+            }                  //MUY IMPORTANTE RECORDAR COLOCAR LAS FECHAS CON SU FORMATO DE 0D/0M/YYYY, caso contrario no aparece pintado en el calendario    
         ];
 
         // Días no laborados específicos (Rojo y Negrita)
@@ -4620,10 +4714,10 @@
             "04/06/2026", "05/06/2026", "06/06/2026", 
             "07/06/2026", "08/06/2026", "09/06/2026",
             "10/06/2026", "11/06/2026", "12/06/2026",
-            "13/06/2026", "14/06/2026", "17/06/2026", 
-            "18/06/2026", "19/06/2026", "22/06/2026", 
-            "23/06/2026", "24/06/2026", "25/06/2026", 
-            "26/06/2026", "29/06/2026", "30/06/2026",
+            "13/06/2026", "17/06/2026", "18/06/2026", 
+            "19/06/2026", "23/06/2026", "24/06/2026", 
+            "25/06/2026", "26/06/2026", "29/06/2026", 
+            "30/06/2026",
             //Colocar aquí las visitas realizadas o visitas programadas
         ];
 
